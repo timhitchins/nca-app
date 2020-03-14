@@ -26,12 +26,12 @@
   "homepage": "https://github.com/timhitchins/nca-app#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "helmet": "^3.21.3"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
-    "esm": "^3.2.25",
     "nodemon": "^2.0.2"
   }
 }
