@@ -1,0 +1,37 @@
+{
+  "name": "nca",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "12.6.1",
+    "npm": "6.x"
+  },
+  "scripts": {
+    "start": "node -r esm index.js",
+    "client": "npm run start --prefix client",
+    "server": "nodemon -r esm index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timhitchins/nca-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timhitchins/nca-app/issues"
+  },
+  "homepage": "https://github.com/timhitchins/nca-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^3.21.3"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "esm": "^3.2.25",
+    "nodemon": "^2.0.2"
+  }
+}
