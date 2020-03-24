@@ -1,5 +1,6 @@
 //express
-import express from "express";
+import express from "express"; //es6 modules
+// const express = require("express") //common js
 const app = express();
 
 //cors
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.get("/", (req, res) => {
-  res.json({ "hi": "there" });
+  res.json({ "bye": "there" });
 });
 
 //heroku dynamic port binding
