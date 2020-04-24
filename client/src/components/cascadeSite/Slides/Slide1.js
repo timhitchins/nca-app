@@ -1,14 +1,24 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
+import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
-
-const imgURI =
-  "https://nca-toolkit.s3-us-west-2.amazonaws.com/OregonLive_hazepdxjpg-e8d26d8245f61043.jpg";
 
 class Slide1 extends Component {
   render() {
     return (
       <section>
-        <img src={imgURI} className="bg-image" allt="person running"></img>
+        <CSSTransition
+        in={true}
+        timeout={200}
+        classNames="bg"
+        >
+          <img
+            src={imageConfig.slide1.imgURI}
+            className="bg-image"
+            allt="person running"
+          ></img>
+        </CSSTransition>
+        <div>HELLO</div>
       </section>
     );
   }
