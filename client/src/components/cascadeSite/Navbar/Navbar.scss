@@ -1,6 +1,13 @@
 @import "./../../colors.scss";
 
+.nav-outer-container {
+  width: 100%;
+  background-color: $ui-white;
+  border-bottom: 1px solid $ui-black
+}
+
 .nav-inner-container {
+  margin: 0 auto;
   display: flex;
   height: 56px;
   width: 100%;
