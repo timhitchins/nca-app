@@ -1,25 +1,40 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { togglenavDrawerAction } from "../../../actions/navbar";
 import MediaQuery from "react-responsive";
 import { NavLink } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 import "./Navbar.scss";
 
+//this navbar needs some transitions when there is a drawer toggle
 class Navbar extends Component {
   render() {
+    const { isOpen } = this.props.navbar;
     return (
       <nav className="nav-outer-container">
-        <div className="nav-inner-container">
+        <div
+          className="nav-inner-container"
+          style={isOpen ? { height: "auto" } : null}
+        >
           <div>LOGO</div>
           <div></div>
           <div>The Issue</div>
           <div>The Tool</div>
           <div>Take Action</div>
         </div>
-        <div className="hamburger-button">&#x2630;</div>
+        <div
+          className="hamburger-button"
+          onClick={() => {
+            this.props.dispatch(togglenavDrawerAction(!isOpen));
+          }}
+        >
+          &#x2630;
+        </div>
       </nav>
     );
   }
 }
-
-export default Navbar;
+function mapStateToProps({ navbar }) {
+  return { navbar };
+}
+export default connect(mapStateToProps)(Navbar);
