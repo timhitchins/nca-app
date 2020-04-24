@@ -8,13 +8,15 @@ import "./Navbar.scss";
 class Navbar extends Component {
   render() {
     return (
-      <nav className="nav-container">
-        <div>LOGO</div>
-        <div></div>
-        <div>The Issue</div>
-        <div>The Tool</div>
-        <div>Take Action</div>
-        <div> &#x2630;</div>
+      <nav className="nav-outer-container">
+        <div className="nav-inner-container">
+          <div>LOGO</div>
+          <div></div>
+          <div>The Issue</div>
+          <div>The Tool</div>
+          <div>Take Action</div>
+        </div>
+        <div className="hamburger-button">&#x2630;</div>
       </nav>
     );
   }

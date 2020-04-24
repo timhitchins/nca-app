@@ -1,6 +1,6 @@
 @import "./../../colors.scss";
 
-.nav-container {
+.nav-inner-container {
   display: flex;
   height: 56px;
   width: 100%;
@@ -12,28 +12,49 @@
     flex: 1;
   }
 
+  //all divs
   div {
     background-color: $ui-white;
     height: 100%;
     line-height: 56px;
+    padding: 0 10px;
   }
 
+  //all divs
   div:hover {
     color: $ui-white;
     background-color: $ui-black;
   }
 
+  //spacer
   div:nth-child(2):hover,
   div:first-child {
     background-color: $ui-white;
+    color: $ui-black;
   }
 }
 
+//hamburger-button
+.hamburger-button {
+  display: none;
+  font-size: 1.5rem;
+}
+
+//mobile and tablet
 @media (max-width: 600px) {
-  .nav-container {
+  .nav-inner-container {
     flex-direction: column;
-    div:nth-child(n + 2):nth-child(-n + 5) {
-      display: none;
+    justify-content: normal;
+    overflow-y: hidden;
+
+    div {
+      width: 100%;
     }
+  }
+  .hamburger-button {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }

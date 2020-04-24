@@ -10,4 +10,8 @@ class App extends Component {
     return <Navbar />;
   }
 }
-export default App;
+
+function mapStateToProps({ navbar }) {
+  return { navbar };
+}
+export default connect(mapStateToProps)(App);
