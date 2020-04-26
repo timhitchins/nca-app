@@ -23,8 +23,4 @@ class App extends Component {
   }
 }
 
-// function mapStateToProps({ navbar }) {
-//   return { navbar };
-// }
-// export default connect(mapStateToProps)(App);
 export default App;

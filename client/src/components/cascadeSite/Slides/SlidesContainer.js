@@ -1,16 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import SLide1 from "./Slide1";
-import Slide1 from "./Slide1";
+import { toggleImageOpacityAction } from "../../../actions/slides";
+import SlideBackground from "./SlideBackground";
+import AllContent from "./Content";
+import "./Slides.scss";
 
 class SildesContainer extends Component {
   render() {
+    const { isVisible } = this.props.slides;
     return (
       <main>
-        <Slide1 />
+        <SlideBackground {...this.props} />
+        <AllContent {...this.props} />
+        <div
+          className="dev-click"
+          onClick={() => {
+            this.props.dispatch(toggleImageOpacityAction(!isVisible));
+          }}
+        >
+          DEV CLICK
+        </div>
       </main>
     );
   }
 }
 
-export default SildesContainer;
+function mapStateToProps({ slides }) {
+  return {
+    slides,
+  };
+}
+
+export default connect(mapStateToProps)(SildesContainer);

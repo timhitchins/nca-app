@@ -1,15 +1,20 @@
 @import "./../../colors.scss";
 
 .nav-outer-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 56px;
   width: 100%;
   background-color: $ui-white;
-  border-bottom: 1px solid $ui-black
+  border-bottom: 1px solid $ui-black;
 }
 
 .nav-inner-container {
   margin: 0 auto;
   display: flex;
-  height: 56px;
+  height: 100%;
   width: 100%;
   max-width: 1200px;
   justify-content: center;
