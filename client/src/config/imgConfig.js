@@ -11,6 +11,36 @@ export const imageConfig = [
   },
   {
     imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
+    altText: "children playing",
+  },
+  {
+    imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
     altText: "children playing",
   },
@@ -20,8 +50,24 @@ export const imageConfig = [
     altText: "thawing ice",
   },
   {
+    imageURI: null, //white background instead for compare images
+    altText: null,
+  },
+  {
+    imageURI: "",
+    altText: "compare images",
+  },
+  {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "parking lot construction",
+  },
+  {
+    imageURI: null, //white background instead for "the tool"
+    altText: null,
+  },
+  {
+    imageURI: null, //white background instead for "take action"
+    altText: null,
   },
 ];
