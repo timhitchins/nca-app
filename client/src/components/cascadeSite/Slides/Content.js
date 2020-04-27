@@ -4,10 +4,12 @@ import {
   createSectionRefAction,
   setScrollPositionAction,
   toggleImageOpacityAction,
-  setSectionNumberAction,
+  //   setSectionNumberAction,
+  handleSetContentAction,
 } from "../../../actions/slides";
 // import { debounced, throttled } from "../../../utils/generalUtils";
 import { throttle } from "lodash";
+import { imgConfig, imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -42,12 +44,27 @@ class AllContent extends Component {
 
   _seSectionNumToggle = (sTop) => {
     const { pos, sectionNo } = this.props.slides;
+
     if (pos > sTop) {
-      this.props.dispatch(setSectionNumberAction(sectionNo - 1)); // make this an action
+      //   this.props.dispatch(setSectionNumberAction(sectionNo - 1)); // make this an action
+      const sectionDecrement = sectionNo - 1;
+      const currentBgImage = imageConfig[sectionDecrement];
+
+      this.props.dispatch(
+        handleSetContentAction(sectionDecrement, currentBgImage)
+      );
     } else if (pos < sTop) {
-      this.props.dispatch(setSectionNumberAction(sectionNo + 1)); //make this an action
+      //   this.props.dispatch(setSectionNumberAction(sectionNo + 1)); //make this an action
+      const sectionIncrement = sectionNo + 1;
+      const currentBgImage = imageConfig[sectionIncrement];
+      this.props.dispatch(
+        handleSetContentAction(sectionIncrement, currentBgImage)
+      );
     } else {
-      this.props.dispatch(setSectionNumberAction(sectionNo));
+      //   this.props.dispatch(setSectionNumberAction(sectionNo));
+      this.props.dispatch(
+        handleSetContentAction(sectionNo, imageConfig[sectionNo])
+      );
     }
   };
   _scrollToSection = (sectionRef) => {
@@ -58,7 +75,7 @@ class AllContent extends Component {
 
   _scrollToSectionThrottle = throttle(this._scrollToSection, 500);
 
-  _toggleContent() {}
+  //   _toggleContent() {}
 
   render() {
     const { sectionNo } = this.props.slides;
@@ -69,6 +86,9 @@ class AllContent extends Component {
         onScroll={(e) => {
           // debounced(1000, this._scrollToSection());
           this._scrollToSectionThrottle();
+        }}
+        onWheel={(e) => {
+          console.log("deltaMode: ", e.deltaMode);
         }}
       >
         <Section {...this.props}>

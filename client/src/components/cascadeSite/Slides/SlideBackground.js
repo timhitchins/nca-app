@@ -10,14 +10,15 @@ class SlideBackground extends Component {
   };
 
   render() {
-    const { isVisible } = this.props.slides;
+    const { isVisible, bgImage } = this.props.slides;
+
     return (
       <div>
         <CSSTransition in={isVisible} timeout={1800} classNames="bg">
           <img
-            src={imageConfig[2].imageURI}
+            src={bgImage.imageURI}
             className="bg-image"
-            alt="person running"
+            alt={bgImage.altText}
           ></img>
         </CSSTransition>
         <div className="bg-gradient"></div>
