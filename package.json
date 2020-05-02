@@ -28,7 +28,8 @@
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "helmet": "^3.21.3"
+    "helmet": "^3.21.3",
+    "react-compare-image": "^2.0.4"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

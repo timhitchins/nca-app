@@ -7,7 +7,6 @@ import middleware from "./middleware";
 import "mapbox-gl/dist/mapbox-gl.css"; //mapbox css
 import "./index.scss";
 import App from "./components/App";
-
 //redux store
 const store = createStore(reducer, middleware);
 
