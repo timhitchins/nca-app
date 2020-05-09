@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import {
   createSectionRefAction,
   setScrollPositionAction,
+  setScrollHeightDiffAction,
   toggleImageOpacityAction,
-  //   setSectionNumberAction,
   handleSetContentAction,
+  setTimerAction,
+  setScrollToggleAction,
 } from "../../../actions/slides";
 // import { debounced, throttled } from "../../../utils/generalUtils";
-import { throttle } from "lodash";
-import { imgConfig, imageConfig } from "../../../config/imgConfig";
+import { throttle, debounce } from "lodash";
+import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -20,7 +22,7 @@ class Section extends Component {
   sectionRef = React.createRef();
 
   componentDidMount() {
-    console.log(this.sectionRef);
+    console.log("content offsetTop ", this.sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
     this.props.dispatch(createSectionRefAction(this.sectionRef));
   }
@@ -38,58 +40,129 @@ class Section extends Component {
 class AllContent extends Component {
   contentRef = React.createRef();
 
-  _setScrollPositionToggle = (sTop) => {
+  _setScrollPositionToggle = (sTop, heightDiff) => {
     this.props.dispatch(setScrollPositionAction(sTop));
+    this.props.dispatch(setScrollHeightDiffAction(heightDiff));
   };
 
   _seSectionNumToggle = (sTop) => {
-    const { pos, sectionNo } = this.props.slides;
+    const { pos, heightDiff, sectionNo, sectionRef } = this.props.slides;
 
-    if (pos > sTop) {
-      //   this.props.dispatch(setSectionNumberAction(sectionNo - 1)); // make this an action
+    if (pos > sTop && sectionNo >= 0) {
       const sectionDecrement = sectionNo - 1;
       const currentBgImage = imageConfig[sectionDecrement];
-
+      // this.contentRef.current.scrollTo({
+      //   top: sectionRef[sectionDecrement].current.offsetTop,
+      //   behavior: "smooth",
+      // });
       this.props.dispatch(
         handleSetContentAction(sectionDecrement, currentBgImage)
       );
-    } else if (pos < sTop) {
-      //   this.props.dispatch(setSectionNumberAction(sectionNo + 1)); //make this an action
+    } else if (pos < sTop && sectionNo < 14) {
       const sectionIncrement = sectionNo + 1;
       const currentBgImage = imageConfig[sectionIncrement];
+      // this.contentRef.current.scrollTo({
+      //   top: sectionRef[sectionIncrement].current.offsetTop,
+      //   behavior: "smooth",
+      // });
       this.props.dispatch(
         handleSetContentAction(sectionIncrement, currentBgImage)
       );
     } else {
-      //   this.props.dispatch(setSectionNumberAction(sectionNo));
       this.props.dispatch(
         handleSetContentAction(sectionNo, imageConfig[sectionNo])
       );
     }
   };
-  _scrollToSection = (sectionRef) => {
-    const scrollTop = this.contentRef.current.scrollTop;
-    this._setScrollPositionToggle(scrollTop);
+
+  _setSectionNo = (direction) => {
+    this.props.dispatch(setScrollToggleAction(true));
+    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    console.log(sectionNo);
+    if (direction === "down" && sectionNo < 13 && isScrolling) {
+      this.props.dispatch(
+        handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
+      );
+      this.contentRef.current.scrollTo({
+        top: sectionRef[sectionNo + 1].current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+    if (direction === "up" && sectionNo > 0 && isScrolling) {
+      this.props.dispatch(
+        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+      );
+      this.contentRef.current.scrollTo({
+        top: sectionRef[sectionNo - 1].current.offsetTop,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  _setContent = () => {
+    const { sectionNo } = this.props.slides;
+  };
+
+  _scrollToSection = (e) => {
+    const { scrollTop, scrollHeight } = e.target;
+    const { sectionRef, sectionNo, pos } = this.props.slides;
+
+    const heightDiff = scrollHeight - scrollTop;
+    this._setScrollPositionToggle(scrollTop, heightDiff);
     this._seSectionNumToggle(scrollTop);
   };
 
-  _scrollToSectionThrottle = throttle(this._scrollToSection, 500);
+  // _scrollToSectionThrottle = throttle(this._scrollToSection, 500);
+  _scrollToSectionDebounce = debounce(this._scrollToSection, 500);
 
-  //   _toggleContent() {}
+  _handleNavigation = (e) => {
+    const element = e.target;
+    const { scrollTop } = element;
+    const { sectionNo, sectionRef, pos } = this.props.slides;
+
+    //handle the timer
+    const time = new Date() - this.time;
+    console.log("time since last scroll: ", time);
+    //handle the scrolling direction
+    if (this.prevScroll > scrollTop && time > 900) {
+      console.log("scrolling up");
+      this._setSectionNo("up");
+    } else if (this.prevScroll < scrollTop && time > 900) {
+      console.log("scrolling down");
+      this._setSectionNo("down");
+    }
+    this.prevScroll = scrollTop;
+    this.time = new Date();
+  };
+
+  handleTimer = () => {};
+
+  _handleNavigationDebounce = debounce(this._handleNavigation, 200);
+  // _handleNavigationThrottle = throttle(this._handleNavigation, 500);
+  // _handleKeyPress = (e) => {
+  //   console.log(e);
+  // };
+
+  componentDidMount() {
+    this.prevScroll = this.contentRef.current.scrollTop;
+    this.time = new Date();
+  }
+
+  componentDidUpdate(prevProps) {}
 
   render() {
-    const { sectionNo } = this.props.slides;
+    const { sectionNo, sectionRef } = this.props.slides;
     return (
       <div
         className="content-container"
         ref={this.contentRef}
         onScroll={(e) => {
-          // debounced(1000, this._scrollToSection());
-          this._scrollToSectionThrottle();
+          e.persist();
+          this._handleNavigationDebounce(e);
+          // e.preventDefault();
+          // this._handleNavigationThrottle(e);
         }}
-        onWheel={(e) => {
-          console.log("deltaMode: ", e.deltaMode);
-        }}
+        // onKeyPress={this._handleKeyPress}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
@@ -326,3 +399,101 @@ export default AllContent;
 //     e.target.scrollHeight - e.target.scrollTop ===
 //     e.target.clientHeight;
 //   console.log(bottom);
+
+// console.log(scrollTop);
+//trigger section and pos
+// this._setScrollPositionToggle(scrollTop);
+
+// console.log("scroll e", e.target);
+// debugger;
+// if (
+//   sectionRef[0].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[1].current.offsetTop
+// )
+// {
+//   console.log("slide 1");
+//   // console.log(this.contentRef.current);
+//   this.contentRef.current.scrollTo({
+//     top: sectionRef[0].current.offsetTop,
+//     behavior: "smooth",
+//   });
+// }
+// if (
+//   sectionRef[1].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[2].current.offsetTop
+// ) {
+//   console.log("slide 2");
+//   this.contentRef.current.scrollTo({
+//     top: sectionRef[1].current.offsetTop,
+//     behavior: "smooth",
+//   });
+// }
+// if (
+//   sectionRef[2].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[3].current.offsetTop
+// ) {
+//   console.log("slide 3");
+// }
+// if (
+//   sectionRef[3].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[4].current.offsetTop
+// ) {
+//   console.log("slide 4");
+// }
+// if (
+//   sectionRef[4].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[5].current.offsetTop
+// ) {
+//   console.log("slide 5");
+// }
+// if (
+//   sectionRef[5].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[6].current.offsetTop
+// ) {
+//   console.log("slide 6");
+// }
+// if (
+//   sectionRef[6].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[7].current.offsetTop
+// ) {
+//   console.log("slide 7");
+// }
+// if (
+//   sectionRef[7].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[8].current.offsetTop
+// ) {
+//   console.log("slide 8");
+// }
+// if (
+//   sectionRef[8].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[9].current.offsetTop
+// ) {
+//   console.log("slide 9");
+// }
+// if (
+//   sectionRef[9].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[10].current.offsetTop
+// ) {
+//   console.log("slide 10");
+// }
+// if (
+//   sectionRef[10].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[11].current.offsetTop
+// ) {
+//   console.log("slide 11");
+// }
+// if (
+//   sectionRef[11].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[12].current.offsetTop
+// ) {
+//   console.log("slide 12");
+// }
+// if (
+//   sectionRef[12].current.offsetTop <= scrollTop &&
+//   scrollTop < sectionRef[13].current.offsetTop
+// ) {
+//   console.log("slide 13");
+// }
+// if (scrollTop >= sectionRef[13].current.offsetTop) {
+//   console.log("slide 14");
+// }

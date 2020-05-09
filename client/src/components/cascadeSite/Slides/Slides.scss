@@ -46,9 +46,9 @@
 // Content styles below
 .content-container {
   position: relative;
-  top: 0;
+  top: 56px;
   left: 0;
-  height: 100vh;
+  height: calc(100vh - 56px);
   z-index: 1;
   overflow-y: scroll;
 }
