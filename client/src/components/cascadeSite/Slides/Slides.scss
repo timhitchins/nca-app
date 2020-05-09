@@ -9,10 +9,11 @@
   font-family: "object-fit:cover";
   object-fit: cover;
 }
+///////////////////////////////////////
 
 .bg-enter {
-  opacity: 0;
-  transition: opacity 1.8s ease-in-out;
+  opacity: 0.1;
+  transition: opacity 300ms ease-in-out;
 }
 .bg-enter-active {
   opacity: 1;
@@ -23,15 +24,43 @@
 }
 
 .bg-exit {
-  opacity: 1;
-  transition: opacity 1.8s ease-in-out;
+  opacity: 0.1; // was 1
+  // transition: opacity 1.8s ease-in-out;
 }
 .bg-exit-active {
-  opacity: 0;
+  opacity: 0.1;
 }
 .bg-exit-done {
-  opacity: 0;
+  opacity: 0.1;
 }
+///////////////////////////////////////////@extend
+// .bg-enter {
+//   opacity: 1;
+//   transition: opacity 1.8s ease-in-out;
+// }
+// .bg-enter-active {
+//   opacity: 0;
+// }
+
+// .bg-enter-done {
+//   opacity: 0;
+// }
+
+// .bg-exit {
+//   opacity: 0;
+//   transition: opacity 1.8s ease-in-out;
+// }
+// .bg-exit-active {
+//   opacity: 1;
+// }
+// .bg-exit-done {
+//   opacity: 1;
+// }
+////////////////////////////////////////////////////////
+.bg-appear, .bg-appear-done {
+  opacity: 1;
+}
+////////////////////////////////////////////////////////
 
 .bg-gradient {
   position: fixed; //this may need to change;

@@ -78,7 +78,7 @@ class AllContent extends Component {
   _setSectionNo = (direction) => {
     this.props.dispatch(setScrollToggleAction(true));
     const { sectionNo, sectionRef, isScrolling } = this.props.slides;
-    console.log(sectionNo);
+    // console.log(sectionNo);
     if (direction === "down" && sectionNo < 13 && isScrolling) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
@@ -122,13 +122,13 @@ class AllContent extends Component {
 
     //handle the timer
     const time = new Date() - this.time;
-    console.log("time since last scroll: ", time);
+    // console.log("time since last scroll: ", time);
     //handle the scrolling direction
     if (this.prevScroll > scrollTop && time > 900) {
-      console.log("scrolling up");
+      // console.log("scrolling up");
       this._setSectionNo("up");
     } else if (this.prevScroll < scrollTop && time > 900) {
-      console.log("scrolling down");
+      // console.log("scrolling down");
       this._setSectionNo("down");
     }
     this.prevScroll = scrollTop;
