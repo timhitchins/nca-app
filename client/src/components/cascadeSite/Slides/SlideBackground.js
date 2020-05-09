@@ -13,11 +13,8 @@ class SlideBackground extends Component {
   componentDidUpdate(prevProps) {
     const { imageURI } = this.props.slides.bgImage;
     const { isVisible } = this.props.slides;
-    // console.log(imageURI, prevProps.slides.bgImage.imageURI);
+
     if (imageURI !== prevProps.slides.bgImage.imageURI) {
-      console.log("new image", "new vis prop: ", !isVisible);
-      // debugger;
-      // this.props.dispatch(toggleImageOpacityAction(false));
       this.props.dispatch(toggleImageOpacityAction(!isVisible));
     }
   }
@@ -30,14 +27,12 @@ class SlideBackground extends Component {
         <CSSTransition
           appear={true}
           in={isVisible}
-          timeout={200}
+          timeout={300}
           classNames="bg"
           onEntered={() => {
-            console.log("entered");
             this.props.dispatch(toggleImageOpacityAction(true));
           }}
           onExited={() => {
-            console.log("exited");
             this.props.dispatch(toggleImageOpacityAction(!isVisible));
           }}
         >

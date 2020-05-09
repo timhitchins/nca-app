@@ -40,108 +40,66 @@ class Section extends Component {
 class AllContent extends Component {
   contentRef = React.createRef();
 
-  _setScrollPositionToggle = (sTop, heightDiff) => {
-    this.props.dispatch(setScrollPositionAction(sTop));
-    this.props.dispatch(setScrollHeightDiffAction(heightDiff));
-  };
-
-  _seSectionNumToggle = (sTop) => {
-    const { pos, heightDiff, sectionNo, sectionRef } = this.props.slides;
-
-    if (pos > sTop && sectionNo >= 0) {
-      const sectionDecrement = sectionNo - 1;
-      const currentBgImage = imageConfig[sectionDecrement];
-      // this.contentRef.current.scrollTo({
-      //   top: sectionRef[sectionDecrement].current.offsetTop,
-      //   behavior: "smooth",
-      // });
-      this.props.dispatch(
-        handleSetContentAction(sectionDecrement, currentBgImage)
-      );
-    } else if (pos < sTop && sectionNo < 14) {
-      const sectionIncrement = sectionNo + 1;
-      const currentBgImage = imageConfig[sectionIncrement];
-      // this.contentRef.current.scrollTo({
-      //   top: sectionRef[sectionIncrement].current.offsetTop,
-      //   behavior: "smooth",
-      // });
-      this.props.dispatch(
-        handleSetContentAction(sectionIncrement, currentBgImage)
-      );
-    } else {
-      this.props.dispatch(
-        handleSetContentAction(sectionNo, imageConfig[sectionNo])
-      );
-    }
-  };
-
   _setSectionNo = (direction) => {
     this.props.dispatch(setScrollToggleAction(true));
     const { sectionNo, sectionRef, isScrolling } = this.props.slides;
-    // console.log(sectionNo);
+
     if (direction === "down" && sectionNo < 13 && isScrolling) {
+      console.log("setting down");
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
-      this.contentRef.current.scrollTo({
-        top: sectionRef[sectionNo + 1].current.offsetTop,
-        behavior: "smooth",
-      });
+      console.log("scrolling down to ", sectionNo + 1);
+      this._scrollToContent(sectionNo + 1);
     }
     if (direction === "up" && sectionNo > 0 && isScrolling) {
+      console.log("setting up");
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
-      this.contentRef.current.scrollTo({
-        top: sectionRef[sectionNo - 1].current.offsetTop,
-        behavior: "smooth",
-      });
+      console.log("scrolling up to ", sectionNo - 1);
+      this._scrollToContent(sectionNo - 1);
     }
+    this.props.dispatch(setScrollToggleAction(false));
   };
 
-  _setContent = () => {
-    const { sectionNo } = this.props.slides;
+  _scrollToContent = (section) => {
+    const { sectionRef } = this.props.slides;
+    this.contentRef.current.scrollTo({
+      top: sectionRef[section].current.offsetTop,
+      behavior: "smooth",
+    });
   };
-
-  _scrollToSection = (e) => {
-    const { scrollTop, scrollHeight } = e.target;
-    const { sectionRef, sectionNo, pos } = this.props.slides;
-
-    const heightDiff = scrollHeight - scrollTop;
-    this._setScrollPositionToggle(scrollTop, heightDiff);
-    this._seSectionNumToggle(scrollTop);
-  };
-
-  // _scrollToSectionThrottle = throttle(this._scrollToSection, 500);
-  _scrollToSectionDebounce = debounce(this._scrollToSection, 500);
 
   _handleNavigation = (e) => {
     const element = e.target;
     const { scrollTop } = element;
-    const { sectionNo, sectionRef, pos } = this.props.slides;
-
+    console.log("scrollTop: ", scrollTop);
+    // this.props.dispatch(setScrollToggleAction(true));
+    const { sectionNo, sectionRef, pos, isScrolling } = this.props.slides;
     //handle the timer
     const time = new Date() - this.time;
     // console.log("time since last scroll: ", time);
     //handle the scrolling direction
-    if (this.prevScroll > scrollTop && time > 900) {
-      // console.log("scrolling up");
+    if (this.prevScroll > scrollTop && isScrolling) {
+      console.log("scrolling up");
       this._setSectionNo("up");
-    } else if (this.prevScroll < scrollTop && time > 900) {
-      // console.log("scrolling down");
+    } else if (this.prevScroll < scrollTop && isScrolling) {
+      console.log("scrolling down");
       this._setSectionNo("down");
     }
     this.prevScroll = scrollTop;
     this.time = new Date();
+    // this.props.dispatch(setScrollToggleAction(false));
   };
 
-  handleTimer = () => {};
+  _handleScroll = () => {
+    console.log("setting true");
+    this.props.dispatch(setScrollToggleAction(true));
+  };
 
-  _handleNavigationDebounce = debounce(this._handleNavigation, 200);
-  // _handleNavigationThrottle = throttle(this._handleNavigation, 500);
-  // _handleKeyPress = (e) => {
-  //   console.log(e);
-  // };
+  _handleScrollDebounce = debounce(this._handleScroll, 300);
+  _handleNavigationThrottle = debounce(this._handleNavigation, 100);
 
   componentDidMount() {
     this.prevScroll = this.contentRef.current.scrollTop;
@@ -158,11 +116,17 @@ class AllContent extends Component {
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
-          this._handleNavigationDebounce(e);
+          // this._handleNavigationDebounce(e);
           // e.preventDefault();
+          this._handleScrollDebounce();
+          this._handleNavigationThrottle(e);
+        }}
+        onWheel={(e) => {
+          // console.log("wheel", e);
+          // e.persist();
+          // this._handleScrollDebounce();
           // this._handleNavigationThrottle(e);
         }}
-        // onKeyPress={this._handleKeyPress}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
@@ -497,3 +461,46 @@ export default AllContent;
 // if (scrollTop >= sectionRef[13].current.offsetTop) {
 //   console.log("slide 14");
 // }
+
+// _setContent = () => {
+//   const { sectionNo } = this.props.slides;
+// };
+
+// _scrollToSection = (e) => {
+//   const { scrollTop, scrollHeight } = e.target;
+//   const { sectionRef, sectionNo, pos } = this.props.slides;
+
+//   const heightDiff = scrollHeight - scrollTop;
+//   this._setScrollPositionToggle(scrollTop, heightDiff);
+//   this._seSectionNumToggle(scrollTop);
+// };
+
+// // _scrollToSectionThrottle = throttle(this._scrollToSection, 500);
+// _scrollToSectionDebounce = debounce(this._scrollToSection, 500);
+
+// _setScrollPositionToggle = (sTop, heightDiff) => {
+//   this.props.dispatch(setScrollPositionAction(sTop));
+//   this.props.dispatch(setScrollHeightDiffAction(heightDiff));
+// };
+
+// _seSectionNumToggle = (sTop) => {
+//   const { pos, heightDiff, sectionNo, sectionRef } = this.props.slides;
+
+//   if (pos > sTop && sectionNo >= 0) {
+//     const sectionDecrement = sectionNo - 1;
+//     const currentBgImage = imageConfig[sectionDecrement];
+//     this.props.dispatch(
+//       handleSetContentAction(sectionDecrement, currentBgImage)
+//     );
+//   } else if (pos < sTop && sectionNo < 14) {
+//     const sectionIncrement = sectionNo + 1;
+//     const currentBgImage = imageConfig[sectionIncrement];
+//     this.props.dispatch(
+//       handleSetContentAction(sectionIncrement, currentBgImage)
+//     );
+//   } else {
+//     this.props.dispatch(
+//       handleSetContentAction(sectionNo, imageConfig[sectionNo])
+//     );
+//   }
+// };

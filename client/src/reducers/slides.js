@@ -21,7 +21,7 @@ const initialSlideState = {
   bgImage: imageConfig[0],
   pos: 0,
   heightDiff: 12040,
-  isScrolling: false,
+  isScrolling: true,
   time: new Date(),
 };
 
