@@ -1,4 +1,4 @@
-# Neighbors for Clean Air Campaign Tooolkit
+# Neighbors for Clean Air Campaign Toolkit
 
 (This application is in development)
 
