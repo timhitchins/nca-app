@@ -93,26 +93,29 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 2;
+  margin: 0 1rem;
   div {
-    display: flex;
-    background-color: rgba(255, 255, 255, 0.5);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    background-color: rgba(255, 255, 255, 0.7);
   }
   h1 {
-    font-size: 4em;
+    font-size: 3em;
     color: black;
-    max-width: 60rem;
+    max-width: 70rem;
     padding: 1rem;
-    display: inline-flex;
-    background-color: rgba(255, 255, 255, 0.5);
+    width: fit-content;
+    text-transform: uppercase;
+    background-color: rgba(255, 255, 255, 0.7);
   }
   p {
-    font-size: 1.5em;
+    font-size: 1.4em;
     max-width: 50rem;
     padding: 1rem;
     width: fit-content;
-    height: fit-content;
+    // height: fit-content;
   }
   img {
     opacity: 1;
@@ -136,9 +139,4 @@
   background-color: white;
   height: 50px;
   overflow-y: scroll;
-}
-
-.sm-image {
-  height: 30rem;
-  width: 40rem;
 }

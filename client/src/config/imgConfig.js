@@ -71,6 +71,9 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
     altText: "children playing",
+    heading: "Impacts on future generations",
+    body:
+      "<strong>Black carbon is a leading contributor to global warming and climate change.</strong><br><br><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><br><br><strong>If we do not act now...</strong>",
   },
   {
     imageURI:

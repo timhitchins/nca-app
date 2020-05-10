@@ -19,11 +19,7 @@ const Section = ({ slide, children, dispatch }) => {
         <div>
           {slide.body && <p dangerouslySetInnerHTML={{ __html: slide.body }} />}
           {slide.innerImageURI && (
-            <img
-              src={slide.innerImageURI}
-              alt={slide.innerAltText}
-              className="sm-image"
-            ></img>
+            <img src={slide.innerImageURI} alt={slide.innerAltText}></img>
           )}
         </div>
       </div>
