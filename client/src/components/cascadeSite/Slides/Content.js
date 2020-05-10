@@ -9,7 +9,6 @@ import {
   setTimerAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
-// import { debounced, throttled } from "../../../utils/generalUtils";
 import { throttle, debounce } from "lodash";
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
@@ -98,12 +97,74 @@ class AllContent extends Component {
     this.props.dispatch(setScrollToggleAction(true));
   };
 
-  _handleScrollDebounce = debounce(this._handleScroll, 300);
-  _handleNavigationThrottle = debounce(this._handleNavigation, 100);
+  _handleKeyDown = (keyCode) => {
+    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    //if key down
+    console.log("key code", keyCode);
+    if (keyCode === 40 && sectionNo < 13) {
+      this.props.dispatch(
+        handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
+      );
+      this._scrollToContent(sectionNo + 1);
+    }
+    //if key up
+    if (keyCode === 38 && sectionNo > 0) {
+      this.props.dispatch(
+        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+      );
+      this._scrollToContent(sectionNo - 1);
+    }
+    this.props.dispatch(setScrollToggleAction(false));
+  };
+
+  _handleTouchMove = (e) => {
+    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    const { offsetTop } = e.srcElement;
+
+    console.log(e.srcElement.offsetTop);
+    //down
+    if (this.prevTouchScroll < offsetTop && sectionNo < 13) {
+      console.log("down: ", this.prevTouchScroll, offsetTop);
+      this.props.dispatch(
+        handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
+      );
+      this._scrollToContent(sectionNo + 1);
+    }
+
+    //up STOP HERE!!!
+    if (this.prevTouchScroll > offsetTop && sectionNo > 0) {
+      console.log("up: ", this.prevTouchScroll, offsetTop);
+      this.props.dispatch(
+        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+      );
+      this._scrollToContent(sectionNo - 1);
+    }
+
+    this.props.dispatch(setScrollToggleAction(false));
+    this.prevTouchScroll = e.srcElement.offsetTop; //start here
+  };
+
+  _handleScrollThrottle = throttle(this._handleScroll, 1500);
+  _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
+  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
 
   componentDidMount() {
     this.prevScroll = this.contentRef.current.scrollTop;
+    this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.time = new Date();
+
+    //annoying hack to deal with touch move passive events
+    const container = document.querySelector(".content-container");
+    container.addEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        this._handleTouchMoveThrottle(e);
+      },
+
+      false
+    );
   }
 
   componentDidUpdate(prevProps) {}
@@ -112,21 +173,27 @@ class AllContent extends Component {
     const { sectionNo, sectionRef } = this.props.slides;
     return (
       <div
+        tabIndex="0"
         className="content-container"
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
-          // this._handleNavigationDebounce(e);
-          // e.preventDefault();
-          this._handleScrollDebounce();
-          this._handleNavigationThrottle(e);
-        }}
-        onWheel={(e) => {
-          // console.log("wheel", e);
-          // e.persist();
-          // this._handleScrollDebounce();
+          this._handleScrollThrottle();
           // this._handleNavigationThrottle(e);
         }}
+        onKeyDown={(e) => {
+          if (e.keyCode === 40 || e.keyCode === 38) {
+            e.preventDefault();
+            this._handleKeyDownThrottle(e.keyCode);
+          }
+        }}
+        onTouchStart={(e) => console.log("touch start: ", e)}
+        onTouchEnd={(e) => console.log("touch end: ", e)}
+        // onTouchMove={(e) => {
+        //   e.preventDefault();
+        //   // e.stopPropagation();
+        //   console.log("touch move: ");
+        // }}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
