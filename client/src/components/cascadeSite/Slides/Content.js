@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
   createSectionRefAction,
-  // setScrollPositionAction,
-  // setScrollHeightDiffAction,
-  // toggleImageOpacityAction,
   handleSetContentAction,
-  // setTimerAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
 import { throttle, debounce } from "lodash";
@@ -44,7 +40,7 @@ class AllContent extends Component {
     const { sectionNo, sectionRef, isScrolling } = this.props.slides;
 
     if (direction === "down" && sectionNo < 13 && isScrolling) {
-      console.log("setting down");
+      // console.log("setting down");
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -52,7 +48,7 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo + 1);
     }
     if (direction === "up" && sectionNo > 0 && isScrolling) {
-      console.log("setting up");
+      // console.log("setting up");
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
@@ -73,7 +69,7 @@ class AllContent extends Component {
   _handleNavigation = (e) => {
     const element = e.target;
     const { scrollTop } = element;
-    console.log("scrollTop: ", scrollTop);
+    // console.log("scrollTop: ", scrollTop);
     // this.props.dispatch(setScrollToggleAction(true));
     const { sectionNo, sectionRef, pos, isScrolling } = this.props.slides;
     //handle the timer
@@ -100,14 +96,14 @@ class AllContent extends Component {
   //handle only up and down keypresses
   _handleKeyDown = (keyCode) => {
     const { sectionNo } = this.props.slides;
-    //if key down
+    //if arrow down
     if (keyCode === 40 && sectionNo < 13) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
       this._scrollToContent(sectionNo + 1);
     }
-    //if key up
+    //if arrow up
     if (keyCode === 38 && sectionNo > 0) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
@@ -123,9 +119,6 @@ class AllContent extends Component {
     const { offsetTop } = e.srcElement;
 
     const touchMovePos = e.touches[0].clientY;
-
-    // console.log("touch move:", e.touches[0].clientY);
-    // console.log("touch start", this.touchStart);
     //touchmove down
     if (
       this.touchStart > touchMovePos &&
@@ -137,6 +130,9 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
       this._scrollToContent(sectionNo + 1);
+
+      //set the scroll pos
+      this.prevTouchScroll = offsetTop;
     }
 
     //touchmove up
@@ -150,10 +146,10 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
       this._scrollToContent(sectionNo - 1);
-    }
 
-    // this.props.dispatch(setScrollToggleAction(false));
-    this.prevTouchScroll = e.srcElement.offsetTop; //start here
+      //set the scroll pos
+      this.prevTouchScroll = offsetTop;
+    }
   };
 
   //set attribute for scroll position on touch start
