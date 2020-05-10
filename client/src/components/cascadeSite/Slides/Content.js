@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
   createSectionRefAction,
-  setScrollPositionAction,
-  setScrollHeightDiffAction,
-  toggleImageOpacityAction,
+  // setScrollPositionAction,
+  // setScrollHeightDiffAction,
+  // toggleImageOpacityAction,
   handleSetContentAction,
-  setTimerAction,
+  // setTimerAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
 import { throttle, debounce } from "lodash";
@@ -81,10 +81,10 @@ class AllContent extends Component {
     // console.log("time since last scroll: ", time);
     //handle the scrolling direction
     if (this.prevScroll > scrollTop && isScrolling) {
-      console.log("scrolling up");
+      // console.log("scrolling up");
       this._setSectionNo("up");
     } else if (this.prevScroll < scrollTop && isScrolling) {
-      console.log("scrolling down");
+      // console.log("scrolling down");
       this._setSectionNo("down");
     }
     this.prevScroll = scrollTop;
@@ -93,14 +93,14 @@ class AllContent extends Component {
   };
 
   _handleScroll = () => {
-    console.log("setting true");
+    // console.log("setting true");
     this.props.dispatch(setScrollToggleAction(true));
   };
 
+  //handle only up and down keypresses
   _handleKeyDown = (keyCode) => {
-    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    const { sectionNo } = this.props.slides;
     //if key down
-    console.log("key code", keyCode);
     if (keyCode === 40 && sectionNo < 13) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
@@ -117,13 +117,21 @@ class AllContent extends Component {
     this.props.dispatch(setScrollToggleAction(false));
   };
 
+  //handle mobile touch scrolling
   _handleTouchMove = (e) => {
-    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    const { sectionNo } = this.props.slides;
     const { offsetTop } = e.srcElement;
 
-    console.log(e.srcElement.offsetTop);
-    //down
-    if (this.prevTouchScroll < offsetTop && sectionNo < 13) {
+    const touchMovePos = e.touches[0].clientY;
+
+    // console.log("touch move:", e.touches[0].clientY);
+    // console.log("touch start", this.touchStart);
+    //touchmove down
+    if (
+      this.touchStart > touchMovePos &&
+      this.prevTouchScroll !== offsetTop &&
+      sectionNo < 13
+    ) {
       console.log("down: ", this.prevTouchScroll, offsetTop);
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
@@ -131,8 +139,12 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo + 1);
     }
 
-    //up STOP HERE!!!
-    if (this.prevTouchScroll > offsetTop && sectionNo > 0) {
+    //touchmove up
+    if (
+      this.touchStart < touchMovePos &&
+      this.prevTouchScroll !== offsetTop &&
+      sectionNo > 0
+    ) {
       console.log("up: ", this.prevTouchScroll, offsetTop);
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
@@ -140,14 +152,20 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo - 1);
     }
 
-    this.props.dispatch(setScrollToggleAction(false));
+    // this.props.dispatch(setScrollToggleAction(false));
     this.prevTouchScroll = e.srcElement.offsetTop; //start here
+  };
+
+  //set attribute for scroll position on touch start
+  _handleTouchStart = (e) => {
+    this.touchStart = e.nativeEvent.touches[0].clientY;
   };
 
   _handleScrollThrottle = throttle(this._handleScroll, 1500);
   _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
   _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
   _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
 
   componentDidMount() {
     this.prevScroll = this.contentRef.current.scrollTop;
@@ -155,6 +173,7 @@ class AllContent extends Component {
     this.time = new Date();
 
     //annoying hack to deal with touch move passive events
+    //woulle like to be able to move this to a react synthetic event
     const container = document.querySelector(".content-container");
     container.addEventListener(
       "touchmove",
@@ -178,7 +197,7 @@ class AllContent extends Component {
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
-          this._handleScrollThrottle();
+          // this._handleScrollThrottle();
           // this._handleNavigationThrottle(e);
         }}
         onKeyDown={(e) => {
@@ -187,13 +206,10 @@ class AllContent extends Component {
             this._handleKeyDownThrottle(e.keyCode);
           }
         }}
-        onTouchStart={(e) => console.log("touch start: ", e)}
-        onTouchEnd={(e) => console.log("touch end: ", e)}
-        // onTouchMove={(e) => {
-        //   e.preventDefault();
-        //   // e.stopPropagation();
-        //   console.log("touch move: ");
-        // }}
+        onTouchStart={(e) => {
+          e.persist();
+          this._handleTouchStartThrottle(e);
+        }}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
