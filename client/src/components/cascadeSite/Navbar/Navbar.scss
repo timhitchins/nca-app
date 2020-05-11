@@ -9,6 +9,7 @@
   width: 100%;
   background-color: $ui-white;
   border-bottom: 1px solid $ui-black;
+  box-shadow: 0 12px 12px -12px rgba(0, 0, 0, 0.5);
 }
 
 .nav-inner-container {
@@ -19,7 +20,6 @@
   max-width: 1200px;
   justify-content: center;
   align-items: center;
-  box-shadow: 5px 10px 12px rgba(0, 0, 0, 0.5);
 
   .nav-link-active {
     background-color: $ui-black;
@@ -71,7 +71,7 @@
     flex-direction: column;
     justify-content: normal;
     overflow-y: hidden;
-
+    box-shadow: 0 12px 12px -12px rgba(0, 0, 0, 0.5);
     div,
     a {
       width: 100%;
