@@ -5,7 +5,7 @@ export const imageConfig = [
     altText: "person running",
     heading: "Oregon has toxic air pollution",
     body:
-      "<strong>We all have the right to breathe clean air.</strong> However, in the Portland metro area, the presence of fine and ultra-fine particulate matter from older dirty diesel engines makes our air unhealthy. <strong>Clackamas, Multnomah, and Washington counties rank in the top 5 percent of all counties nationwide for ambient diesel particulate concentrations</strong> and have the highest exposure rate of all counties in Oregon.",
+      "<span><strong>We all have the right to breathe clean air.</strong> However, in the Portland metro area, the presence of fine and ultra-fine particulate matter from older dirty diesel engines makes our air unhealthy. <strong>Clackamas, Multnomah, and Washington counties rank in the top 5 percent of all counties nationwide for ambient diesel particulate concentrations</strong> and have the highest exposure rate of all counties in Oregon.</span>",
   },
   {
     imageURI:
@@ -73,7 +73,7 @@ export const imageConfig = [
     altText: "children playing",
     heading: "Impacts on future generations",
     body:
-      "<strong>Black carbon is a leading contributor to global warming and climate change.</strong><br><br><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><br><br><strong>If we do not act now...</strong>",
+      "<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong></p><br><br><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><br><br><p><strong>If we do not act now...</strong><p>",
   },
   {
     imageURI:

@@ -99,17 +99,21 @@
   margin: 0 1rem;
 
   h1 {
-    max-width: 70rem;
-    padding: 1rem;
-    width: fit-content;
+    line-height: 1.2;
+    margin-left: 0.75rem;
     text-transform: uppercase;
-    background-color: $ui-transparent-white;
+    span {
+      background-color: $ui-transparent-white;
+      box-shadow: 15px 0 0 $ui-transparent-white,
+        -10px 0 0 $ui-transparent-white;
+    }
   }
-  p {
-    max-width: 50rem;
-    width: fit-content;
-    // height: fit-content;
-  }
+
+  // p {
+  //   max-width: 50rem;
+  //   width: fit-content;
+  // }
+
   img {
     opacity: 1;
   }
@@ -137,9 +141,18 @@
 .one-col {
   display: flex;
   width: fit-content;
-  background-color: $ui-transparent-white;
+  // background-color: $ui-transparent-white;
   max-width: 40rem;
   padding: 0 1rem;
+  p,
+  span,
+  li {
+    background-color: $ui-transparent-white;
+    box-shadow: 15px 0 0 $ui-transparent-white, -10px 0 0 $ui-transparent-white;
+    padding: 2px 0;
+    width: fit-content;
+    line-height: 1.4;
+  }
 }
 
 .two-col {
@@ -147,6 +160,7 @@
   flex-direction: column;
   width: fit-content;
   background-color: $ui-transparent-white;
+  padding: 0 1rem;
 
   @media (min-width: $desktop) {
     display: grid;

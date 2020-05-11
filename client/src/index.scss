@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   font-size: $font-size-base;
-  @media (min-width: $desktop) {
+  @media ($desktop) {
     font-size: $desktop-font-size-base;
   }
 }
@@ -54,12 +54,12 @@ img {
 }
 
 ul {
-  padding: 0;
+  padding-left: 1.1rem;
 }
 
-li {
-  list-style-type: none;
-}
+// li {
+//   list-style-type: none;
+// }
 
 a {
   text-decoration: none;

@@ -15,9 +15,15 @@ const Section = ({ slide, children, dispatch, className }) => {
   return (
     <section className="content-section" ref={sectionRef}>
       <div className="container">
-        {slide.heading && <h1>{slide.heading}</h1>}
+        {slide.heading && (
+          <h1>
+            <span>{slide.heading}</span>
+          </h1>
+        )}
         <div className={className}>
-          {slide.body && <p dangerouslySetInnerHTML={{ __html: slide.body }} />}
+          {slide.body && (
+            <div dangerouslySetInnerHTML={{ __html: slide.body }} />
+          )}
           {slide.innerImageURI && (
             <img src={slide.innerImageURI} alt={slide.innerAltText}></img>
           )}
