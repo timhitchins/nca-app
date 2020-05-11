@@ -36,28 +36,7 @@ class Section extends Component {
 class AllContent extends Component {
   contentRef = React.createRef();
 
-  _setSectionNo = (direction) => {
-    // this.props.dispatch(setScrollToggleAction(true));
-    // const { sectionNo, sectionRef, isScrolling } = this.props.slides;
-    // if (direction === "down" && sectionNo < 13 && isScrolling) {
-    //   // console.log("setting down");
-    //   this.props.dispatch(
-    //     handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
-    //   );
-    //   console.log("scrolling down to ", sectionNo + 1);
-    //   this._scrollToContent(sectionNo + 1);
-    // }
-    // if (direction === "up" && sectionNo > 0 && isScrolling) {
-    //   // console.log("setting up");
-    //   this.props.dispatch(
-    //     handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
-    //   );
-    //   console.log("scrolling up to ", sectionNo - 1);
-    //   this._scrollToContent(sectionNo - 1);
-    // }
-    // this.props.dispatch(setScrollToggleAction(false));
-  };
-
+  //scroll to content dependent on sectionNo
   _scrollToContent = (section) => {
     const { sectionRef } = this.props.slides;
     this.contentRef.current.scrollTo({
@@ -66,31 +45,12 @@ class AllContent extends Component {
     });
   };
 
-  _handleNavigation = (e) => {
-    const element = e.target;
-    const { scrollTop } = element;
-    // console.log("scrollTop: ", scrollTop);
-    // this.props.dispatch(setScrollToggleAction(true));
-    const { sectionNo, sectionRef, pos, isScrolling } = this.props.slides;
-    //handle the timer
-    const time = new Date() - this.time;
-    // console.log("time since last scroll: ", time);
-    //handle the scrolling direction
-    if (this.prevScroll > scrollTop && isScrolling) {
-      // console.log("scrolling up");
-      this._setSectionNo("up");
-    } else if (this.prevScroll < scrollTop && isScrolling) {
-      // console.log("scrolling down");
-      this._setSectionNo("down");
-    }
-    this.prevScroll = scrollTop;
-    this.time = new Date();
-    // this.props.dispatch(setScrollToggleAction(false));
-  };
-
+  //handle scroll bar scrolls
   _handleScroll = (e) => {
     const { sectionRef } = this.props.slides;
     const { scrollTop } = e.target;
+
+    // calculate the sectionNo from scroll postion
     const section = calculateSectionScrollTo(sectionRef, scrollTop);
     this._scrollToContent(section);
     this.props.dispatch(handleSetContentAction(section, imageConfig[section]));
@@ -125,7 +85,6 @@ class AllContent extends Component {
       this.prevTouchScroll !== offsetTop &&
       sectionNo < 13
     ) {
-      console.log("down: ", this.prevTouchScroll, offsetTop);
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -141,7 +100,6 @@ class AllContent extends Component {
       this.prevTouchScroll !== offsetTop &&
       sectionNo > 0
     ) {
-      console.log("up: ", this.prevTouchScroll, offsetTop);
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
@@ -161,25 +119,9 @@ class AllContent extends Component {
     const { sectionNo } = this.props.slides;
     const { deltaY } = e;
     const { offsetTop } = e.target;
-    console.log("deltaY", deltaY);
-    console.log("sectionNo", sectionNo);
-    console.log("offsetTop", offsetTop);
-    console.log("wheel event: ", e);
-    // console.log(e);
-    if (deltaY < 0 && this.prevWheelScroll !== offsetTop && sectionNo > 0) {
-      console.log("wheel up");
-      this.props.dispatch(
-        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
-      );
-      this._scrollToContent(sectionNo - 1);
-      //set the scroll pos
-      this.prevWheelScroll = offsetTop;
-    } else if (
-      deltaY > 0 &&
-      this.prevWheelScroll !== offsetTop &&
-      sectionNo < 13
-    ) {
-      console.log("wheel down");
+
+    //wheel down
+    if (deltaY > 0 && this.prevWheelScroll !== offsetTop && sectionNo < 13) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -187,10 +129,23 @@ class AllContent extends Component {
       //set the scroll pos
       this.prevWheelScroll = offsetTop;
     }
+    // wheel up
+    else if (
+      deltaY < 0 &&
+      this.prevWheelScroll !== offsetTop &&
+      sectionNo > 0
+    ) {
+      this.props.dispatch(
+        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+      );
+      this._scrollToContent(sectionNo - 1);
+      //set the scroll pos
+      this.prevWheelScroll = offsetTop;
+    }
   };
-  // _handleScrollThrottle = throttle(this._handleScroll, 1500);
+
+  //throttled and debounced methods
   _handleScrollDebounce = debounce(this._handleScroll, 500);
-  // _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
   _handleKeyDownThrottle = throttle(this._handleKeyDown, 500);
   _handleTouchMoveThrottle = throttle(this._handleTouchMove, 500);
   _handleTouchStartThrottle = throttle(this._handleTouchStart, 500);
@@ -200,7 +155,6 @@ class AllContent extends Component {
     this.prevScroll = this.contentRef.current.scrollTop;
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.prevWheelScroll = this.contentRef.current.scrollTop - 1;
-    // this.time = new Date();
 
     //annoying hacks to deal with touch move passive events
     //woulle like to be able to move this to a react synthetic event
@@ -219,7 +173,6 @@ class AllContent extends Component {
       (e) => {
         e.preventDefault();
         this._handleWheelThrottle(e);
-        // this._handleTouchMoveThrottle(e);
       },
       false
     );
@@ -234,8 +187,6 @@ class AllContent extends Component {
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
-          // this._handleScrollThrottle();
-          // this._handleNavigationThrottle(e);
           this._handleScrollDebounce(e);
         }}
         onKeyDown={(e) => {
@@ -248,10 +199,6 @@ class AllContent extends Component {
           e.persist();
           this._handleTouchStartThrottle(e);
         }}
-        // onWheel={(e) => {
-        //   e.preventDefault();
-        //   console.log("wheel: ", e);
-        // }}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
