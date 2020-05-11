@@ -6,7 +6,7 @@ import {
 } from "../../../actions/navbar";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
-import stylVars from "../../theme.scss";
+// import stylVars from "../../theme.scss";
 
 //this navbar needs some transitions when there is a drawer toggle
 class Navbar extends Component {
@@ -19,7 +19,10 @@ class Navbar extends Component {
           style={isOpen ? { height: "auto" } : null}
         >
           <NavLink exact to="/">
-            LOGO
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
+              alt="logo"
+            ></img>
           </NavLink>
           <div></div>
           <NavLink activeClassName="nav-link-active" exact to="/the-issue">
