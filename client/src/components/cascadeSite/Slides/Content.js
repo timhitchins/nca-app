@@ -34,6 +34,10 @@ class Section extends Component {
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
+  static propTypes = {
+    slides: PropTypes.object.isRequired,
+  };
+
   contentRef = React.createRef();
 
   //scroll to content dependent on sectionNo
@@ -430,4 +434,3 @@ class AllContent extends Component {
 }
 
 export default AllContent;
-
