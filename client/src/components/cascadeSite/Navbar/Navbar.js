@@ -18,20 +18,41 @@ class Navbar extends Component {
           className="nav-inner-container"
           style={isOpen ? { height: "auto" } : null}
         >
-          <NavLink exact to="/">
+          <a href="http://www.whatsinourair.org/" target="_blank">
             <img
               src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
               alt="logo"
             ></img>
-          </NavLink>
+          </a>
           <div></div>
-          <NavLink activeClassName="nav-link-active" exact to="/the-issue">
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/the-issue"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
             The Issue
           </NavLink>
-          <NavLink activeClassName="nav-link-active" exact to="/the-tool">
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/the-tool"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
             The Tool
           </NavLink>
-          <NavLink activeClassName="nav-link-active" exact to="/take-action">
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/take-action"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
             Take Action
           </NavLink>
         </div>
