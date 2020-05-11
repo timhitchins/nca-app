@@ -135,6 +135,7 @@ class AllContent extends Component {
   _handleWheelThrottle = throttle(this._handleWheel, 500);
 
   componentDidMount() {
+    //attributes to trach previous positioning
     this.prevScroll = this.contentRef.current.scrollTop;
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.prevWheelScroll = this.contentRef.current.scrollTop - 1;

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { togglenavDrawerAction } from "../../../actions/navbar";
-import MediaQuery from "react-responsive";
+import {
+  togglenavDrawerAction,
+  toggleNavbarPageAction,
+} from "../../../actions/navbar";
 import { NavLink } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
 import "./Navbar.scss";
+// import stylVars from "../../theme.scss";
 
 //this navbar needs some transitions when there is a drawer toggle
 class Navbar extends Component {
@@ -16,11 +18,43 @@ class Navbar extends Component {
           className="nav-inner-container"
           style={isOpen ? { height: "auto" } : null}
         >
-          <div>LOGO</div>
+          <a href="http://www.whatsinourair.org/" target="_blank">
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
+              alt="logo"
+            ></img>
+          </a>
           <div></div>
-          <div>The Issue</div>
-          <div>The Tool</div>
-          <div>Take Action</div>
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/the-issue"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
+            The Issue
+          </NavLink>
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/the-tool"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
+            The Tool
+          </NavLink>
+          <NavLink
+            activeClassName="nav-link-active"
+            exact
+            to="/take-action"
+            onClick={() => {
+              this.props.dispatch(togglenavDrawerAction(false));
+            }}
+          >
+            Take Action
+          </NavLink>
         </div>
         <div
           className="hamburger-button"

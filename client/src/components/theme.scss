@@ -17,3 +17,9 @@ $desktop-font-size-base: 18px;
 $desktop-font-size-h1: 51px;
 $desktop-font-size-h3: 48px;
 $desktop-font-size-h5: 36px;
+
+/*---------exports----------*/
+:export {
+  uiBlack: $ui-black;
+  uiWhite: $ui-white;
+}
