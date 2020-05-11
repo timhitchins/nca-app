@@ -1,14 +1,11 @@
 /* ------- colors ------- */
 $ui-black: #000000;
 $ui-white: #ffffff;
+$ui-transparent-white: rgba(255, 255, 255, 0.8);
 
 /* ------- breakpoints ------- */
-$mobile: (
-  max-width: 600px,
-);
-$desktop: (
-  min-width: 768px,
-);
+$mobile: 600px;
+$desktop: 768px;
 
 /* ------- typography ------- */
 $font-size-base: 16px;
@@ -16,9 +13,7 @@ $font-size-h1: 34px;
 $font-size-h3: 20px;
 $font-size-h5: 16px;
 
-@media ($desktop) {
-  $font-size-base: 18px;
-  $font-size-h1: 51px;
-  $font-size-h3: 48px;
-  $font-size-h5: 36px;
-}
+$desktop-font-size-base: 18px;
+$desktop-font-size-h1: 51px;
+$desktop-font-size-h3: 48px;
+$desktop-font-size-h5: 36px;

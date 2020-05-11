@@ -4,7 +4,7 @@ import { createSectionRefAction } from "../../../actions/slides";
 
 import "./Slides.scss";
 
-const Section = ({ slide, children, dispatch }) => {
+const Section = ({ slide, children, dispatch, className }) => {
   const sectionRef = useRef(null);
   useEffect(() => {
     console.log("content offsetTop ", sectionRef.current.offsetTop);
@@ -16,7 +16,7 @@ const Section = ({ slide, children, dispatch }) => {
     <section className="content-section" ref={sectionRef}>
       <div className="container">
         {slide.heading && <h1>{slide.heading}</h1>}
-        <div>
+        <div className={className}>
           {slide.body && <p dangerouslySetInnerHTML={{ __html: slide.body }} />}
           {slide.innerImageURI && (
             <img src={slide.innerImageURI} alt={slide.innerAltText}></img>

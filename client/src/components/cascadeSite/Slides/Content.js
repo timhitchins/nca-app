@@ -175,10 +175,21 @@ class AllContent extends Component {
         // }}
       >
         {imageConfig.map((slide, i) => {
+          let className = "two-col";
+          switch (i) {
+            case 0:
+            case 7:
+              className = "one-col";
+              break;
+            default:
+              className = "two-col";
+              break;
+          }
           return (
             <Section
               key={`slide-${i}`}
               slide={slide}
+              className={className}
               dispatch={this.props.dispatch}
             />
           );
