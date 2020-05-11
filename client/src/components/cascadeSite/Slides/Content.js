@@ -5,6 +5,7 @@ import {
   handleSetContentAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
+import { calculateSectionScrollTo } from "../../../utils/generalUtils";
 import { throttle, debounce } from "lodash";
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
@@ -87,10 +88,12 @@ class AllContent extends Component {
     // this.props.dispatch(setScrollToggleAction(false));
   };
 
-  _handleScroll = () => {
-    // console.log("setting true");
-    // this.props.dispatch(setScrollToggleAction(true));
-    console.log("scroll done");
+  _handleScroll = (e) => {
+    const { sectionRef } = this.props.slides;
+    const { scrollTop } = e.target;
+    const section = calculateSectionScrollTo(sectionRef, scrollTop);
+    this._scrollToContent(section);
+    this.props.dispatch(handleSetContentAction(section, imageConfig[section]));
   };
 
   //handle only up and down keypresses
@@ -104,10 +107,7 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo + 1);
     }
     //if arrow up
-    if (keyCode === 38 && sectionNo > 0) {
-      this.props.dispatch(
-        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
-      );
+    else if (keyCode === 38 && sectionNo > 0) {
       this._scrollToContent(sectionNo - 1);
     }
     this.props.dispatch(setScrollToggleAction(false));
@@ -136,7 +136,7 @@ class AllContent extends Component {
     }
 
     //touchmove up
-    if (
+    else if (
       this.touchStart < touchMovePos &&
       this.prevTouchScroll !== offsetTop &&
       sectionNo > 0
@@ -157,19 +157,52 @@ class AllContent extends Component {
     this.touchStart = e.nativeEvent.touches[0].clientY;
   };
 
-  _handleScrollThrottle = throttle(this._handleScroll, 1500);
-  _handleScrollDebounce = debounce(this._handleScroll, 1000);
-  _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
-  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
-  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
-  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
+  _handleWheel = (e) => {
+    const { sectionNo } = this.props.slides;
+    const { deltaY } = e;
+    const { offsetTop } = e.target;
+    console.log("deltaY", deltaY);
+    console.log("sectionNo", sectionNo);
+    console.log("offsetTop", offsetTop);
+    console.log("wheel event: ", e);
+    // console.log(e);
+    if (deltaY < 0 && this.prevWheelScroll !== offsetTop && sectionNo > 0) {
+      console.log("wheel up");
+      this.props.dispatch(
+        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+      );
+      this._scrollToContent(sectionNo - 1);
+      //set the scroll pos
+      this.prevWheelScroll = offsetTop;
+    } else if (
+      deltaY > 0 &&
+      this.prevWheelScroll !== offsetTop &&
+      sectionNo < 13
+    ) {
+      console.log("wheel down");
+      this.props.dispatch(
+        handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
+      );
+      this._scrollToContent(sectionNo + 1);
+      //set the scroll pos
+      this.prevWheelScroll = offsetTop;
+    }
+  };
+  // _handleScrollThrottle = throttle(this._handleScroll, 1500);
+  _handleScrollDebounce = debounce(this._handleScroll, 500);
+  // _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 500);
+  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 500);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 500);
+  _handleWheelThrottle = throttle(this._handleWheel, 500);
 
   componentDidMount() {
     this.prevScroll = this.contentRef.current.scrollTop;
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
-    this.time = new Date();
+    this.prevWheelScroll = this.contentRef.current.scrollTop - 1;
+    // this.time = new Date();
 
-    //annoying hack to deal with touch move passive events
+    //annoying hacks to deal with touch move passive events
     //woulle like to be able to move this to a react synthetic event
     const container = document.querySelector(".content-container");
     container.addEventListener(
@@ -181,9 +214,16 @@ class AllContent extends Component {
 
       false
     );
+    container.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        this._handleWheelThrottle(e);
+        // this._handleTouchMoveThrottle(e);
+      },
+      false
+    );
   }
-
-  componentDidUpdate(prevProps) {}
 
   render() {
     const { sectionNo, sectionRef } = this.props.slides;
@@ -208,6 +248,10 @@ class AllContent extends Component {
           e.persist();
           this._handleTouchStartThrottle(e);
         }}
+        // onWheel={(e) => {
+        //   e.preventDefault();
+        //   console.log("wheel: ", e);
+        // }}
       >
         <Section {...this.props}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
