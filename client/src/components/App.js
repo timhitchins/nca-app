@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { setDocHeightOnWindow } from "../utils/mobileHelper";
 import Navbar from "./cascadeSite/Navbar/Navbar";
 import SlidesContainer from "./cascadeSite/Slides/SlidesContainer";
+import MapContainer from "./map/Map/MapContainer";
 import "./App.scss";
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
             path={["/", "/the-issue"]}
             component={SlidesContainer}
           ></Route>
+          <Route exact path={"/the-tool"} component={MapContainer}></Route>
         </Switch>
       </Router>
     );
