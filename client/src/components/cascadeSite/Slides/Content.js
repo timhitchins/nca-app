@@ -12,6 +12,7 @@ import "./Slides.scss";
 
 //constants
 const MAX_SECTION_NO = 14;
+const MIN_SECTION_NO = 0;
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
@@ -52,7 +53,7 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo + 1);
     }
     //if arrow up
-    else if (keyCode === 38 && sectionNo > 0) {
+    else if (keyCode === 38 && sectionNo > MIN_SECTION_NO) {
       this._scrollToContent(sectionNo - 1);
     }
     this.props.dispatch(setScrollToggleAction(false));
@@ -83,7 +84,7 @@ class AllContent extends Component {
     else if (
       this.touchStart < touchMovePos &&
       this.prevTouchScroll !== offsetTop &&
-      sectionNo > 0
+      sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
@@ -122,7 +123,7 @@ class AllContent extends Component {
     else if (
       deltaY < 0 &&
       this.prevWheelScroll !== offsetTop &&
-      sectionNo > 0
+      sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
