@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 // import queryString from "query-string";
 import { setDocHeightOnWindow } from "../utils/mobileHelper";
@@ -15,10 +15,16 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Router>
         <Navbar />
-        <SlidesContainer />
-      </div>
+        <Switch>
+          <Route
+            exact
+            path={["/", "/the-issue"]}
+            component={SlidesContainer}
+          ></Route>
+        </Switch>
+      </Router>
     );
   }
 }
