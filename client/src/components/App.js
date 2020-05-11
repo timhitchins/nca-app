@@ -12,6 +12,11 @@ class App extends Component {
   componentDidMount() {
     //set window height for mobile
     setDocHeightOnWindow();
+
+    //redirect if pathname = "/"
+    if (window.location.pathname === "/") {
+      window.location.pathname = "/the-issue";
+    }
   }
 
   render() {
