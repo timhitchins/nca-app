@@ -19,6 +19,7 @@
   max-width: 1200px;
   justify-content: center;
   align-items: center;
+  box-shadow: 5px 10px 12px rgba(0, 0, 0, 0.5);
 
   .nav-link-active {
     background-color: $ui-black;

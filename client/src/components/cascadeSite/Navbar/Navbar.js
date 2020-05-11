@@ -4,9 +4,7 @@ import {
   togglenavDrawerAction,
   toggleNavbarPageAction,
 } from "../../../actions/navbar";
-// import MediaQuery from "react-responsive";
 import { NavLink } from "react-router-dom";
-// import { CSSTransition } from "react-transition-group";
 import "./Navbar.scss";
 import stylVars from "../../theme.scss";
 
