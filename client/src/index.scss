@@ -1,3 +1,5 @@
+@import "./components/theme.scss";
+
 html,
 body {
   margin: 0;
@@ -6,6 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  font-size: $font-size-base;
 }
 
 code {
@@ -17,6 +20,18 @@ code {
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+h1 {
+  font-size: $font-size-h1;
+}
+
+h3 {
+  font-size: $font-size-h3;
+}
+
+h5 {
+  font-size: $font-size-h5;
 }
 
 /* set max width for images
