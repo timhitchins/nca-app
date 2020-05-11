@@ -37,5 +37,7 @@ export function throttled(delay, fn) {
 
 //   return { increment, decrement };
 // }
-
+export function calculateSectionScrollTo(sectionRefs){
+  
+}
 

@@ -36,26 +36,25 @@ class AllContent extends Component {
   contentRef = React.createRef();
 
   _setSectionNo = (direction) => {
-    this.props.dispatch(setScrollToggleAction(true));
-    const { sectionNo, sectionRef, isScrolling } = this.props.slides;
-
-    if (direction === "down" && sectionNo < 13 && isScrolling) {
-      // console.log("setting down");
-      this.props.dispatch(
-        handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
-      );
-      console.log("scrolling down to ", sectionNo + 1);
-      this._scrollToContent(sectionNo + 1);
-    }
-    if (direction === "up" && sectionNo > 0 && isScrolling) {
-      // console.log("setting up");
-      this.props.dispatch(
-        handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
-      );
-      console.log("scrolling up to ", sectionNo - 1);
-      this._scrollToContent(sectionNo - 1);
-    }
-    this.props.dispatch(setScrollToggleAction(false));
+    // this.props.dispatch(setScrollToggleAction(true));
+    // const { sectionNo, sectionRef, isScrolling } = this.props.slides;
+    // if (direction === "down" && sectionNo < 13 && isScrolling) {
+    //   // console.log("setting down");
+    //   this.props.dispatch(
+    //     handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
+    //   );
+    //   console.log("scrolling down to ", sectionNo + 1);
+    //   this._scrollToContent(sectionNo + 1);
+    // }
+    // if (direction === "up" && sectionNo > 0 && isScrolling) {
+    //   // console.log("setting up");
+    //   this.props.dispatch(
+    //     handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
+    //   );
+    //   console.log("scrolling up to ", sectionNo - 1);
+    //   this._scrollToContent(sectionNo - 1);
+    // }
+    // this.props.dispatch(setScrollToggleAction(false));
   };
 
   _scrollToContent = (section) => {
@@ -90,7 +89,8 @@ class AllContent extends Component {
 
   _handleScroll = () => {
     // console.log("setting true");
-    this.props.dispatch(setScrollToggleAction(true));
+    // this.props.dispatch(setScrollToggleAction(true));
+    console.log("scroll done");
   };
 
   //handle only up and down keypresses
@@ -158,6 +158,7 @@ class AllContent extends Component {
   };
 
   _handleScrollThrottle = throttle(this._handleScroll, 1500);
+  _handleScrollDebounce = debounce(this._handleScroll, 1000);
   _handleNavigationThrottle = throttle(this._handleNavigation, 1500);
   _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
   _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
@@ -195,6 +196,7 @@ class AllContent extends Component {
           e.persist();
           // this._handleScrollThrottle();
           // this._handleNavigationThrottle(e);
+          this._handleScrollDebounce(e);
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 40 || e.keyCode === 38) {
