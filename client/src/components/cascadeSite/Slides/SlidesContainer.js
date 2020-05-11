@@ -7,19 +7,10 @@ import "./Slides.scss";
 
 class SildesContainer extends Component {
   render() {
-    const { isVisible } = this.props.slides;
     return (
       <main>
         <SlideBackground {...this.props} />
         <AllContent {...this.props} />
-        <div
-          className="dev-click"
-          onClick={() => {
-            this.props.dispatch(toggleImageOpacityAction(!isVisible));
-          }}
-        >
-          DEV CLICK
-        </div>
       </main>
     );
   }
