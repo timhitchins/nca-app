@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  createSectionRefAction,
   handleSetContentAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
@@ -10,6 +9,9 @@ import Section from "./Section";
 import { throttle, debounce } from "lodash";
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
+
+//constants
+const MAX_SECTION_NO = 14;
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
@@ -43,7 +45,7 @@ class AllContent extends Component {
   _handleKeyDown = (keyCode) => {
     const { sectionNo } = this.props.slides;
     //if arrow down
-    if (keyCode === 40 && sectionNo < 13) {
+    if (keyCode === 40 && sectionNo < MAX_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -66,7 +68,7 @@ class AllContent extends Component {
     if (
       this.touchStart > touchMovePos &&
       this.prevTouchScroll !== offsetTop &&
-      sectionNo < 13
+      sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
@@ -104,7 +106,11 @@ class AllContent extends Component {
     const { offsetTop } = e.target;
 
     //wheel down
-    if (deltaY > 0 && this.prevWheelScroll !== offsetTop && sectionNo < 13) {
+    if (
+      deltaY > 0 &&
+      this.prevWheelScroll !== offsetTop &&
+      sectionNo < MAX_SECTION_NO
+    ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
