@@ -6,31 +6,10 @@ import {
   setScrollToggleAction,
 } from "../../../actions/slides";
 import { calculateSectionScrollTo } from "../../../utils/generalUtils";
+import Section from "./Section";
 import { throttle, debounce } from "lodash";
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
-
-class Section extends Component {
-  static propTypes = {
-    slides: PropTypes.object.isRequired,
-  };
-
-  sectionRef = React.createRef();
-
-  componentDidMount() {
-    console.log("content offsetTop ", this.sectionRef.current.offsetTop);
-    //create the array in the store that includes these refs for scrolling
-    this.props.dispatch(createSectionRefAction(this.sectionRef));
-  }
-
-  render() {
-    return (
-      <section className="content-section" ref={this.sectionRef}>
-        <div className="container">{this.props.children}</div>
-      </section>
-    );
-  }
-}
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
@@ -204,230 +183,26 @@ class AllContent extends Component {
           this._handleTouchStartThrottle(e);
         }}
       >
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
-        <Section {...this.props}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a purus
-          rhoncus, cursus nibh id, finibus nisi. Vestibulum semper dignissim
-          quam, in faucibus nulla tempus eu. Vestibulum ante ipsum primis in
-          faucibus orci luctus et ultrices posuere cubilia curae; Quisque
-          pharetra massa lacus, vel viverra urna iaculis in. Nullam augue purus,
-          cursus eget vehicula eu, efficitur nec elit. Aenean sed egestas lacus.
-          Nullam ultrices leo eu malesuada venenatis. Phasellus ligula lacus,
-          consectetur a lectus at, vulputate commodo neque. Pellentesque
-          habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Orci varius natoque penatibus et magnis dis parturient
-          montes, nascetur ridiculus mus. Sed in purus eget ante convallis
-          ultricies finibus quis tortor. Fusce dignissim felis sapien, dictum
-          porta mauris tristique et. Nam maximus a neque at accumsan. Ut sit
-          amet vehicula est. Curabitur ultricies facilisis placerat.
-        </Section>
+        {imageConfig.map((slide, i) => {
+          let className = "two-col";
+          switch (i) {
+            case 0:
+            case 7:
+              className = "one-col";
+              break;
+            default:
+              className = "two-col";
+              break;
+          }
+          return (
+            <Section
+              key={`slide-${i}`}
+              slide={slide}
+              className={className}
+              dispatch={this.props.dispatch}
+            />
+          );
+        })}
       </div>
     );
   }

@@ -1,3 +1,5 @@
+@import "../../theme.scss";
+
 .bg-image {
   position: fixed;
   top: 0;
@@ -57,7 +59,8 @@
 //   opacity: 1;
 // }
 ////////////////////////////////////////////////////////
-.bg-appear, .bg-appear-done {
+.bg-appear,
+.bg-appear-done {
   opacity: 1;
 }
 ////////////////////////////////////////////////////////
@@ -92,10 +95,28 @@
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 2;
-  //
-  color: white;
+  margin: 0 1rem;
+
+  h1 {
+    line-height: 1.2;
+    margin-left: 0.75rem;
+    text-transform: uppercase;
+    span {
+      background-color: $ui-transparent-white;
+      box-shadow: 15px 0 0 $ui-transparent-white,
+        -10px 0 0 $ui-transparent-white;
+    }
+  }
+
+  // p {
+  //   max-width: 50rem;
+  //   width: fit-content;
+  // }
+
+  img {
+    opacity: 1;
+  }
 }
 
 ///DELETE THIS LATER
@@ -115,4 +136,34 @@
   background-color: white;
   height: 50px;
   overflow-y: scroll;
+}
+
+.one-col {
+  display: flex;
+  width: fit-content;
+  // background-color: $ui-transparent-white;
+  max-width: 40rem;
+  padding: 0 1rem;
+  p,
+  span,
+  li {
+    background-color: $ui-transparent-white;
+    box-shadow: 15px 0 0 $ui-transparent-white, -10px 0 0 $ui-transparent-white;
+    padding: 2px 0;
+    width: fit-content;
+    line-height: 1.4;
+  }
+}
+
+.two-col {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  background-color: $ui-transparent-white;
+  padding: 0 1rem;
+
+  @media (min-width: $desktop) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
