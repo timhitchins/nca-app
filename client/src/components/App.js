@@ -26,7 +26,7 @@ class App extends Component {
         <Switch>
           <Route
             exact
-            path={["/", "/the-issue"]}
+            path={["/", "/the-issue", "/take-action"]}
             component={SlidesContainer}
           ></Route>
           <Route exact path={"/the-tool"} component={MapContainer}></Route>
