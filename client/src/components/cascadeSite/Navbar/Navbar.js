@@ -4,9 +4,9 @@ import {
   togglenavDrawerAction,
   toggleNavbarPageAction,
 } from "../../../actions/navbar";
-import MediaQuery from "react-responsive";
+// import MediaQuery from "react-responsive";
 import { NavLink } from "react-router-dom";
-import { CSSTransition } from "react-transition-group";
+// import { CSSTransition } from "react-transition-group";
 import "./Navbar.scss";
 import stylVars from "../../theme.scss";
 
@@ -20,11 +20,19 @@ class Navbar extends Component {
           className="nav-inner-container"
           style={isOpen ? { height: "auto" } : null}
         >
-          <div>LOGO</div>
+          <NavLink exact to="/">
+            LOGO
+          </NavLink>
           <div></div>
-          <div>The Issue</div>
-          <div>The Tool</div>
-          <div>Take Action</div>
+          <NavLink activeClassName="nav-link-active" exact to="/the-issue">
+            The Issue
+          </NavLink>
+          <NavLink activeClassName="nav-link-active" exact to="/the-tool">
+            The Tool
+          </NavLink>
+          <NavLink activeClassName="nav-link-active" exact to="/take-action">
+            Take Action
+          </NavLink>
         </div>
         <div
           className="hamburger-button"

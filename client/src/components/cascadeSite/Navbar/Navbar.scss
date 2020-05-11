@@ -20,28 +20,35 @@
   justify-content: center;
   align-items: center;
 
+  .nav-link-active {
+    background-color: $ui-black;
+    color: $ui-white;
+  }
+
   // spacer
   div:nth-child(2) {
     flex: 1;
   }
 
-  //all divs
-  div {
+  //all divs and links
+  div,
+  a {
+    color: $ui-black;
     background-color: $ui-white;
     height: 100%;
     line-height: 56px;
     padding: 0 10px;
   }
 
-  //all divs
-  div:hover {
+  //all links
+  a:hover {
     color: $ui-white;
     background-color: $ui-black;
   }
 
   //spacer
   div:nth-child(2):hover,
-  div:first-child {
+  a:first-child {
     background-color: $ui-white;
     color: $ui-black;
   }
@@ -60,7 +67,8 @@
     justify-content: normal;
     overflow-y: hidden;
 
-    div {
+    div,
+    a {
       width: 100%;
     }
   }
