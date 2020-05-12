@@ -25,6 +25,9 @@ class AllContent extends Component {
   //scroll to content dependent on sectionNo
   _scrollToContent = (section) => {
     const { sectionRef } = this.props.slides;
+
+    console.log("ref", sectionRef[section]);
+    debugger;
     this.contentRef.current.scrollTo({
       top: sectionRef[section].current.offsetTop,
       behavior: "smooth",
@@ -136,10 +139,10 @@ class AllContent extends Component {
 
   //throttled and debounced methods
   _handleScrollDebounce = debounce(this._handleScroll, 500);
-  _handleKeyDownThrottle = throttle(this._handleKeyDown, 500);
-  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 500);
-  _handleTouchStartThrottle = throttle(this._handleTouchStart, 500);
-  _handleWheelThrottle = throttle(this._handleWheel, 500);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
+  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
+  _handleWheelThrottle = throttle(this._handleWheel, 1000);
 
   componentDidMount() {
     //attributes to trach previous positioning
@@ -167,6 +170,11 @@ class AllContent extends Component {
       },
       false
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    // console.log("Previous section", prevProps.slides.sectionNo);
+    // console.log("New section: ", this.props.slides.sectionNo);
   }
 
   render() {

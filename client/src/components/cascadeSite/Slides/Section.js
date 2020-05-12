@@ -1,13 +1,16 @@
 import React, { useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { createSectionRefAction } from "../../../actions/slides";
-
+import {
+  createSectionRefAction,
+  handleSetContentAction,
+} from "../../../actions/slides";
+import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
-const Section = ({ slide, children, dispatch, className }) => {
+const Section = ({ slide, children, dispatch, className, slides }) => {
   const sectionRef = useRef(null);
   useEffect(() => {
-    console.log("content offsetTop ", sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
     dispatch(createSectionRefAction(sectionRef));
   }, [dispatch]);
@@ -29,6 +32,19 @@ const Section = ({ slide, children, dispatch, className }) => {
           )}
         </div>
       </div>
+      {/* <div
+        className="scroll-down"
+        onClick={() => {
+          // dispatch(
+          //   handleSetContentAction(
+          //     slides.sectionNo + 1,
+          //     imageConfig[slides.sectionNo + 1]
+          //   )
+          // );
+        }}
+      >
+        &#x2913; Scroll down to continue
+      </div> */}
     </section>
   );
 };
@@ -37,4 +53,7 @@ Section.propTypes = {
   slide: PropTypes.object.isRequired,
 };
 
-export default Section;
+function mapStateToProps({ slides }) {
+  return { slides };
+}
+export default connect(mapStateToProps)(Section);
