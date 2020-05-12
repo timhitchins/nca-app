@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
-  createSectionRefAction,
   handleSetContentAction,
   setScrollToggleAction,
 } from "../../../actions/slides";
@@ -10,6 +9,10 @@ import Section from "./Section";
 import { throttle, debounce } from "lodash";
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
+
+//constants
+const MAX_SECTION_NO = 14;
+const MIN_SECTION_NO = 0;
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
@@ -22,10 +25,11 @@ class AllContent extends Component {
   //scroll to content dependent on sectionNo
   _scrollToContent = (section) => {
     const { sectionRef } = this.props.slides;
+
     this.contentRef.current.scrollTo({
       top: sectionRef[section].current.offsetTop,
       behavior: "smooth",
-    });
+    }); 
   };
 
   //handle scroll bar scrolls
@@ -43,14 +47,14 @@ class AllContent extends Component {
   _handleKeyDown = (keyCode) => {
     const { sectionNo } = this.props.slides;
     //if arrow down
-    if (keyCode === 40 && sectionNo < 13) {
+    if (keyCode === 40 && sectionNo < MAX_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
       this._scrollToContent(sectionNo + 1);
     }
     //if arrow up
-    else if (keyCode === 38 && sectionNo > 0) {
+    else if (keyCode === 38 && sectionNo > MIN_SECTION_NO) {
       this._scrollToContent(sectionNo - 1);
     }
     this.props.dispatch(setScrollToggleAction(false));
@@ -66,7 +70,7 @@ class AllContent extends Component {
     if (
       this.touchStart > touchMovePos &&
       this.prevTouchScroll !== offsetTop &&
-      sectionNo < 13
+      sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
@@ -81,7 +85,7 @@ class AllContent extends Component {
     else if (
       this.touchStart < touchMovePos &&
       this.prevTouchScroll !== offsetTop &&
-      sectionNo > 0
+      sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
@@ -104,7 +108,11 @@ class AllContent extends Component {
     const { offsetTop } = e.target;
 
     //wheel down
-    if (deltaY > 0 && this.prevWheelScroll !== offsetTop && sectionNo < 13) {
+    if (
+      deltaY > 0 &&
+      this.prevWheelScroll !== offsetTop &&
+      sectionNo < MAX_SECTION_NO
+    ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -116,7 +124,7 @@ class AllContent extends Component {
     else if (
       deltaY < 0 &&
       this.prevWheelScroll !== offsetTop &&
-      sectionNo > 0
+      sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
@@ -129,10 +137,10 @@ class AllContent extends Component {
 
   //throttled and debounced methods
   _handleScrollDebounce = debounce(this._handleScroll, 500);
-  _handleKeyDownThrottle = throttle(this._handleKeyDown, 500);
-  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 500);
-  _handleTouchStartThrottle = throttle(this._handleTouchStart, 500);
-  _handleWheelThrottle = throttle(this._handleWheel, 500);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
+  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
+  _handleWheelThrottle = throttle(this._handleWheel, 1000);
 
   componentDidMount() {
     //attributes to trach previous positioning
@@ -160,6 +168,11 @@ class AllContent extends Component {
       },
       false
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    // console.log("Previous section", prevProps.slides.sectionNo);
+    // console.log("New section: ", this.props.slides.sectionNo);
   }
 
   render() {

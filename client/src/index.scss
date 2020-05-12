@@ -28,6 +28,7 @@ code {
 h1 {
   font-size: $font-size-h1;
   color: $ui-black;
+  display: inline-block; //tim's add
   @media (min-width: $desktop) {
     font-size: $desktop-font-size-h1;
   }
@@ -35,6 +36,7 @@ h1 {
 
 h3 {
   font-size: $font-size-h3;
+  display: inline-block; //tim's add
   @media (min-width: $desktop) {
     font-size: $desktop-font-size-h3;
   }
@@ -42,6 +44,7 @@ h3 {
 
 h5 {
   font-size: $font-size-h5;
+  display: inline-block; //tims add
   @media (min-width: $desktop) {
     font-size: $desktop-font-size-h5;
   }
