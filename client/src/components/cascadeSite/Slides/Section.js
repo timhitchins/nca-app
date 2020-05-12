@@ -32,7 +32,7 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
           )}
         </div>
       </div>
-      {/* <div
+      <div
         className="scroll-down"
         onClick={() => {
           // dispatch(
@@ -44,7 +44,7 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
         }}
       >
         &#x2913; Scroll down to continue
-      </div> */}
+      </div>
     </section>
   );
 };

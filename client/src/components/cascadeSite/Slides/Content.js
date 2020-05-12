@@ -26,12 +26,10 @@ class AllContent extends Component {
   _scrollToContent = (section) => {
     const { sectionRef } = this.props.slides;
 
-    console.log("ref", sectionRef[section]);
-    debugger;
     this.contentRef.current.scrollTo({
       top: sectionRef[section].current.offsetTop,
       behavior: "smooth",
-    });
+    }); 
   };
 
   //handle scroll bar scrolls
