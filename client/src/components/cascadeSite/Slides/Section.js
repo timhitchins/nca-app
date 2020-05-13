@@ -34,14 +34,14 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
       </div>
       <div
         className="scroll-down"
-        onClick={() => {
-          // dispatch(
-          //   handleSetContentAction(
-          //     slides.sectionNo + 1,
-          //     imageConfig[slides.sectionNo + 1]
-          //   )
-          // );
-        }}
+        // onClick={() => {
+        //   dispatch(
+        //     handleSetContentAction(
+        //       slides.sectionNo + 1,
+        //       imageConfig[slides.sectionNo + 1]
+        //     )
+        //   );
+        // }}
       >
         &#x2913; Scroll down to continue
       </div>
