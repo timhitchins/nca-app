@@ -83,6 +83,7 @@
   height: calc(100vh - 56px);
   z-index: 1;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .content-section {

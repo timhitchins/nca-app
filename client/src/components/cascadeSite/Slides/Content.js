@@ -30,6 +30,8 @@ class AllContent extends Component {
       left: 0,
       behavior: "smooth",
     });
+    // this.prevWheelScroll = sectionRef[section].current.offsetTop;
+    this.prevScroll = sectionRef[section].current.offsetTop;
   };
 
   //handle scroll bar scrolls
@@ -37,8 +39,9 @@ class AllContent extends Component {
     const { sectionRef } = this.props.slides;
     const { scrollTop } = e.target;
 
-    // calculate the sectionNo from scroll postion
-    const section = calculateSectionScrollTo(sectionRef, scrollTop);
+    // const breaks = sectionRef.map((section) => section.current.offsetTop);
+
+    const section = calculateSectionScrollTo(sectionRef, scrollTop + 1); // addind to deal with discrepanciesu
     this._scrollToContent(section);
     this.props.dispatch(handleSetContentAction(section, imageConfig[section]));
   };
@@ -64,8 +67,14 @@ class AllContent extends Component {
   _handleTouchMove = (e) => {
     const { sectionNo } = this.props.slides;
     const { offsetTop } = e.srcElement;
-
     const touchMovePos = e.touches[0].clientY;
+
+    // console.log(
+    //   "touch start: ",
+    //   this.touchStart,
+    //   "touchMovePos : ",
+    //   touchMovePos
+    // );
     //touchmove down
     if (
       this.touchStart > touchMovePos &&
@@ -76,9 +85,10 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
       this._scrollToContent(sectionNo + 1);
-
+      console.log("touch down");
       //set the scroll pos
       this.prevTouchScroll = offsetTop;
+      this.prevScroll = offsetTop;
     }
 
     //touchmove up
@@ -91,15 +101,18 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
       this._scrollToContent(sectionNo - 1);
-
+      console.log("touch up");
       //set the scroll pos
       this.prevTouchScroll = offsetTop;
+      this.prevScroll = offsetTop;
     }
+    // debugger;
   };
 
   //set attribute for scroll position on touch start
   _handleTouchStart = (e) => {
     this.touchStart = e.nativeEvent.touches[0].clientY;
+    // console.log("this touch start", this.touchStart);
   };
 
   _handleWheel = (e) => {
@@ -107,6 +120,7 @@ class AllContent extends Component {
     const { deltaY } = e;
     const { offsetTop } = e.target;
 
+    console.log("wheel", this.prevWheelScroll - offsetTop);
     //wheel down
     if (
       deltaY > 0 &&
@@ -119,6 +133,7 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo + 1);
       //set the scroll pos
       this.prevWheelScroll = offsetTop;
+      this.prevScroll = offsetTop;
     }
     // wheel up
     else if (
@@ -132,19 +147,20 @@ class AllContent extends Component {
       this._scrollToContent(sectionNo - 1);
       //set the scroll pos
       this.prevWheelScroll = offsetTop;
+      this.prevScroll = offsetTop;
     }
   };
 
   //throttled and debounced methods
-  _handleScrollDebounce = debounce(this._handleScroll, 500);
+  _handleScrollDebounce = debounce(this._handleScroll, 1000);
   _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
-  _handleTouchMoveThrottle = throttle(this._handleTouchMove, 1000);
+  _handleTouchMoveDebounce = debounce(this._handleTouchMove, 300);
   _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
   _handleWheelThrottle = throttle(this._handleWheel, 1000);
 
   componentDidMount() {
-    //attributes to trach previous positioning
-    this.prevScroll = this.contentRef.current.scrollTop;
+    //attributes to track previous positioning
+    this.prevScroll = this.contentRef.current.scrollTop - 1;
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.prevWheelScroll = this.contentRef.current.scrollTop - 1;
 
@@ -155,7 +171,7 @@ class AllContent extends Component {
       "touchmove",
       (e) => {
         e.preventDefault();
-        this._handleTouchMoveThrottle(e);
+        this._handleTouchMoveDebounce(e);
       },
 
       false
@@ -184,6 +200,7 @@ class AllContent extends Component {
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
+          console.log("scrolling");
           this._handleScrollDebounce(e);
         }}
         onKeyDown={(e) => {
