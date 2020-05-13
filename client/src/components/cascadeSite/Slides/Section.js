@@ -17,7 +17,19 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
 
   return (
     <section className="content-section" ref={sectionRef}>
-      <div className="container">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque egestas
+      sagittis lorem et fringilla. Class aptent taciti sociosqu ad litora
+      torquent per conubia nostra, per inceptos himenaeos. Nullam a felis ut
+      lorem fringilla egestas in quis ligula. Nam pulvinar sapien at iaculis
+      gravida. Sed laoreet sollicitudin suscipit. Ut erat velit, posuere a
+      laoreet in, dapibus sit amet sem. Fusce tempus posuere sapien, vitae porta
+      magna. Etiam aliquam augue a mi consequat, id pretium quam euismod. Sed
+      vulputate nibh neque, eget tincidunt lorem ullamcorper ac. Nullam lobortis
+      non lorem ut vulputate. Aliquam semper vulputate rhoncus. Maecenas sit
+      amet diam a mauris dapibus molestie et ac enim. Ut tincidunt id nisi sit
+      amet facilisis. Vivamus volutpat dapibus nisl, ac eleifend mi tincidunt
+      quis. Nam in elit et nunc iaculis sodales. Duis tempus consequat dictum.{" "}
+      {/* <div className="container">
         {slide.heading && (
           <h1>
             <span>{slide.heading}</span>
@@ -44,7 +56,7 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
         // }}
       >
         &#x2913; Scroll down to continue
-      </div>
+      </div> */}
     </section>
   );
 };
