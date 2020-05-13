@@ -25,9 +25,9 @@ class AllContent extends Component {
   //scroll to content dependent on sectionNo
   _scrollToContent = (section) => {
     const { sectionRef } = this.props.slides;
-
     this.contentRef.current.scrollTo({
       top: sectionRef[section].current.offsetTop,
+      left: 0,
       behavior: "smooth",
     });
   };
