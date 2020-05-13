@@ -29,7 +29,7 @@ class AllContent extends Component {
     this.contentRef.current.scrollTo({
       top: sectionRef[section].current.offsetTop,
       behavior: "smooth",
-    }); 
+    });
   };
 
   //handle scroll bar scrolls
