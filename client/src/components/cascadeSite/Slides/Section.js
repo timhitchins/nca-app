@@ -11,13 +11,14 @@ import "./Slides.scss";
 const Section = ({ slide, children, dispatch, className, slides }) => {
   const sectionRef = useRef(null);
   useEffect(() => {
+    console.log(sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
     dispatch(createSectionRefAction(sectionRef));
   }, [dispatch]);
 
   return (
     <section className="content-section" ref={sectionRef}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque egestas
+      {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque egestas
       sagittis lorem et fringilla. Class aptent taciti sociosqu ad litora
       torquent per conubia nostra, per inceptos himenaeos. Nullam a felis ut
       lorem fringilla egestas in quis ligula. Nam pulvinar sapien at iaculis
@@ -28,8 +29,8 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
       non lorem ut vulputate. Aliquam semper vulputate rhoncus. Maecenas sit
       amet diam a mauris dapibus molestie et ac enim. Ut tincidunt id nisi sit
       amet facilisis. Vivamus volutpat dapibus nisl, ac eleifend mi tincidunt
-      quis. Nam in elit et nunc iaculis sodales. Duis tempus consequat dictum.{" "}
-      {/* <div className="container">
+      quis. Nam in elit et nunc iaculis sodales. Duis tempus consequat dictum.{" "} */}
+      <div className="container">
         {slide.heading && (
           <h1>
             <span>{slide.heading}</span>
@@ -56,7 +57,7 @@ const Section = ({ slide, children, dispatch, className, slides }) => {
         // }}
       >
         &#x2913; Scroll down to continue
-      </div> */}
+      </div>
     </section>
   );
 };
