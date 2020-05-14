@@ -65,16 +65,10 @@ class AllContent extends Component {
     const { offsetTop } = e.srcElement;
     const touchMovePos = e.touches[0].clientY;
 
-    // console.log(
-    //   "touch start: ",
-    //   this.touchStart,
-    //   "touchMovePos : ",
-    //   touchMovePos
-    // );
     //touchmove down
     if (
       this.touchStart > touchMovePos &&
-      this.prevTouchScroll !== offsetTop &&
+      // this.prevTouchScroll !== offsetTop &&
       sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
@@ -90,7 +84,7 @@ class AllContent extends Component {
     //touchmove up
     else if (
       this.touchStart < touchMovePos &&
-      this.prevTouchScroll !== offsetTop &&
+      // this.prevTouchScroll !== offsetTop &&
       sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
@@ -102,21 +96,17 @@ class AllContent extends Component {
       this.prevTouchScroll = offsetTop;
       this.prevScroll = offsetTop;
     }
-    // debugger;
   };
 
   //set attribute for scroll position on touch start
   _handleTouchStart = (e) => {
     this.touchStart = e.nativeEvent.touches[0].clientY;
-    // console.log("this touch start", this.touchStart);
   };
 
   _handleWheel = (e) => {
     const { sectionNo } = this.props.slides;
     const { deltaY } = e;
     const { offsetTop } = e.target;
-
-    console.log("wheel", this.prevWheelScroll - offsetTop);
     //wheel down
     if (
       deltaY > 0 &&
@@ -148,10 +138,10 @@ class AllContent extends Component {
   };
 
   //throttled and debounced methods
-  _handleScrollDebounce = debounce(this._handleScroll, 1000);
-  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
-  _handleTouchMoveDebounce = debounce(this._handleTouchMove, 300);
-  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
+  _handleScrollDebounce = debounce(this._handleScroll, 200);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 200);
+  _handleTouchMoveDebounce = debounce(this._handleTouchMove, 200);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 200);
   _handleWheelDebounce = debounce(this._handleWheel, 200);
 
   componentDidMount() {
@@ -192,7 +182,7 @@ class AllContent extends Component {
   }
 
   render() {
-    const { sectionNo, sectionRef } = this.props.slides;
+    // const { sectionNo, sectionRef } = this.props.slides;
     return (
       <div
         tabIndex="0"
