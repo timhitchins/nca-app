@@ -120,7 +120,7 @@ class AllContent extends Component {
     //wheel down
     if (
       deltaY > 0 &&
-      this.prevWheelScroll !== offsetTop &&
+      // this.prevWheelScroll !== offsetTop &&
       sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
@@ -134,7 +134,7 @@ class AllContent extends Component {
     // wheel up
     else if (
       deltaY < 0 &&
-      this.prevWheelScroll !== offsetTop &&
+      // this.prevWheelScroll !== offsetTop &&
       sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
@@ -152,7 +152,7 @@ class AllContent extends Component {
   _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
   _handleTouchMoveDebounce = debounce(this._handleTouchMove, 300);
   _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
-  _handleWheelThrottle = throttle(this._handleWheel, 1000);
+  _handleWheelDebounce = debounce(this._handleWheel, 200);
 
   componentDidMount() {
     //attributes to track previous positioning
@@ -180,7 +180,7 @@ class AllContent extends Component {
       "wheel",
       (e) => {
         e.preventDefault();
-        this._handleWheelThrottle(e);
+        this._handleWheelDebounce(e);
       },
       false
     );
