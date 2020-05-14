@@ -18,12 +18,14 @@ class Navbar extends Component {
           className="nav-inner-container"
           style={isOpen ? { height: "auto" } : null}
         >
-          <a href="http://www.whatsinourair.org/" target="_blank">
-            <img
-              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
-              alt="logo"
-            ></img>
-          </a>
+          <div>
+            <a href="http://www.whatsinourair.org/" target="_blank">
+              <img
+                src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
+                alt="logo"
+              ></img>
+            </a>
+          </div>
           <div></div>
           <NavLink
             activeClassName="nav-link-active"
