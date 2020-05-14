@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, Component } from "react";
 // import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
+import ReactCompareImage from "react-compare-image";
 import PropTypes from "prop-types";
 import {
   createSectionRefAction,
@@ -25,7 +26,6 @@ const Section = ({
     //create the array in the store that includes these refs for scrolling
     dispatch(createSectionRefAction(sectionRef));
   }, [dispatch]);
-
   return (
     <section className="content-section" ref={sectionRef}>
       <div className="container">
@@ -40,7 +40,20 @@ const Section = ({
               <div dangerouslySetInnerHTML={{ __html: slide.body }} />
               {slide.videoURI && (
                 <div>
-                  <ReactPlayer url={slide.videoURI} playing={false} />
+                  <ReactPlayer
+                    style={{ maxWidth: "300px" }}
+                    url={slide.videoURI}
+                    playing={count === 2 ? true : false}
+                    // controls={true}
+                  />
+                </div>
+              )}
+              {slide.compareImageURIs && (
+                <div>
+                  <ReactCompareImage
+                    leftImage={slide.compareImageURIs[0]}
+                    rightImage={slide.compareImageURIs[1]}
+                  />
                 </div>
               )}
             </div>
