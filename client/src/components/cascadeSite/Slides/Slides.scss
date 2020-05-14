@@ -84,6 +84,7 @@
   z-index: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  width: 100%;
 }
 
 .content-section {
@@ -91,6 +92,7 @@
   padding: 0;
   height: 100%;
   // max-height: calc(100vh - 56px);
+  width: 100%;
 }
 
 .container {
@@ -98,11 +100,12 @@
   top: 0;
   left: 0;
   z-index: 2;
-  margin: 0 2rem;
+  // margin: 0 2rem;
   //tims add
   height: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   h1 {
     line-height: 1.4;
@@ -125,7 +128,7 @@
     opacity: 1;
   }
 
-  @media (max-width: $desktop){
+  @media (max-width: $desktop) {
     img {
       display: none;
     }
@@ -167,6 +170,7 @@
   margin: 1rem 0 0 0;
   ///adds
   max-width: 100%;
+  width: 100%;
 
   @media (min-width: $desktop) {
     display: grid;
@@ -183,15 +187,23 @@
   // width: fit-content;
   line-height: 1.4;
 
+  div {
+    width: 100%;
+  }
+
   @media (min-width: $mobile) {
     font-size: $font-size-large;
   }
 }
 
-@media (max-width: $mobile){
-  .video-player{
+@media (max-width: $mobile) {
+  .video-player {
     height: 250px;
   }
+}
+
+.compare-images {
+  width: 100%;
 }
 
 .scroll-down {

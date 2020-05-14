@@ -48,7 +48,8 @@ const Section = ({
               {slide.videoURI && (
                 <div>
                   {console.log("section ref", sectionRef)}
-                  <ReactPlayer className="video-player"
+                  <ReactPlayer
+                    className="video-player"
                     style={{ maxWidth: "100%", width: "none", height: "none" }}
                     url={slide.videoURI}
                     playing={false}
@@ -58,7 +59,7 @@ const Section = ({
                 </div>
               )}
               {slide.compareImageURIs && (
-                <div>
+                <div className="compare-images">
                   <ReactCompareImage
                     leftImage={slide.compareImageURIs[0]}
                     rightImage={slide.compareImageURIs[1]}
