@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  handleSetContentAction,
-  setScrollToggleAction,
-} from "../../../actions/slides";
+import { handleSetContentAction } from "../../../actions/slides";
 import { calculateSectionScrollTo } from "../../../utils/generalUtils";
 import Section from "./Section";
 import { throttle, debounce } from "lodash";
@@ -11,7 +8,7 @@ import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
 //constants
-const MAX_SECTION_NO = 14;
+const MAX_SECTION_NO = 12;
 const MIN_SECTION_NO = 0;
 
 //will need to scroll to contentRef --> cardRef offsettop
@@ -60,7 +57,6 @@ class AllContent extends Component {
     else if (keyCode === 38 && sectionNo > MIN_SECTION_NO) {
       this._scrollToContent(sectionNo - 1);
     }
-    this.props.dispatch(setScrollToggleAction(false));
   };
 
   //handle mobile touch scrolling
@@ -69,16 +65,10 @@ class AllContent extends Component {
     const { offsetTop } = e.srcElement;
     const touchMovePos = e.touches[0].clientY;
 
-    // console.log(
-    //   "touch start: ",
-    //   this.touchStart,
-    //   "touchMovePos : ",
-    //   touchMovePos
-    // );
     //touchmove down
     if (
       this.touchStart > touchMovePos &&
-      this.prevTouchScroll !== offsetTop &&
+      // this.prevTouchScroll !== offsetTop &&
       sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
@@ -94,7 +84,7 @@ class AllContent extends Component {
     //touchmove up
     else if (
       this.touchStart < touchMovePos &&
-      this.prevTouchScroll !== offsetTop &&
+      // this.prevTouchScroll !== offsetTop &&
       sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
@@ -106,25 +96,21 @@ class AllContent extends Component {
       this.prevTouchScroll = offsetTop;
       this.prevScroll = offsetTop;
     }
-    // debugger;
   };
 
   //set attribute for scroll position on touch start
   _handleTouchStart = (e) => {
     this.touchStart = e.nativeEvent.touches[0].clientY;
-    // console.log("this touch start", this.touchStart);
   };
 
   _handleWheel = (e) => {
     const { sectionNo } = this.props.slides;
     const { deltaY } = e;
     const { offsetTop } = e.target;
-
-    console.log("wheel", this.prevWheelScroll - offsetTop);
     //wheel down
     if (
       deltaY > 0 &&
-      this.prevWheelScroll !== offsetTop &&
+      // this.prevWheelScroll !== offsetTop &&
       sectionNo < MAX_SECTION_NO
     ) {
       this.props.dispatch(
@@ -138,7 +124,7 @@ class AllContent extends Component {
     // wheel up
     else if (
       deltaY < 0 &&
-      this.prevWheelScroll !== offsetTop &&
+      // this.prevWheelScroll !== offsetTop &&
       sectionNo > MIN_SECTION_NO
     ) {
       this.props.dispatch(
@@ -152,11 +138,11 @@ class AllContent extends Component {
   };
 
   //throttled and debounced methods
-  _handleScrollDebounce = debounce(this._handleScroll, 1000);
-  _handleKeyDownThrottle = throttle(this._handleKeyDown, 1000);
-  _handleTouchMoveDebounce = debounce(this._handleTouchMove, 300);
-  _handleTouchStartThrottle = throttle(this._handleTouchStart, 1000);
-  _handleWheelThrottle = throttle(this._handleWheel, 1000);
+  _handleScrollDebounce = debounce(this._handleScroll, 200);
+  _handleKeyDownThrottle = throttle(this._handleKeyDown, 200);
+  _handleTouchMoveDebounce = debounce(this._handleTouchMove, 200);
+  _handleTouchStartThrottle = throttle(this._handleTouchStart, 200);
+  _handleWheelDebounce = debounce(this._handleWheel, 200);
 
   componentDidMount() {
     //attributes to track previous positioning
@@ -167,6 +153,10 @@ class AllContent extends Component {
     //annoying hacks to deal with touch move passive events
     //woulle like to be able to move this to a react synthetic event
     const container = document.querySelector(".content-container");
+
+    //focus the container for the keyboard
+    container.focus();
+
     container.addEventListener(
       "touchmove",
       (e) => {
@@ -180,7 +170,7 @@ class AllContent extends Component {
       "wheel",
       (e) => {
         e.preventDefault();
-        this._handleWheelThrottle(e);
+        this._handleWheelDebounce(e);
       },
       false
     );
@@ -192,7 +182,7 @@ class AllContent extends Component {
   }
 
   render() {
-    const { sectionNo, sectionRef } = this.props.slides;
+    // const { sectionNo, sectionRef } = this.props.slides;
     return (
       <div
         tabIndex="0"
@@ -230,6 +220,8 @@ class AllContent extends Component {
               key={`slide-${i}`}
               slide={slide}
               className={className}
+              scrollToContent={this._scrollToContent}
+              index={i}
               dispatch={this.props.dispatch}
             />
           );

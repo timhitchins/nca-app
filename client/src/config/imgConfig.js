@@ -24,6 +24,8 @@ export const imageConfig = [
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost.png",
     innerAltText: "An infographic of construction stats",
+    videoURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/OurAir_11.6.19.mp4",
   },
   {
     imageURI:
@@ -47,8 +49,8 @@ export const imageConfig = [
   },
   {
     imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
+    altText: "children playing",
     heading: "Children are expecially vulnerable",
     body:
       "<strong>Children are effected by air pollution more than adults</strong> because their lungs are still in the developmental phase and they breathe, on average, 50 percent more air per pound of body weight than adults do.<br><br><strong>A 2014 Multnomah County Department of Health study found that that communities of color are exposed to levels of diesel pollution 2‐3 times higher than their white counterparts,</strong> with Black/African Americans facing the largest disparate exposure compared to whites. Rates of asthma in historically non-white neighborhoods are significantly higher than elsewhere.",
@@ -58,8 +60,8 @@ export const imageConfig = [
   },
   {
     imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
+    altText: "children playing",
     body:
       "Studies have shown that women exposed to high levels of air pollution in their third trimester were twice as likely to deliver children with autism.<br><br>Increasing evidence shows that air pollution affects a child’s brain development, lowering test scores and increasing of ADHD, ADD as well as impulse control.<br><br>Research into the effects of air pollution among the elderly suggest that it can raise the risk of strokes,  Parkinson’s disease, and Alzheimer’s disease.",
     innerImageURI:
@@ -69,34 +71,36 @@ export const imageConfig = [
   },
   {
     imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
-    altText: "children playing",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
+    altText: "thawing ice",
     heading: "Impacts on future generations",
     body:
-      "<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong></p><br><br><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><br><br><p><strong>If we do not act now...</strong><p>",
-  },
-  {
-    imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
-    altText: "children playing",
+      "<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong></p><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><p><strong>If we do not act now...</strong><p>",
   },
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
     altText: "thawing ice",
-  },
-  {
-    imageURI: null, //white background instead for compare images
-    altText: null,
+    body: "<p>hello</p>",
+    videoURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
   },
   {
     imageURI: "",
     altText: "compare images",
+    body: "<p>hello</p>",
+    compareImageURIs: [
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
+    ],
   },
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "parking lot construction",
+    heading: "we need a statewide clean energy standard",
+    body:
+      "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
   },
   {
     imageURI: null, //white background instead for "the tool"

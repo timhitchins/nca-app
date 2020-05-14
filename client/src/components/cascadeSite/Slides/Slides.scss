@@ -107,6 +107,7 @@
     line-height: 1.2;
     margin-left: 0.75rem;
     text-transform: uppercase;
+    max-width: 1000px;
     span {
       background-color: $ui-transparent-white;
       box-shadow: 15px 0 0 $ui-transparent-white,
@@ -144,6 +145,10 @@
     width: fit-content;
     line-height: 1.6;
   }
+  li {
+    margin: 1px;
+    list-style-type: none;
+  }
 }
 
 .two-col {
@@ -151,7 +156,8 @@
   flex-direction: column;
   width: fit-content;
   background-color: $ui-transparent-white;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
+  margin: 1rem 0 0 0;
 
   @media (min-width: $desktop) {
     display: grid;
