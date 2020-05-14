@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, Component } from "react";
 // import React, { Component } from "react";
 import { connect } from "react-redux";
+import ReactPlayer from "react-player";
 import PropTypes from "prop-types";
 import {
   createSectionRefAction,
@@ -35,7 +36,14 @@ const Section = ({
         )}
         <div className={className}>
           {slide.body && (
-            <div dangerouslySetInnerHTML={{ __html: slide.body }} />
+            <div>
+              <div dangerouslySetInnerHTML={{ __html: slide.body }} />
+              {slide.videoURI && (
+                <div>
+                  <ReactPlayer url={slide.videoURI} playing={false} />
+                </div>
+              )}
+            </div>
           )}
           {slide.innerImageURI && (
             <img src={slide.innerImageURI} alt={slide.innerAltText}></img>

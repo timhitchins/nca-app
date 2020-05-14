@@ -24,6 +24,7 @@ export const imageConfig = [
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost.png",
     innerAltText: "An infographic of construction stats",
+    videoURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/OurAir_11.6.19.mp4"
   },
   {
     imageURI:
