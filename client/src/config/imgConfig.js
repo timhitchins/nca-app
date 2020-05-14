@@ -81,17 +81,17 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
     altText: "thawing ice",
-    body: "<p>hello</p>",
+    body: "<div></div>",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
   },
   {
     imageURI: "",
     altText: "compare images",
-    body: "<p>hello</p>",
+    body: "<div></div>",
     compareImageURIs: [
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
     ],
   },
   {

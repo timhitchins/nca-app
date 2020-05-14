@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, Component } from "react";
+import { useIsVisible } from "./useIsVisible";
 // import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
@@ -21,14 +22,17 @@ const Section = ({
 }) => {
   const [count] = useState(index);
   const sectionRef = useRef(null);
+  const visible = useIsVisible({ element: sectionRef });
+  console.log("visible ", visible);
   useEffect(() => {
-    console.log(sectionRef.current.offsetTop);
+    // console.log(sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
     dispatch(createSectionRefAction(sectionRef));
   }, [dispatch]);
   return (
     <section className="content-section" ref={sectionRef}>
       <div className="container">
+        {/* <div>Doggo in view: {visible !== null && visible.toString()}</div> */}
         {slide.heading && (
           <h1>
             <span>{slide.heading}</span>
@@ -37,14 +41,19 @@ const Section = ({
         <div className={className}>
           {slide.body && (
             <div>
-              <div dangerouslySetInnerHTML={{ __html: slide.body }} />
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: slide.body }}
+              />
               {slide.videoURI && (
                 <div>
-                  <ReactPlayer
-                    style={{ maxWidth: "300px" }}
+                  {console.log("section ref", sectionRef)}
+                  <ReactPlayer className="video-player"
+                    style={{ maxWidth: "100%", width: "none", height: "none" }}
                     url={slide.videoURI}
-                    playing={count === 2 ? true : false}
-                    // controls={true}
+                    playing={false}
+                    controls={false}
+                    playIcon={true}
                   />
                 </div>
               )}
