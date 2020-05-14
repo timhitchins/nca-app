@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  handleSetContentAction,
-  setScrollToggleAction,
-} from "../../../actions/slides";
+import { handleSetContentAction } from "../../../actions/slides";
 import { calculateSectionScrollTo } from "../../../utils/generalUtils";
 import Section from "./Section";
 import { throttle, debounce } from "lodash";
@@ -60,7 +57,6 @@ class AllContent extends Component {
     else if (keyCode === 38 && sectionNo > MIN_SECTION_NO) {
       this._scrollToContent(sectionNo - 1);
     }
-    this.props.dispatch(setScrollToggleAction(false));
   };
 
   //handle mobile touch scrolling
