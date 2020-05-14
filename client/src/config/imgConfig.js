@@ -90,8 +90,8 @@ export const imageConfig = [
     altText: "compare images",
     body: "<div></div>",
     compareImageURIs: [
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
     ],
   },
   {
