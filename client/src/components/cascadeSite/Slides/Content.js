@@ -167,6 +167,10 @@ class AllContent extends Component {
     //annoying hacks to deal with touch move passive events
     //woulle like to be able to move this to a react synthetic event
     const container = document.querySelector(".content-container");
+
+    //focus the container for the keyboard
+    container.focus();
+
     container.addEventListener(
       "touchmove",
       (e) => {
@@ -230,6 +234,8 @@ class AllContent extends Component {
               key={`slide-${i}`}
               slide={slide}
               className={className}
+              scrollToContent={this._scrollToContent}
+              index={i}
               dispatch={this.props.dispatch}
             />
           );
