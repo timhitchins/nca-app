@@ -19,6 +19,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
+    heading: "this is a heading that looks better", 
     body:
       "<strong>Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.</strong>",
     innerImageURI:
@@ -31,6 +32,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
+    heading: "this is a heading that looks better", 
     body:
       "In areas with higher diesel vehicle traffic, like near freight corridors, rail yards, or construction sites, levels of diesel pollution are over 10 times Oregon health standards for healthy air.<br><br><strong>Off-road equipment, primarily construction equipment, is responsible for 65 percent of diesel particulate matter in the Portland area.</strong><br><br>Off-road equipment is what we call the heavy construction vehicles such as excavators, wheel loaders, articulated and rigid dump trucks.",
     innerImageURI:
@@ -41,6 +43,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
+    heading: "this is a heading that looks better", 
     body:
       "The main sources of toxic air pollution in Oregon are: diesel engines, industry, automobiles, burning wood (residential, commercial, wildfires).<br><br><strong>Diesel Engines produce particulate matter, including black carbon</strong>. About a third of all black carbon comes from off-road vehicles. Older diesel engines can emit 85% more black carbon than newer engines.<br><br><strong>In Oregon, these vehicles are not required to meet diesel exhaust standards.</strong>",
     innerImageURI:
@@ -62,6 +65,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
     altText: "children playing",
+    heading: "this is a heading that looks better", 
     body:
       "Studies have shown that women exposed to high levels of air pollution in their third trimester were twice as likely to deliver children with autism.<br><br>Increasing evidence shows that air pollution affects a child’s brain development, lowering test scores and increasing of ADHD, ADD as well as impulse control.<br><br>Research into the effects of air pollution among the elderly suggest that it can raise the risk of strokes,  Parkinson’s disease, and Alzheimer’s disease.",
     innerImageURI:
@@ -86,18 +90,18 @@ export const imageConfig = [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
   },
   {
-    imageURI: "",
-    altText: "compare images",
+    imageURI: null,
+    altText: null,
     heading: "we need a statewide clean energy standard",
-    body: "<div></div>",
+    body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>`,
     compareImageURIs: [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
     ],
   },
   {
-    imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
+    imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
     altText: "downtown construction",
     heading: "we need a statewide clean energy standard",
     body:
@@ -107,7 +111,8 @@ export const imageConfig = [
     imageURI: null, //white background instead for "the tool"
     altText: null,
     heading: "explore pollution in your area",
-    body: "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>"
+    body:
+      "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>",
   },
   {
     imageURI: null, //white background instead for "take action"

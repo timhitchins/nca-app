@@ -61,32 +61,36 @@ const Section = ({
                   />
                 </div>
               )}
-              {slide.compareImageURIs && (
-                <div className="compare-images">
-                  <ReactCompareImage
-                    leftImage={slide.compareImageURIs[0]}
-                    rightImage={slide.compareImageURIs[1]}
-                  />
-                </div>
-              )}
             </div>
           )}
           {slide.innerImageURI && (
             <img src={slide.innerImageURI} alt={slide.innerAltText}></img>
           )}
+          {slide.compareImageURIs && (
+            <div className="compare-image-container">
+              <ReactCompareImage
+                leftImage={slide.compareImageURIs[0]}
+                rightImage={slide.compareImageURIs[1]}
+              />
+            </div>
+          )}
         </div>
       </div>
-      <div
-        className="scroll-down"
-        onClick={() => {
-          if (count < 14) {
-            scrollToContent(count + 1);
-            dispatch(handleSetContentAction(count + 1, imageConfig[count + 1]));
-          }
-        }}
-      >
-        &#x2913; Scroll down to continue
-      </div>
+      {count < 12 && (
+        <div
+          className="scroll-down"
+          onClick={() => {
+            if (count < 14) {
+              scrollToContent(count + 1);
+              dispatch(
+                handleSetContentAction(count + 1, imageConfig[count + 1])
+              );
+            }
+          }}
+        >
+          &#x2913; Scroll down to continue
+        </div>
+      )}
     </section>
   );
 };
