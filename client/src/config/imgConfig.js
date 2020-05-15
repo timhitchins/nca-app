@@ -88,6 +88,7 @@ export const imageConfig = [
   {
     imageURI: "",
     altText: "compare images",
+    heading: "we need a statewide clean energy standard",
     body: "<div></div>",
     compareImageURIs: [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
@@ -96,8 +97,8 @@ export const imageConfig = [
   },
   {
     imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "parking lot construction",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
+    altText: "downtown construction",
     heading: "we need a statewide clean energy standard",
     body:
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
@@ -105,9 +106,12 @@ export const imageConfig = [
   {
     imageURI: null, //white background instead for "the tool"
     altText: null,
+    heading: "explore pollution in your area",
+    body: "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>"
   },
   {
     imageURI: null, //white background instead for "take action"
     altText: null,
+    heading: "take action",
   },
 ];

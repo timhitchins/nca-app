@@ -22,8 +22,9 @@ const Section = ({
 }) => {
   const [count] = useState(index);
   const sectionRef = useRef(null);
+  //is visible hook testing
   const visible = useIsVisible({ element: sectionRef });
-  console.log("visible ", visible);
+
   useEffect(() => {
     // console.log(sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
@@ -32,7 +33,7 @@ const Section = ({
   return (
     <section className="content-section" ref={sectionRef}>
       <div className="container">
-        {/* <div>Doggo in view: {visible !== null && visible.toString()}</div> */}
+        {/* <div>Section in view: {visible !== null && visible.toString()}</div> */}
         {slide.heading && (
           <h1>
             <span>{slide.heading}</span>
@@ -47,14 +48,16 @@ const Section = ({
               />
               {slide.videoURI && (
                 <div>
-                  {console.log("section ref", sectionRef)}
+                  {/* {console.log("section ref", sectionRef)} */}
                   <ReactPlayer
-                    className="video-player"
-                    style={{ maxWidth: "100%", width: "none", height: "none" }}
+                    // className="video-player"
+                    // style={{ maxWidth: "100%", width: "none", height: "none" }}
                     url={slide.videoURI}
-                    playing={false}
-                    controls={false}
-                    playIcon={true}
+                    // playing
+                    // playing={false}
+                    controls={true}
+                    // playIcon={true}
+                    // light={true}
                   />
                 </div>
               )}
@@ -99,6 +102,7 @@ function mapStateToProps({ slides }) {
 }
 export default connect(mapStateToProps)(Section);
 
+/////TESTING BELOW
 // Section.propTypes = {
 //   slide: PropTypes.object.isRequired,
 // };
