@@ -5,7 +5,11 @@ export const imageConfig = [
     altText: "person running",
     heading: "Oregon has toxic air pollution",
     body:
-      "<span><strong>We all have the right to breathe clean air.</strong> However, in the Portland metro area, the presence of fine and ultra-fine particulate matter from older dirty diesel engines makes our air unhealthy. <strong>Clackamas, Multnomah, and Washington counties rank in the top 5 percent of all counties nationwide for ambient diesel particulate concentrations</strong> and have the highest exposure rate of all counties in Oregon.</span>",
+      `<span><strong>We all have the right to breathe clean air.</strong> 
+      However, in the Portland metro area, the presence of fine and ultra-fine 
+      particulate matter from older dirty diesel engines makes our air unhealthy. 
+      <strong>Clackamas, Multnomah, and Washington counties rank in the top 5 
+      percent of all counties nationwide for ambient diesel particulate concentrations</strong> and have the highest exposure rate of all counties in Oregon.</span>`,
   },
   {
     imageURI:
@@ -90,9 +94,9 @@ export const imageConfig = [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
   },
   {
-    imageURI: null,
-    altText: null,
-    heading: "we need a statewide clean energy standard",
+    imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png",
+    altText: "white-background",
+    heading: "we need a statewide clean standard",
     body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>`,
     compareImageURIs: [
@@ -103,19 +107,19 @@ export const imageConfig = [
   {
     imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
     altText: "downtown construction",
-    heading: "we need a statewide clean energy standard",
+    heading: "we need a statewide clean standard",
     body:
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
   },
   {
-    imageURI: null, //white background instead for "the tool"
-    altText: null,
+    imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png", //white background instead for "the tool"
+    altText: "white background",
     heading: "explore pollution in your area",
     body:
       "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>",
   },
   {
-    imageURI: null, //white background instead for "take action"
+    videoURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction+video.mp4", //white background instead for "take action"
     altText: null,
     heading: "take action",
   },

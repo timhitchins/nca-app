@@ -73,6 +73,12 @@
   height: 100%;
 }
 
+@media (min-width: $desktop) {
+  .content {
+    font-size: $font-size-large;
+  }
+}
+
 .container {
   position: relative;
   top: 0;
@@ -129,6 +135,7 @@
     box-shadow: 15px 0 0 $ui-transparent-white, -10px 0 0 $ui-transparent-white;
     padding: 2px 0;
     width: fit-content;
+    width: -moz-fit-content;
     line-height: 1.6;
   }
   li {
@@ -157,7 +164,8 @@
   //   padding: 0;
   //   background-color: none;
   // }
-  @media (min-width: 1000px) { //$desktop
+  @media (min-width: 1000px) {
+    //$desktop
     display: grid;
     grid-template-columns: 1fr 1fr;
     max-width: 1200px;
