@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, Component } from "react";
+import { useIsVisible } from "./useIsVisible";
 // import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
@@ -21,14 +22,18 @@ const Section = ({
 }) => {
   const [count] = useState(index);
   const sectionRef = useRef(null);
+  //is visible hook testing
+  const visible = useIsVisible({ element: sectionRef });
+
   useEffect(() => {
-    console.log(sectionRef.current.offsetTop);
+    // console.log(sectionRef.current.offsetTop);
     //create the array in the store that includes these refs for scrolling
     dispatch(createSectionRefAction(sectionRef));
   }, [dispatch]);
   return (
     <section className="content-section" ref={sectionRef}>
       <div className="container">
+        {/* <div>Section in view: {visible !== null && visible.toString()}</div> */}
         {slide.heading && (
           <h1>
             <span>{slide.heading}</span>
@@ -37,43 +42,59 @@ const Section = ({
         <div className={className}>
           {slide.body && (
             <div>
-              <div dangerouslySetInnerHTML={{ __html: slide.body }} />
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: slide.body }}
+              />
               {slide.videoURI && (
                 <div>
+                  {/* {console.log("section ref", sectionRef)} */}
                   <ReactPlayer
-                    style={{ maxWidth: "300px" }}
+                    // className="video-player"
+                    // style={{ maxWidth: "100%", width: "none", height: "none" }}
                     url={slide.videoURI}
-                    playing={count === 2 ? true : false}
-                    // controls={true}
-                  />
-                </div>
-              )}
-              {slide.compareImageURIs && (
-                <div>
-                  <ReactCompareImage
-                    leftImage={slide.compareImageURIs[0]}
-                    rightImage={slide.compareImageURIs[1]}
+                    // playing
+                    // playing={false}
+                    controls={true}
+                    // playIcon={true}
+                    // light={true}
                   />
                 </div>
               )}
             </div>
           )}
           {slide.innerImageURI && (
-            <img src={slide.innerImageURI} alt={slide.innerAltText}></img>
+            <img
+              className="inner-image"
+              src={slide.innerImageURI}
+              alt={slide.innerAltText}
+            ></img>
+          )}
+          {slide.compareImageURIs && (
+            <div className="compare-image-container">
+              <ReactCompareImage
+                leftImage={slide.compareImageURIs[0]}
+                rightImage={slide.compareImageURIs[1]}
+              />
+            </div>
           )}
         </div>
       </div>
-      <div
-        className="scroll-down"
-        onClick={() => {
-          if (count < 14) {
-            scrollToContent(count + 1);
-            dispatch(handleSetContentAction(count + 1, imageConfig[count + 1]));
-          }
-        }}
-      >
-        &#x2913; Scroll down to continue
-      </div>
+      {count < 12 && (
+        <div
+          className="scroll-down"
+          onClick={() => {
+            if (count < 14) {
+              scrollToContent(count + 1);
+              dispatch(
+                handleSetContentAction(count + 1, imageConfig[count + 1])
+              );
+            }
+          }}
+        >
+          &#x2913; Scroll down to continue
+        </div>
+      )}
     </section>
   );
 };
@@ -89,6 +110,7 @@ function mapStateToProps({ slides }) {
 }
 export default connect(mapStateToProps)(Section);
 
+/////TESTING BELOW
 // Section.propTypes = {
 //   slide: PropTypes.object.isRequired,
 // };

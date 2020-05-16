@@ -36,6 +36,13 @@ class SlideBackground extends Component {
             this.props.dispatch(toggleImageOpacityAction(!isVisible));
           }}
         >
+          {/* {bgImage.imageURI && (
+            <img
+              src={bgImage.imageURI}
+              className="bg-image"
+              alt={bgImage.altText}
+            ></img>
+          )} */}
           <img
             src={bgImage.imageURI}
             className="bg-image"

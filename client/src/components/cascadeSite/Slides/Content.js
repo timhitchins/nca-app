@@ -209,7 +209,11 @@ class AllContent extends Component {
           switch (i) {
             case 0:
             case 7:
+            case 10:
               className = "one-col";
+              break;
+            case 9:
+              className = "two-col-compare-images";
               break;
             default:
               className = "two-col";
