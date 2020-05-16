@@ -64,7 +64,11 @@ const Section = ({
             </div>
           )}
           {slide.innerImageURI && (
-            <img src={slide.innerImageURI} alt={slide.innerAltText}></img>
+            <img
+              className="inner-image"
+              src={slide.innerImageURI}
+              alt={slide.innerAltText}
+            ></img>
           )}
           {slide.compareImageURIs && (
             <div className="compare-image-container">

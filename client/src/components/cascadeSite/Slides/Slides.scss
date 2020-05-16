@@ -71,6 +71,7 @@
   margin: 0;
   padding: 0;
   height: 100%;
+  max-height: 100%;
 }
 
 @media (min-width: $desktop) {
@@ -154,17 +155,22 @@
   margin: 1rem 0 0 0;
 
   div {
+    margin-right: 5px;
     div {
       background-color: $ui-transparent-white;
       padding: 0.5rem;
     }
   }
 
-  // .compare-image-container {
-  //   padding: 0;
-  //   background-color: none;
-  // }
-  @media (min-width: 1000px) {
+  @media (max-width:$desktop) {
+    img {
+      max-width: 70%;
+      margin: 0 auto;
+    }
+  }
+
+
+  @media (min-width: $desktop) {
     //$desktop
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -173,6 +179,32 @@
 }
 
 /* ----- image compare style ----- */
+.two-col-compare-images {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  background-color: $ui-transparent-white;
+  padding: 1rem 1rem;
+  margin: 1rem 0 0 0;
+  div {
+    margin-right: 5px;
+    // background-color: $ui-transparent-white;
+    div {
+      // background-color: $ui-transparent-white;
+      // padding: 0.5rem;
+    }
+  }
+
+  @media (min-width: $desktop) {
+    //$desktop
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 1200px;
+  }
+
+  @media screen {
+  }
+}
 
 /* ----- scroll button style ----- */
 .scroll-down {
@@ -190,6 +222,11 @@
   color: rgba(255, 255, 255, 1);
 }
 
+@media (max-width: $mobile) {
+  .scroll-down {
+    // bottom: 150px;
+  }
+}
 ///////////TESITNG
 ///////////////////////////////////////////@extend
 // .bg-enter {

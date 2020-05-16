@@ -16,6 +16,7 @@ export const imageConfig = [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
     heading: "Diesel engines are a primary source of pollution",
+    innerImageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_PM2.5.png",
     body:
       "Fine particulate matter, sometimes called <strong>PM2.5 or PM10</strong>, are tiny particles in the air that can cause health issues in humans if levels are high.<br><br><strong>Diesel engines are some of the worst emitters of fine particulate matter.</strong> Vehicles with diesel engines can be running in our neighborhoods, near our homes, schools, and places we work. They are especially prevalent around construction sites.",
   },
@@ -23,7 +24,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
-    heading: "this is a heading that looks better", 
+    heading: "Diesel engines are a primary source of pollution", 
     body:
       "<strong>Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.</strong>",
     innerImageURI:
@@ -36,7 +37,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
-    heading: "this is a heading that looks better", 
+    heading: "Diesel engines are a primary source of pollution", 
     body:
       "In areas with higher diesel vehicle traffic, like near freight corridors, rail yards, or construction sites, levels of diesel pollution are over 10 times Oregon health standards for healthy air.<br><br><strong>Off-road equipment, primarily construction equipment, is responsible for 65 percent of diesel particulate matter in the Portland area.</strong><br><br>Off-road equipment is what we call the heavy construction vehicles such as excavators, wheel loaders, articulated and rigid dump trucks.",
     innerImageURI:
@@ -47,11 +48,11 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
     altText: "construction site",
-    heading: "this is a heading that looks better", 
+    heading: "Diesel engines are a primary source of pollution", 
     body:
       "The main sources of toxic air pollution in Oregon are: diesel engines, industry, automobiles, burning wood (residential, commercial, wildfires).<br><br><strong>Diesel Engines produce particulate matter, including black carbon</strong>. About a third of all black carbon comes from off-road vehicles. Older diesel engines can emit 85% more black carbon than newer engines.<br><br><strong>In Oregon, these vehicles are not required to meet diesel exhaust standards.</strong>",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/One_third_carbon.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/One_third_carbon_new.png",
     innerAltText: "A pie chart of construction stats",
   },
   {
@@ -69,7 +70,7 @@ export const imageConfig = [
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
     altText: "children playing",
-    heading: "this is a heading that looks better", 
+    heading: "Children are expecially vulnerable", 
     body:
       "Studies have shown that women exposed to high levels of air pollution in their third trimester were twice as likely to deliver children with autism.<br><br>Increasing evidence shows that air pollution affects a child’s brain development, lowering test scores and increasing of ADHD, ADD as well as impulse control.<br><br>Research into the effects of air pollution among the elderly suggest that it can raise the risk of strokes,  Parkinson’s disease, and Alzheimer’s disease.",
     innerImageURI:
@@ -83,7 +84,15 @@ export const imageConfig = [
     altText: "thawing ice",
     heading: "Impacts on future generations",
     body:
-      "<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong></p><ul><li>Black carbon warms the climate 460-1,500 times more than CO2</li><li>Second highest global warming agent in the world, tied with methane</li><li>Only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could see cooling effects relatively quickly unlike CO2 which takes about 100 years</li><li>Black carbon can land on snow and increase the melting/warming in the arctic</li></ul><p><strong>If we do not act now...</strong><p>",
+      `<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong></p>
+      <ul>
+      <li>Black carbon warms the climate 460-1,500 times more than CO2.</li>
+      <li>Black carbon is the second highest global warming agent in the world, tied with methane.</li>
+      <li>Black carbon only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could 
+      see cooling effects relatively quickly unlike CO2 which takes about 100 years</li>
+      <li>Black carbon can land on snow and increase the melting and warming of the arctic.</li>
+      </ul>
+      <p><strong>We must we do not act now!</strong><p>`,
   },
   {
     imageURI:
