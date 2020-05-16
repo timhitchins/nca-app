@@ -28,8 +28,7 @@
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "helmet": "^3.21.3",
-    "video-react": "^0.14.1"
+    "helmet": "^3.21.3"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
