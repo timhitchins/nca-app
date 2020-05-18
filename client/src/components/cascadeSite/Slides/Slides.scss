@@ -92,7 +92,7 @@
   flex-direction: column;
 
   h1 {
-    line-height: 1.2;
+    line-height: 1.4;
     margin-left: 0.75rem;
     text-transform: uppercase;
     max-width: 1000px;
@@ -107,7 +107,7 @@
     opacity: 1;
   }
 
-  @media (max-width: $mobile-small) {
+  @media (max-width: $mobile) {
     h1 {
       font-size: 1.5rem;
     }
@@ -216,6 +216,7 @@
   margin: 0 2rem;
   font-size: 1.4rem;
   z-index: 3;
+  cursor: pointer;
 }
 
 .scroll-down:hover {
