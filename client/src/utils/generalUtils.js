@@ -24,9 +24,9 @@ export function throttled(delay, fn) {
 }
 
 export function calculateSectionScrollTo(sections, scrollTop) {
+  debugger;
   const breaks = sections.map((section) => section.current.offsetTop);
-
-  console.log("sroll top in  calculate: ", scrollTop)
+  console.log("sroll top in  calculate: ", scrollTop);
   const sectionNos = breaks.map((sectionBreak, index) => {
     if (scrollTop >= sectionBreak) return index;
     return null;

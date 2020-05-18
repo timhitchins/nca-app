@@ -35,7 +35,6 @@ class AllContent extends Component {
   _handleScroll = (e) => {
     const { sectionRef } = this.props.slides;
     const { scrollTop } = e.target;
-
     // const breaks = sectionRef.map((section) => section.current.offsetTop);
 
     const section = calculateSectionScrollTo(sectionRef, scrollTop + 1); // addind to deal with discrepanciesu
