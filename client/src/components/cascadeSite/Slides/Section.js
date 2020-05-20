@@ -13,6 +13,12 @@ import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
 class Section extends Component {
+  static propTypes = {
+    slide: PropTypes.object.isRequired,
+    className: PropTypes.string.isRequired,
+    scrollToContent: PropTypes.func.isRequired,
+  };
+
   sectionRef = React.createRef();
 
   componentDidMount() {
