@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, Component } from "react";
-import { useIsVisible } from "./useIsVisible";
-// import React, { Component } from "react";
+// import React, { useEffect, useRef, useState, Component } from "react";
+// import { useIsVisible } from "./useIsVisible";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import ReactPlayer from "react-player";
 import ReactCompareImage from "react-compare-image";
@@ -45,6 +45,7 @@ class Section extends Component {
                 />
                 {slide.videoURI && (
                   <div>
+                  {slide.videoName === "our-air" && (
                     <ReactPlayer
                       style={{
                         maxWidth: "100%",
@@ -54,7 +55,22 @@ class Section extends Component {
                       height={null} // override
                       url={slide.videoURI}
                       controls={true}
+                      playing={sectionNo === 2 ? true : false}
                     />
+                  )}
+                  {slide.videoName === "we-are-with-earth" && (
+                    <ReactPlayer
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                      }}
+                      width={null} // override
+                      height={null} // override
+                      url={slide.videoURI}
+                      controls={true}
+                      playing={sectionNo === 8 ? true : false}
+                    />
+                  )}
                   </div>
                 )}
               </div>
