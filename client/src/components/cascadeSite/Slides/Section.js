@@ -48,16 +48,15 @@ const Section = ({
               />
               {slide.videoURI && (
                 <div>
-                  {/* {console.log("section ref", sectionRef)} */}
                   <ReactPlayer
-                    // className="video-player"
-                    // style={{ maxWidth: "100%", width: "none", height: "none" }}
+                    style={{
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                    }}
+                    width={null} // override
+                    height={null} // override
                     url={slide.videoURI}
-                    // playing
-                    // playing={false}
                     controls={true}
-                    // playIcon={true}
-                    // light={true}
                   />
                 </div>
               )}

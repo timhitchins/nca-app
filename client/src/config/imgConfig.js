@@ -28,7 +28,7 @@ export const imageConfig = [
     body:
       "<strong>Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.</strong>",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost_new.png",
     innerAltText: "An infographic of construction stats",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/OurAir_11.6.19.mp4",
@@ -41,7 +41,7 @@ export const imageConfig = [
     body:
       "In areas with higher diesel vehicle traffic, like near freight corridors, rail yards, or construction sites, levels of diesel pollution are over 10 times Oregon health standards for healthy air.<br><br><strong>Off-road equipment, primarily construction equipment, is responsible for 65 percent of diesel particulate matter in the Portland area.</strong><br><br>Off-road equipment is what we call the heavy construction vehicles such as excavators, wheel loaders, articulated and rigid dump trucks.",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Eighty_five_percent.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Eighty_five_percent_new.png",
     innerAltText: "An infographic of construction stats",
   },
   {
@@ -74,7 +74,7 @@ export const imageConfig = [
     body:
       "Studies have shown that women exposed to high levels of air pollution in their third trimester were twice as likely to deliver children with autism.<br><br>Increasing evidence shows that air pollution affects a child’s brain development, lowering test scores and increasing of ADHD, ADD as well as impulse control.<br><br>Research into the effects of air pollution among the elderly suggest that it can raise the risk of strokes,  Parkinson’s disease, and Alzheimer’s disease.",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Age_effects.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Age_effects_new.png",
     innerAltText:
       "An illustration of people of all ages and abilities inhaling air pollution",
   },

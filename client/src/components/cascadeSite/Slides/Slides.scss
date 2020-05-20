@@ -74,6 +74,10 @@
   max-height: 100%;
 }
 
+// .content {
+//   border: 2px solid $ui-black;
+// }
+
 @media (min-width: $desktop) {
   .content {
     font-size: $font-size-large;
@@ -115,6 +119,10 @@
     img {
       display: none;
     }
+  }
+
+  @media (max-width: $mobile) {
+    margin: 0 0.8rem;
   }
 }
 
@@ -162,13 +170,12 @@
     }
   }
 
-  @media (max-width:$desktop) {
+  @media (max-width: $desktop) {
     img {
       // max-width: 70%;
       margin: 0 auto;
     }
   }
-
 
   @media (min-width: $desktop) {
     //$desktop
@@ -201,8 +208,11 @@
     grid-template-columns: 1fr 1fr;
     max-width: 1200px;
   }
+}
 
-  @media screen {
+.single-video {
+  @media (min-width: $desktop) {
+    grid-template-columns: 1fr;
   }
 }
 
