@@ -92,24 +92,34 @@ class Section extends Component {
             )}
           </div>
         </div>
-        {sectionNo < MAX_SECTION_NO && (
-          <div
-            className="scroll-down"
-            onClick={() => {
-              if (sectionNo < MAX_SECTION_NO) {
-                scrollToContent(sectionNo + 1);
-                this.props.dispatch(
-                  handleSetContentAction(
-                    sectionNo + 1,
-                    imageConfig[sectionNo + 1]
-                  )
-                );
-              }
-            }}
-          >
-            &#x2913; Scroll down to continue
+        <div className="bottom-container">
+          {sectionNo < MAX_SECTION_NO ? (
+            <div
+              className="scroll-down"
+              onClick={() => {
+                if (sectionNo < MAX_SECTION_NO) {
+                  scrollToContent(sectionNo + 1);
+                  this.props.dispatch(
+                    handleSetContentAction(
+                      sectionNo + 1,
+                      imageConfig[sectionNo + 1]
+                    )
+                  );
+                }
+              }}
+            >
+              &#x2913; Scroll down to continue
+            </div>
+          ) : (
+            <div></div>
+          )}
+          <div className="nca-logo">
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black_for_dark_bkgrd.png"
+              alt="NCA logo"
+            ></img>
           </div>
-        )}
+        </div>
       </section>
     );
   }

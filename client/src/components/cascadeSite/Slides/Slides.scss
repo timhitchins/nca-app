@@ -220,14 +220,20 @@
   }
 }
 
+/* ----- bottom container style ----- */
+
+.bottom-container {
+  position: relative;
+  margin: 0 1rem;
+  bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* ----- scroll button style ----- */
 .scroll-down {
-  // display: inline;
-  position: relative;
   color: rgba(255, 255, 255, 0.7);
-  max-width: 100%;
-  bottom: 60px;
-  margin: 0 2rem;
   font-size: 1.4rem;
   z-index: 3;
   cursor: pointer;
@@ -237,11 +243,14 @@
   color: rgba(255, 255, 255, 1);
 }
 
-@media (max-width: $mobile) {
-  // .scroll-down {
-  //   // bottom: 150px;
-  // }
+/* ----- Bottom right corner logo style----- */
+.nca-logo {
+  max-width: 100px;
+  // position: relative;
+  // bottom: 60px;
+  // right: 20px;
 }
+
 ///////////TESITNG
 ///////////////////////////////////////////@extend
 // .bg-enter {
