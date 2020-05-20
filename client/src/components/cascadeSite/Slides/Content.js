@@ -4,12 +4,12 @@ import { handleSetContentAction } from "../../../actions/slides";
 import { calculateSectionScrollTo } from "../../../utils/generalUtils";
 import Section from "./Section";
 import { throttle, debounce } from "lodash";
-import { imageConfig } from "../../../config/imgConfig";
+import {
+  MIN_SECTION_NO,
+  MAX_SECTION_NO,
+  imageConfig,
+} from "../../../config/config";
 import "./Slides.scss";
-
-//constants
-const MAX_SECTION_NO = 12;
-const MIN_SECTION_NO = 0;
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {

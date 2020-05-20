@@ -11,7 +11,7 @@ import {
   SET_SCROLL_TOGGLE,
 } from "../actions/slides";
 
-import { imageConfig } from "../config/imgConfig";
+import { imageConfig } from "../config/config";
 
 const initialSlideState = {
   isVisible: true,

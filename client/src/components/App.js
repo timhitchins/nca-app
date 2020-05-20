@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 // import queryString from "query-string";
 import { handleSetContentAction } from "./../actions/slides";
 import { setDocHeightOnWindow } from "./../utils/mobileHelper";
-import { imageConfig } from "./../config/imgConfig";
+// import { imageConfig } from "../config/config";
 import Navbar from "./cascadeSite/Navbar/Navbar";
 import SlidesContainer from "./cascadeSite/Slides/SlidesContainer";
 import MapContainer from "./map/Map/MapContainer";
@@ -15,12 +15,6 @@ class App extends Component {
   componentDidMount() {
     //set window height for mobile
     setDocHeightOnWindow();
-
-    //set the scroll to the top
-    // document
-    //   .querySelector(".content-container")
-    //   .scrollTo({ top: 0, left: 0, behavior: "auto" });
-    // this.props.dispatch(handleSetContentAction(0, imageConfig[0]));
 
     //redirect if pathname = "/"
     if (window.location.pathname === "/") {

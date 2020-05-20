@@ -9,7 +9,7 @@ import {
   createSectionRefAction,
   handleSetContentAction,
 } from "../../../actions/slides";
-import { imageConfig } from "../../../config/imgConfig";
+import { MAX_SECTION_NO, imageConfig } from "../../../config/config";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -45,32 +45,32 @@ class Section extends Component {
                 />
                 {slide.videoURI && (
                   <div>
-                  {slide.videoName === "our-air" && (
-                    <ReactPlayer
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
-                      width={null} // override
-                      height={null} // override
-                      url={slide.videoURI}
-                      controls={true}
-                      playing={sectionNo === 2 ? true : false}
-                    />
-                  )}
-                  {slide.videoName === "we-are-with-earth" && (
-                    <ReactPlayer
-                      style={{
-                        maxWidth: "100%",
-                        maxHeight: "100%",
-                      }}
-                      width={null} // override
-                      height={null} // override
-                      url={slide.videoURI}
-                      controls={true}
-                      playing={sectionNo === 8 ? true : false}
-                    />
-                  )}
+                    {slide.videoName === "our-air" && (
+                      <ReactPlayer
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                        }}
+                        width={null} // override
+                        height={null} // override
+                        url={slide.videoURI}
+                        controls={true}
+                        playing={sectionNo === 2 ? true : false}
+                      />
+                    )}
+                    {slide.videoName === "we-are-with-earth" && (
+                      <ReactPlayer
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "100%",
+                        }}
+                        width={null} // override
+                        height={null} // override
+                        url={slide.videoURI}
+                        controls={true}
+                        playing={sectionNo === 8 ? true : false}
+                      />
+                    )}
                   </div>
                 )}
               </div>
@@ -92,11 +92,11 @@ class Section extends Component {
             )}
           </div>
         </div>
-        {sectionNo < 12 && (
+        {sectionNo < MAX_SECTION_NO && (
           <div
             className="scroll-down"
             onClick={() => {
-              if (sectionNo < 14) {
+              if (sectionNo < MAX_SECTION_NO) {
                 scrollToContent(sectionNo + 1);
                 this.props.dispatch(
                   handleSetContentAction(

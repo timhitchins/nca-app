@@ -1,3 +1,9 @@
+//slide constants
+export const MAX_SECTION_NO = 10;
+export const MIN_SECTION_NO = 0;
+
+
+//configuration for the slides
 export const imageConfig = [
   {
     imageURI:
@@ -101,7 +107,7 @@ export const imageConfig = [
     body: "<div></div>",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
-    videoName: "we-are-with-earth",
+    videoName: "we-are-with-earth", 
   },
   {
     imageURI:
@@ -122,18 +128,20 @@ export const imageConfig = [
     body:
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
   },
-  {
-    imageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png", //white background instead for "the tool"
-    altText: "white background",
-    heading: "explore pollution in your area",
-    body:
-      "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>",
-  },
-  {
-    videoURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction+video.mp4", //white background instead for "take action"
-    altText: null,
-    heading: "take action",
-  },
 ];
+
+
+// {
+//   imageURI:
+//     "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png", //white background instead for "the tool"
+//   altText: "white background",
+//   heading: "explore pollution in your area",
+//   body:
+//     "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>",
+// },
+// {
+//   videoURI:
+//     "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction+video.mp4", //white background instead for "take action"
+//   altText: null,
+//   heading: "take action",
+// },

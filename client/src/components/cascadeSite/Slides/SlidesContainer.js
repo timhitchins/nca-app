@@ -6,7 +6,7 @@ import {
 } from "../../../actions/slides";
 import SlideBackground from "./SlideBackground";
 import AllContent from "./Content";
-import { imageConfig } from "./../../../config/imgConfig";
+import { imageConfig } from "../../../config/config";
 import "./Slides.scss";
 
 class SildesContainer extends Component {
