@@ -211,6 +211,9 @@ class AllContent extends Component {
             case 10:
               className = "one-col";
               break;
+            case 1:
+              className = "two-col border-image";
+              break;
             case 8:
               className = "two-col single-video";
               break;
