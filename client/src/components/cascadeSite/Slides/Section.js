@@ -55,7 +55,7 @@ class Section extends Component {
                         height={null} // override
                         url={slide.videoURI}
                         controls={true}
-                        playing={sectionNo === 2 ? true : false}
+                        playing={sectionNo === 3 ? true : false}
                       />
                     )}
                     {slide.videoName === "we-are-with-earth" && (
@@ -68,7 +68,7 @@ class Section extends Component {
                         height={null} // override
                         url={slide.videoURI}
                         controls={true}
-                        playing={sectionNo === 8 ? true : false}
+                        playing={sectionNo === 9 ? true : false}
                       />
                     )}
                   </div>

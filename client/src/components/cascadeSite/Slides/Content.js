@@ -207,17 +207,17 @@ class AllContent extends Component {
           let className = "two-col";
           switch (i) {
             case 0:
-            case 7:
-            case 10:
+            case 8:
+            case 11:
               className = "one-col";
               break;
             case 1:
               className = "two-col border-image";
               break;
-            case 8:
+            case 9:
               className = "two-col single-video";
               break;
-            case 9:
+            case 10:
               className = "two-col-compare-images";
               break;
             default:

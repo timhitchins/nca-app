@@ -1,5 +1,5 @@
 //slide constants
-export const MAX_SECTION_NO = 10;
+export const MAX_SECTION_NO = 11;
 export const MIN_SECTION_NO = 0;
 
 
@@ -25,6 +25,14 @@ export const imageConfig = [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_PM2.5.png",
     body:
       "Fine particulate matter, sometimes called <strong>PM2.5 or PM10</strong>, are tiny particles in the air that can cause health issues in humans if levels are high.<br><br><strong>Diesel engines are some of the worst emitters of fine particulate matter.</strong> Vehicles with diesel engines can be running in our neighborhoods, near our homes, schools, and places we work. They are especially prevalent around construction sites.",
+  },
+  {
+    imageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
+    altText: "construction site",
+    heading: "Diesel engines are a primary source of pollution",
+    innerImageURI:
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Emissions_graph.png",
   },
   {
     imageURI:
