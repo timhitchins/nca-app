@@ -12,102 +12,183 @@ import {
 import { imageConfig } from "../../../config/imgConfig";
 import "./Slides.scss";
 
-const Section = ({
-  slide,
-  children,
-  dispatch,
-  className,
-  scrollToContent,
-  index,
-}) => {
-  const [count] = useState(index);
-  const sectionRef = useRef(null);
-  //is visible hook testing
-  const visible = useIsVisible({ element: sectionRef });
+class Section extends Component {
+  sectionRef = React.createRef();
 
-  useEffect(() => {
-    // console.log(sectionRef.current.offsetTop);
-    //create the array in the store that includes these refs for scrolling
-    dispatch(createSectionRefAction(sectionRef));
-  }, [dispatch]);
-  return (
-    <section className="content-section" ref={sectionRef}>
-      <div className="container">
-        {/* <div>Section in view: {visible !== null && visible.toString()}</div> */}
-        {slide.heading && (
-          <h1>
-            <span>{slide.heading}</span>
-          </h1>
+  componentDidMount() {
+    this.props.dispatch(createSectionRefAction(this.sectionRef));
+  }
+
+  render() {
+    const { sectionNo } = this.props.slides;
+    const { className, slide, scrollToContent } = this.props;
+    return (
+      <section className="content-section" ref={this.sectionRef}>
+        <div className="container">
+          {slide.heading && (
+            <h1>
+              <span>{slide.heading}</span>
+            </h1>
+          )}
+          <div className={className}>
+            {slide.body && (
+              <div>
+                <div
+                  className="content"
+                  dangerouslySetInnerHTML={{ __html: slide.body }}
+                />
+                {slide.videoURI && (
+                  <div>
+                    <ReactPlayer
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                      }}
+                      width={null} // override
+                      height={null} // override
+                      url={slide.videoURI}
+                      controls={true}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+            {slide.innerImageURI && (
+              <img
+                className="inner-image"
+                src={slide.innerImageURI}
+                alt={slide.innerAltText}
+              ></img>
+            )}
+            {slide.compareImageURIs && (
+              <div className="compare-image-container">
+                <ReactCompareImage
+                  leftImage={slide.compareImageURIs[0]}
+                  rightImage={slide.compareImageURIs[1]}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+        {sectionNo < 12 && (
+          <div
+            className="scroll-down"
+            onClick={() => {
+              if (sectionNo < 14) {
+                scrollToContent(sectionNo + 1);
+                this.props.dispatch(
+                  handleSetContentAction(
+                    sectionNo + 1,
+                    imageConfig[sectionNo + 1]
+                  )
+                );
+              }
+            }}
+          >
+            &#x2913; Scroll down to continue
+          </div>
         )}
-        <div className={className}>
-          {slide.body && (
-            <div>
-              <div
-                className="content"
-                dangerouslySetInnerHTML={{ __html: slide.body }}
-              />
-              {slide.videoURI && (
-                <div>
-                  <ReactPlayer
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                    }}
-                    width={null} // override
-                    height={null} // override
-                    url={slide.videoURI}
-                    controls={true}
-                  />
-                </div>
-              )}
-            </div>
-          )}
-          {slide.innerImageURI && (
-            <img
-              className="inner-image"
-              src={slide.innerImageURI}
-              alt={slide.innerAltText}
-            ></img>
-          )}
-          {slide.compareImageURIs && (
-            <div className="compare-image-container">
-              <ReactCompareImage
-                leftImage={slide.compareImageURIs[0]}
-                rightImage={slide.compareImageURIs[1]}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-      {count < 12 && (
-        <div
-          className="scroll-down"
-          onClick={() => {
-            if (count < 14) {
-              scrollToContent(count + 1);
-              dispatch(
-                handleSetContentAction(count + 1, imageConfig[count + 1])
-              );
-            }
-          }}
-        >
-          &#x2913; Scroll down to continue
-        </div>
-      )}
-    </section>
-  );
-};
-
-Section.propTypes = {
-  slide: PropTypes.object.isRequired,
-  className: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
-};
+      </section>
+    );
+  }
+}
 
 function mapStateToProps({ slides }) {
   return { slides };
 }
 export default connect(mapStateToProps)(Section);
+
+// const Section = ({
+//   slide,
+//   children,
+//   dispatch,
+//   className,
+//   scrollToContent,
+//   index,
+// }) => {
+//   const [count] = useState(index);
+//   const sectionRef = useRef(null);
+//   //is visible hook testing
+//   const visible = useIsVisible({ element: sectionRef });
+
+//   useEffect(() => {
+//     // console.log(sectionRef.current.offsetTop);
+//     //create the array in the store that includes these refs for scrolling
+//     dispatch(createSectionRefAction(sectionRef));
+//   }, [dispatch]);
+//   return (
+//     <section className="content-section" ref={sectionRef}>
+//       <div className="container">
+//         {/* <div>Section in view: {visible !== null && visible.toString()}</div> */}
+//         {slide.heading && (
+//           <h1>
+//             <span>{slide.heading}</span>
+//           </h1>
+//         )}
+//         <div className={className}>
+//           {slide.body && (
+//             <div>
+//               <div
+//                 className="content"
+//                 dangerouslySetInnerHTML={{ __html: slide.body }}
+//               />
+//               {slide.videoURI && (
+//                 <div>
+//                   <ReactPlayer
+//                     style={{
+//                       maxWidth: "100%",
+//                       maxHeight: "100%",
+//                     }}
+//                     width={null} // override
+//                     height={null} // override
+//                     url={slide.videoURI}
+//                     controls={true}
+//                   />
+//                 </div>
+//               )}
+//             </div>
+//           )}
+//           {slide.innerImageURI && (
+//             <img
+//               className="inner-image"
+//               src={slide.innerImageURI}
+//               alt={slide.innerAltText}
+//             ></img>
+//           )}
+//           {slide.compareImageURIs && (
+//             <div className="compare-image-container">
+//               <ReactCompareImage
+//                 leftImage={slide.compareImageURIs[0]}
+//                 rightImage={slide.compareImageURIs[1]}
+//               />
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//       {count < 12 && (
+//         <div
+//           className="scroll-down"
+//           onClick={() => {
+//             if (count < 14) {
+//               scrollToContent(count + 1);
+//               dispatch(
+//                 handleSetContentAction(count + 1, imageConfig[count + 1])
+//               );
+//             }
+//           }}
+//         >
+//           &#x2913; Scroll down to continue
+//         </div>
+//       )}
+//     </section>
+//   );
+// };
+
+// Section.propTypes = {
+//   slide: PropTypes.object.isRequired,
+//   className: PropTypes.string.isRequired,
+//   index: PropTypes.number.isRequired,
+// };
 
 /////TESTING BELOW
 // Section.propTypes = {

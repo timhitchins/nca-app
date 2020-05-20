@@ -228,7 +228,6 @@ class AllContent extends Component {
               className={className}
               scrollToContent={this._scrollToContent}
               index={i}
-              dispatch={this.props.dispatch}
             />
           );
         })}
