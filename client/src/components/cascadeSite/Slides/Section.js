@@ -98,8 +98,8 @@ class Section extends Component {
             )}
           </div>
         </div>
-        <div className="bottom-container">
-          {sectionNo < MAX_SECTION_NO ? (
+        {sectionNo < MAX_SECTION_NO ? (
+          <div className="bottom-container">
             <div
               className="scroll-down"
               onClick={() => {
@@ -116,16 +116,15 @@ class Section extends Component {
             >
               &#x2913; Scroll down to continue
             </div>
-          ) : (
-            <div></div>
-          )}
-          <div className="nca-logo">
-            <img
-              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black_for_dark_bkgrd.png"
-              alt="NCA logo"
-            ></img>
+
+            <div className="nca-logo">
+              <img
+                src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black_for_dark_bkgrd.png"
+                alt="NCA logo"
+              ></img>
+            </div>
           </div>
-        </div>
+        ) : null}
       </section>
     );
   }
