@@ -39,7 +39,7 @@ export const imageConfig = [
     altText: "construction site",
     heading: "Diesel engines are a primary source of pollution",
     body:
-      "<strong>Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.</strong>",
+      "Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.",
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost_new.png",
     innerAltText: "An infographic of construction stats",
@@ -155,6 +155,7 @@ export const imageConfig = [
     heading: "we need a statewide clean standard",
     body:
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
+    footer: true,
   },
 ];
 

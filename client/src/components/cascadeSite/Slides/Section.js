@@ -83,7 +83,7 @@ class Section extends Component {
               ></img>
             )}
             {slide.details && (
-              <details>
+              <details open>
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
               </details>
@@ -125,6 +125,11 @@ class Section extends Component {
             </div>
           </div>
         ) : null}
+        {slide.footer && (
+          <footer className="footer">
+            <div>asfdkjsaldfkjsldfkjslfjslfjsldkfj</div>
+          </footer>
+        )}
       </section>
     );
   }
