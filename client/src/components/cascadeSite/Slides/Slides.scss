@@ -61,9 +61,8 @@
   z-index: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;
-
-  //adds
-  // overflow-x: hidden;
+  //
+  width: 100%;
 }
 
 /* ----- Content section ----- */
@@ -72,6 +71,8 @@
   padding: 0;
   height: 100%;
   max-height: 100%;
+  //
+  width: 100%;
 }
 
 @media (min-width: $desktop) {
@@ -92,7 +93,7 @@
   flex-direction: column;
 
   h1 {
-    line-height: 1.2;
+    line-height: 1.4;
     margin-left: 0.75rem;
     text-transform: uppercase;
     max-width: 1000px;
@@ -107,7 +108,7 @@
     opacity: 1;
   }
 
-  @media (max-width: $mobile-small) {
+  @media (max-width: $desktop) {
     h1 {
       font-size: 1.5rem;
     }
@@ -115,6 +116,13 @@
     img {
       display: none;
     }
+  }
+}
+
+@media (max-width: $mobile) {
+  .container {
+    margin: 0 auto;
+    width: 98%;
   }
 }
 
@@ -140,8 +148,20 @@
     line-height: 1.6;
   }
   li {
-    margin: 1px;
+    margin: 2px;
     list-style-type: none;
+  }
+}
+
+.pie-chart {
+  img {
+    display: block;
+  }
+}
+
+@media(max-width: $mobile){
+  .font-adjust > div > .content {
+    font-size: $font-size-small
   }
 }
 
@@ -162,13 +182,12 @@
     }
   }
 
-  @media (max-width:$desktop) {
+  @media (max-width: $desktop) {
     img {
-      max-width: 70%;
+      // max-width: 70%;
       margin: 0 auto;
     }
   }
-
 
   @media (min-width: $desktop) {
     //$desktop
@@ -185,48 +204,92 @@
   width: fit-content;
   background-color: $ui-transparent-white;
   padding: 1rem 1rem;
-  margin: 1rem 0 0 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
   div {
     margin-right: 5px;
-    // background-color: $ui-transparent-white;
+    font-size: $font-size-small;
+    line-height: 1.4;
+  }
+
+  @media (max-width: $mobile) {
     div {
-      // background-color: $ui-transparent-white;
-      // padding: 0.5rem;
+      font-size: $font-size-smallest;
+    }
+    details {
+      margin-bottom: 10px;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    details {
+      margin-bottom: 10px;
     }
   }
 
   @media (min-width: $desktop) {
     //$desktop
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 1200px;
+    grid-template-columns: 350px 1fr;
+    details {
+      z-index: 4;
+    }
+  }
+}
+
+/* ----- single video style ----- */
+.single-video {
+  div > .content {
+    display: none;
   }
 
-  @media screen {
+  @media (min-width: $desktop) {
+    grid-template-columns: 1fr;
   }
+}
+
+.border-image {
+  img {
+    border: 2px solid $ui-black;
+  }
+}
+
+/* ----- bottom container style ----- */
+
+.bottom-container {
+  position: relative;
+  margin: 0 1rem;
+  bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ----- scroll button style ----- */
 .scroll-down {
-  // display: inline;
-  position: relative;
   color: rgba(255, 255, 255, 0.7);
-  max-width: 100%;
-  bottom: 60px;
-  margin: 0 2rem;
-  font-size: 1.4rem;
+  font-size: $font-size-large;
   z-index: 3;
+  cursor: pointer;
+
+  @media (max-width: $mobile) {
+    font-size: $font-size-base;
+  }
 }
 
 .scroll-down:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-@media (max-width: $mobile) {
-  .scroll-down {
-    // bottom: 150px;
-  }
+/* ----- Bottom right corner logo style----- */
+.nca-logo {
+  max-width: 100px;
+  // position: relative;
+  // bottom: 60px;
+  // right: 20px;
 }
+
 ///////////TESITNG
 ///////////////////////////////////////////@extend
 // .bg-enter {

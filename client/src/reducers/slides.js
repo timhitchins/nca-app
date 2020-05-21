@@ -11,11 +11,10 @@ import {
   SET_SCROLL_TOGGLE,
 } from "../actions/slides";
 
-import { imageConfig } from "../config/imgConfig";
+import { imageConfig } from "../config/config";
 
 const initialSlideState = {
   isVisible: true,
-  // currentImage: imageConfig[0],
   sectionRef: [],
   sectionNo: 0,
   bgImage: imageConfig[0],
@@ -29,10 +28,10 @@ export default function slides(state = initialSlideState, action) {
   switch (action.type) {
     case TOGGLE_IMAGE_OPACITY:
       return { ...state, ...action.payload };
-    // case TOGGLE_CURRENT_IMAGE:
-    //   return { ...state, ...action.payload };
     case CREATE_SECTION_REF:
-      const refList = [...state.sectionRef, ...action.payload];
+      const refList = [...state.sectionRef, ...action.payload].filter(
+        (ref) => ref.current !== null
+      );
       return { ...state, ...{ sectionRef: refList } };
     case SET_SCROLL_POSITION:
       return { ...state, ...action.payload };

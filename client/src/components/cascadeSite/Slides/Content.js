@@ -4,12 +4,12 @@ import { handleSetContentAction } from "../../../actions/slides";
 import { calculateSectionScrollTo } from "../../../utils/generalUtils";
 import Section from "./Section";
 import { throttle, debounce } from "lodash";
-import { imageConfig } from "../../../config/imgConfig";
+import {
+  MIN_SECTION_NO,
+  MAX_SECTION_NO,
+  imageConfig,
+} from "../../../config/config";
 import "./Slides.scss";
-
-//constants
-const MAX_SECTION_NO = 12;
-const MIN_SECTION_NO = 0;
 
 //will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
@@ -35,7 +35,6 @@ class AllContent extends Component {
   _handleScroll = (e) => {
     const { sectionRef } = this.props.slides;
     const { scrollTop } = e.target;
-
     // const breaks = sectionRef.map((section) => section.current.offsetTop);
 
     const section = calculateSectionScrollTo(sectionRef, scrollTop + 1); // addind to deal with discrepanciesu
@@ -150,13 +149,12 @@ class AllContent extends Component {
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.prevWheelScroll = this.contentRef.current.scrollTop - 1;
 
-    //annoying hacks to deal with touch move passive events
-    //woulle like to be able to move this to a react synthetic event
-    const container = document.querySelector(".content-container");
-
     //focus the container for the keyboard
+    const container = document.querySelector(".content-container");
     container.focus();
 
+    //annoying hacks to deal with touch move passive events
+    //woulle like to be able to move this to a react synthetic event
     container.addEventListener(
       "touchmove",
       (e) => {
@@ -205,14 +203,26 @@ class AllContent extends Component {
         }}
       >
         {imageConfig.map((slide, i) => {
+          //this switch programmatically assigns classnames to each slide
           let className = "two-col";
           switch (i) {
             case 0:
-            case 7:
-            case 10:
+            case 11:
               className = "one-col";
               break;
+            case 1:
+              className = "two-col border-image";
+              break;
+            case 2:
+              className = "one-col pie-chart";
+              break;
+            case 8:
+              className = "one-col font-adjust";
+              break;
             case 9:
+              className = "two-col single-video";
+              break;
+            case 10:
               className = "two-col-compare-images";
               break;
             default:
@@ -226,7 +236,6 @@ class AllContent extends Component {
               className={className}
               scrollToContent={this._scrollToContent}
               index={i}
-              dispatch={this.props.dispatch}
             />
           );
         })}

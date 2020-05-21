@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 import PropTypes from "prop-types";
 import { toggleImageOpacityAction } from "../../../actions/slides";
-import { imageConfig } from "../../../config/imgConfig";
+import { imageConfig } from "../../../config/config";
 import "./Slides.scss";
 
 class SlideBackground extends Component {
