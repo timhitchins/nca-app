@@ -142,7 +142,8 @@ export const imageConfig = [
      and Multnomah County co-funded an air quality feasibility study to perform an in-depth assessment 
      of various strategies actionable by local government to address Portland metro’s air quality issues. 
      A top recommended action in the study was to implement diesel engine specifications for public 
-     construction projects.</p>`,
+     construction projects.</p>
+     <p>The images below show the difference in air quality between regulated and unregulated diesel emissions.</p>`,
     compareImageURIs: [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",

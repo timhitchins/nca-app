@@ -149,13 +149,12 @@ class AllContent extends Component {
     this.prevTouchScroll = this.contentRef.current.scrollTop - 1;
     this.prevWheelScroll = this.contentRef.current.scrollTop - 1;
 
-    //annoying hacks to deal with touch move passive events
-    //woulle like to be able to move this to a react synthetic event
-    const container = document.querySelector(".content-container");
-
     //focus the container for the keyboard
+    const container = document.querySelector(".content-container");
     container.focus();
 
+    //annoying hacks to deal with touch move passive events
+    //woulle like to be able to move this to a react synthetic event
     container.addEventListener(
       "touchmove",
       (e) => {
@@ -204,15 +203,21 @@ class AllContent extends Component {
         }}
       >
         {imageConfig.map((slide, i) => {
+          //this switch programmatically assigns classnames to each slide
           let className = "two-col";
           switch (i) {
             case 0:
-            case 8:
             case 11:
               className = "one-col";
               break;
             case 1:
               className = "two-col border-image";
+              break;
+            case 2:
+              className = "one-col pie-chart";
+              break;
+            case 8:
+              className = "one-col font-adjust";
               break;
             case 9:
               className = "two-col single-video";

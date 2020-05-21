@@ -153,6 +153,18 @@
   }
 }
 
+.pie-chart {
+  img {
+    display: block;
+  }
+}
+
+@media(max-width: $mobile){
+  .font-adjust > div > .content {
+    font-size: $font-size-small
+  }
+}
+
 /* ----- two column slide style ----- */
 .two-col {
   display: flex;
@@ -206,13 +218,13 @@
       font-size: $font-size-smallest;
     }
     details {
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
   }
 
   @media (max-width: $mobile) {
     details {
-      margin-bottom: 10px
+      margin-bottom: 10px;
     }
   }
 
