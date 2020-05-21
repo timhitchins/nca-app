@@ -83,7 +83,8 @@ class Section extends Component {
               ></img>
             )}
             {slide.details && (
-              <details open>
+              <details 
+              open={window.matchMedia('(min-width: 600px)').matches}>
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
               </details>
