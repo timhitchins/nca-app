@@ -61,6 +61,8 @@
   z-index: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;
+  //
+  width: 100%;
 }
 
 /* ----- Content section ----- */
@@ -69,6 +71,8 @@
   padding: 0;
   height: 100%;
   max-height: 100%;
+  //
+  width: 100%;
 }
 
 @media (min-width: $desktop) {
@@ -113,9 +117,12 @@
       display: none;
     }
   }
+}
 
-  @media (max-width: $mobile) {
-    margin: 0 0.8rem;
+@media (max-width: $mobile) {
+  .container {
+    margin: 0 auto;
+    width: 98%;
   }
 }
 
@@ -185,21 +192,37 @@
   width: fit-content;
   background-color: $ui-transparent-white;
   padding: 1rem 1rem;
-  margin: 1rem 0 0 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
   div {
     margin-right: 5px;
-    // background-color: $ui-transparent-white;
-    // div {
-    //   // background-color: $ui-transparent-white;
-    //   // padding: 0.5rem;
-    // }
+    font-size: $font-size-small;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 400px) {
+    div {
+      font-size: $font-size-smallest;
+    }
+    details {
+      margin-bottom: 10px
+    }
+  }
+
+  @media (max-width: $mobile) {
+    details {
+      margin-bottom: 10px
+    }
   }
 
   @media (min-width: $desktop) {
     //$desktop
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    max-width: 1200px;
+    grid-template-columns: 350px 1fr;
+    details {
+      z-index: 4;
+    }
   }
 }
 
@@ -234,9 +257,13 @@
 /* ----- scroll button style ----- */
 .scroll-down {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.4rem;
+  font-size: $font-size-large;
   z-index: 3;
   cursor: pointer;
+
+  @media (max-width: $mobile) {
+    font-size: $font-size-base;
+  }
 }
 
 .scroll-down:hover {

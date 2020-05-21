@@ -82,6 +82,12 @@ class Section extends Component {
                 alt={slide.innerAltText}
               ></img>
             )}
+            {slide.details && (
+              <details>
+                <summary>{slide.summary}</summary>
+                <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
+              </details>
+            )}
             {slide.compareImageURIs && (
               <div className="compare-image-container">
                 <ReactCompareImage

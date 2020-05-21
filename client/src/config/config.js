@@ -2,7 +2,6 @@
 export const MAX_SECTION_NO = 11;
 export const MIN_SECTION_NO = 0;
 
-
 //configuration for the slides
 export const imageConfig = [
   {
@@ -115,15 +114,35 @@ export const imageConfig = [
     body: "<div></div>",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
-    videoName: "we-are-with-earth", 
+    videoName: "we-are-with-earth",
   },
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png",
     altText: "white-background",
     heading: "we need a statewide clean standard",
-    body: `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sed dictum justo, et ornare urna. Nullam sagittis aliquam quam, non efficitur augue convallis in. Suspendisse in tellus libero. Integer commodo vehicula turpis ac ullamcorper. Cras placerat egestas iaculis. Duis risus justo, efficitur nec lacus vitae, maximus pulvinar est</p>`,
+    summary: `About these images`,
+    // details: `<p>In 2018 the <a href="https://www.portlandoregon.gov/brfs/79317">Clean Air Construction Collaborative<a/> did a study to better understand
+    // clean diesel construction procurement standards and determine best practices. This research
+    // informed development of the Clean Air Construction Standard. In addition, the City of Portland
+    // and Multnomah County co-funded an air quality feasibility study to perform an in-depth assessment
+    // of various strategies actionable by local government to address Portland metro’s air quality issues.
+    // A top recommended action in the study was to implement diesel engine specifications for public
+    // construction projects.</p>
+    // <p>There has been significant public pressure on government entities to take action to improve
+    // local air quality. Community organizations such as Oregon Environmental Council Neighbors for
+    // Clean Air and Portland Neighbors for Diesel Action are supportive of local governments taking
+    // leadership on this issue, although they strongly advocate for an accelerated timeline for
+    // implementation.</p>
+    // <p>The images below show the difference in air quality between regulated and unregulated diesel emissions.</p>
+    // `,
+    details: `<p>In 2018 the <a href="https://www.portlandoregon.gov/brfs/79317">Clean Air Construction Collaborative<a/> did a study to better understand 
+     clean diesel construction procurement standards and determine best practices. This research 
+     informed development of the Clean Air Construction Standard. In addition, the City of Portland 
+     and Multnomah County co-funded an air quality feasibility study to perform an in-depth assessment 
+     of various strategies actionable by local government to address Portland metro’s air quality issues. 
+     A top recommended action in the study was to implement diesel engine specifications for public 
+     construction projects.</p>`,
     compareImageURIs: [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
@@ -137,7 +156,6 @@ export const imageConfig = [
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
   },
 ];
-
 
 // {
 //   imageURI:
