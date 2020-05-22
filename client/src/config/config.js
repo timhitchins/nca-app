@@ -22,7 +22,8 @@ export const imageConfig = [
     heading: "Diesel engines are a primary source of pollution",
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_w_Trans.png",
-    innerAltText: "A illustration of the impact of diesel particulate on the lungs",
+    innerAltText:
+      "A illustration of the impact of diesel particulate on the lungs",
     body:
       "Fine particulate matter, sometimes called <strong>PM2.5 or PM10</strong>, are tiny particles in the air that can cause health issues in humans if levels are high.<br><br><strong>Diesel engines are some of the worst emitters of fine particulate matter.</strong> Vehicles with diesel engines can be running in our neighborhoods, near our homes, schools, and places we work. They are especially prevalent around construction sites.",
   },
@@ -33,7 +34,7 @@ export const imageConfig = [
     heading: "Diesel engines are a primary source of pollution",
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Emissions_graph.png",
-      innerAltText: "An illustration of Portland Metro emission sources"
+    innerAltText: "An illustration of Portland Metro emission sources",
   },
   {
     imageURI:
@@ -157,6 +158,7 @@ export const imageConfig = [
     heading: "we need a statewide clean standard",
     body:
       "<p>Only 7 pollutants are federally regulated, however there are more than 180 toxic air pollutants that are not well regulated.<p>",
+    takeAction: true,
     footer: true,
   },
 ];

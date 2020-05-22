@@ -96,6 +96,19 @@ class Section extends Component {
                 />
               </div>
             )}
+            {slide.takeAction && (
+              <div>
+                <div className="take-action">
+                  <div>Take Action</div> <div>&#10148;</div>
+                </div>
+                <div className="to-map">
+                  <div>
+                    See the impacts of contruction sites in your neighborhood
+                  </div>
+                  <div>&#10148;</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {sectionNo < MAX_SECTION_NO ? (
@@ -127,20 +140,28 @@ class Section extends Component {
         ) : null}
         {slide.footer && (
           <footer className="footer">
-          <div>	&copy; 2020 | NEIGHBORS FOR CLEAN AIR</div>
-          <div></div>
-          <div>A project by</div>
-          <div className="nca-logo">
-              <a href="http://www.whatsinourair.org/" target="_blank" rel="noopener noreferrer">
+            <div> &copy; 2020 | NEIGHBORS FOR CLEAN AIR</div>
+            <div></div>
+            <div>A project by</div>
+            <div className="nca-logo">
+              <a
+                href="http://www.whatsinourair.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img
                   src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_only_WHITE.png"
                   alt="NCA logo"
                 ></img>
               </a>
             </div>
-          <div>in partnership with</div>
+            <div>in partnership with</div>
             <div>
-              <a href="https://mappingaction.org/" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://mappingaction.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img
                   src="https://nca-toolkit.s3-us-west-2.amazonaws.com/MAC_Logo_horizontal-02.png"
                   alt="MAC logo"
