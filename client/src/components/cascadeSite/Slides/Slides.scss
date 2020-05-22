@@ -342,6 +342,47 @@ summary {
   }
 }
 
+
+/* ----- Last Slide Buttons ----- */
+.take-action, .to-map {
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: $ui-white;
+  text-transform: uppercase;
+  border: 3px solid $ui-black;
+  border-radius: 5px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+
+  div:last-child {
+    font-size: 30px;
+  }
+}
+
+.take-action {
+  max-width: 120px;
+}
+
+.to-map {
+  max-width: 250px;
+}
+
+.take-action:hover, .to-map:hover {
+  background-color: $ui-black;
+  border: 3px solid $ui-white;
+  color: $ui-white;
+
+  div:last-child {
+    font-size: 30px;
+  }
+}
+
+.take-action:active, .to-map:active{
+  transform: translateY(-2px);
+}
+
 /*----- map styles ----- */
 .map-container {
   position: relative;
