@@ -83,7 +83,7 @@ class Section extends Component {
               ></img>
             )}
             {slide.details && (
-              <details>
+              <details open={window.matchMedia("(min-width: 600px)").matches}>
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
               </details>
@@ -119,12 +119,24 @@ class Section extends Component {
 
             <div className="nca-logo">
               <img
-                src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black_for_dark_bkgrd.png"
+                src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_only_WHITE.png"
                 alt="NCA logo"
               ></img>
             </div>
           </div>
         ) : null}
+        {slide.footer && (
+          <footer className="footer">
+            <div>
+              <a href="https://mappingaction.org/" target="_blank" rel="noopener noreferrer">
+                <img
+                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/MAC_Logo_horizontal-02.png"
+                  alt="MAC logo"
+                ></img>
+              </a>
+            </div>
+          </footer>
+        )}
       </section>
     );
   }
