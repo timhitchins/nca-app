@@ -160,8 +160,7 @@
 }
 
 .inner-image {
-  max-width: 85%;
-  // justify-self: center;
+  max-width: 90%;
 }
 
 summary {
@@ -202,7 +201,7 @@ summary {
     //$desktop
     display: grid;
     grid-template-columns: 1fr 1fr;
-    max-width: 1000px;
+    max-width: 1100px;
     justify-items: center;
     align-items: center;
   }
@@ -217,7 +216,7 @@ summary {
   padding: 1rem 1rem;
   margin: 0 auto;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   div {
     margin-right: 5px;
     font-size: $font-size-small;
@@ -260,21 +259,23 @@ summary {
   }
 }
 
-.border-image {
-  img {
-    border: 2px solid $ui-black;
-  }
-}
+// .border-image {
+//   img {
+//     border: 2px solid $ui-black;
+//   }
+// }
 
 /* ----- bottom container style ----- */
 
 .bottom-container {
   position: relative;
   margin: 0 1rem;
-  bottom: 60px;
+  bottom: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 50px;
+  width: 90%;
 }
 
 /* ----- scroll button style ----- */
@@ -295,7 +296,7 @@ summary {
 
 /* ----- Bottom right corner logo style----- */
 .nca-logo {
-  max-width: 100px;
+  max-width: 40px;
   // position: relative;
   // bottom: 60px;
   // right: 20px;
@@ -304,11 +305,26 @@ summary {
 /* ----- footer  style ----- */
 .footer {
   display: flex;
+  // flex-direction: flex-end;
+  justify-content: flex-end;
+  align-items: center;
   position: relative;
   bottom: 56px;
   background-color: $ui-black;
   height: 56px;
   color: $ui-white;
+  width: 100%;
+  z-index: 6;
+
+  div {
+    padding: 0 10px;
+  }
+
+  div > a > img {
+    max-width: 200px;
+    cursor: pointer;
+    // z-index: 5;
+  }
 }
 
 ///////////TESITNG

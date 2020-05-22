@@ -18,10 +18,11 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+    altText: "An image with of a construction site",
     heading: "Diesel engines are a primary source of pollution",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_PM2.5.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_w_Trans.png",
+    innerAltText: "A illustration of the impact of diesel particulate on the lungs",
     body:
       "Fine particulate matter, sometimes called <strong>PM2.5 or PM10</strong>, are tiny particles in the air that can cause health issues in humans if levels are high.<br><br><strong>Diesel engines are some of the worst emitters of fine particulate matter.</strong> Vehicles with diesel engines can be running in our neighborhoods, near our homes, schools, and places we work. They are especially prevalent around construction sites.",
   },
@@ -32,6 +33,7 @@ export const imageConfig = [
     heading: "Diesel engines are a primary source of pollution",
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Emissions_graph.png",
+      innerAltText: "An illustration of Portland Metro emission sources"
   },
   {
     imageURI:
@@ -41,7 +43,7 @@ export const imageConfig = [
     body:
       "Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost_new.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost_new2.png",
     innerAltText: "An infographic of construction stats",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/OurAir_11.6.19.mp4",
