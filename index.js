@@ -1,11 +1,26 @@
-//express
-import express from "express"; //es6 modules
-// const express = require("express") //common js
-const app = express();
-
-//cors
+// es6 modules
+import express from "express";
+// using common js to avoid deprecation warning
+// see https://github.com/expressjs/morgan/issues/190
+const morgan = require("morgan");
+import helmet from "helmet";
 import cors from "cors";
+import mountRoutes from "./routes";
+
+// rest app
+const app = express();
+//cors
 app.use(cors());
+
+//general security
+app.use(helmet());
+app.disable("x-powered-by");
+
+//logging
+app.use(morgan("combined"));
+
+//mount
+mountRoutes(app);
 
 //production boilerplate
 if (process.env.NODE_ENV === "production") {
@@ -21,9 +36,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.get("/", (req, res) => {
-  res.json({ "bye": "there" });
-});
+// app.get("/", (req, res) => {
+//   res.json({ bye: "there" });
+// });
 
 //heroku dynamic port binding
 const PORT = process.env.PORT || 5000;
