@@ -16,7 +16,7 @@ export function createArcGISGeometry(searchBuffer) {
   return geojsonToArcGIS(searchBuffer);
 }
 
-//create the new
+//create the new PDI DATA
 export function addPDIToFeatures(inData) {
   const pdiDataFeatures = inData.features.map((feature) => {
     let demo, stat, sqFoot, stor;

@@ -1,4 +1,8 @@
-import { createBuffer, createArcGISGeometry, addPDIToFeatures } from "../utils/dataUtils";
+import {
+  createBuffer,
+  createArcGISGeometry,
+  addPDIToFeatures,
+} from "../utils/dataUtils";
 import { fetchPermitData } from "../utils/fetchUtils";
 import Router from "express-promise-router";
 export const router = new Router();
@@ -13,16 +17,18 @@ router.get("/:coords/:radius/:units", async (req, res) => {
   // create the search feature
   const searchBuffer = createBuffer(coords, radius, units);
   const arcGeometryObject = JSON.stringify(createArcGISGeometry(searchBuffer));
+  
   // await the feature service fetch
   //errors return an error message object
   try {
-    const data = await fetchPermitData(arcGeometryObject);
-    const pdiData = addPDIToFeatures(data)
+    //fetch GEoJSON
+    const geoJSON = await fetchPermitData(arcGeometryObject);
+    //generate PDI
+    const pdiGeoJSON = addPDIToFeatures(geoJSON);
 
-    // new data here
-    res.json(pdiData);
+    // respond with pdi data
+    res.json(pdiGeoJSON);
   } catch (err) {
     res.json({ message: err });
   }
-
 });
