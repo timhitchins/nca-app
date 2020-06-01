@@ -25,10 +25,16 @@
   },
   "homepage": "https://github.com/timhitchins/nca-app#readme",
   "dependencies": {
+    "@terraformer/arcgis": "^2.0.7",
+    "@turf/buffer": "^5.1.5",
     "cors": "^2.8.5",
     "esm": "^3.2.25",
     "express": "^4.17.1",
-    "helmet": "^3.21.3"
+    "express-promise-router": "^3.0.3",
+    "helmet": "^3.21.3",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.6.0",
+    "turf-point": "^2.0.1"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

@@ -25,3 +25,8 @@ To run the stack in development after installs, change back the root directory a
 ```
 npm run dev
 ```
+
+The feature service used to generate map data can be found here:
+```
+https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query
+```

@@ -1,0 +1,1 @@
+export const featureServiceURI = "https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/"
