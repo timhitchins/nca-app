@@ -10,6 +10,7 @@ const MAPBOX_TOKEN =
 class NCAMap extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
   };
 
   _onViewportChange = (viewport) => {
@@ -26,8 +27,8 @@ class NCAMap extends Component {
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"
           height="100%"
-        //   minZoom={10}
-        //   maxZoom={18}
+          //   minZoom={10}
+          //   maxZoom={18}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={this._onViewportChange}
           //   onHover={this._onHover}
