@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import NCAMap from "./Map";
 import SidePanel from "./SidePanel";
 import "./Map.scss";
@@ -7,14 +8,16 @@ class MapContainer extends Component {
   render() {
     return (
       <main className="map-container">
-        <NCAMap />
+        <NCAMap {...this.props} />
         <SidePanel />
       </main>
     );
   }
 }
-
-export default MapContainer;
+function mapStateToProps({ mapState }) {
+  return { mapState };
+}
+export default connect(mapStateToProps)(MapContainer);
 
 /* ----- Dev Map Container ----- */
 // class MapContainer extends Component {

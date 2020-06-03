@@ -1,7 +1,14 @@
+/* ----- Map Container styles ----- */
 .map-container {
-  margin-top: 66px;
-  height: calc(100vh - 66px);
+  margin-top: 56px;
+  height: calc(100vh - 56px);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+}
+
+.map {
+  grid-column: 1 / span 3;
+  grid-row: 1 / span 3;
+
 }
