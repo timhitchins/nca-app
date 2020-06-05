@@ -6,10 +6,11 @@ class LoadingIndicator extends Component {
   static propTypes = {
     isLoading: PropTypes.bool.isRequired,
   };
+
   render() {
     const { isLoading } = this.props;
+
     if (isLoading) {
-      console.log(this.props);
       return (
         <div className="loading-container">
           <div className="loader"></div>
