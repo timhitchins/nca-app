@@ -17,8 +17,8 @@ class MapContainer extends Component {
     );
   }
 }
-function mapStateToProps({ mapState, isLoading }) {
-  return { mapState, isLoading };
+function mapStateToProps({ mapState, mapData, isLoading }) {
+  return { mapState, mapData, isLoading };
 }
 export default connect(mapStateToProps)(MapContainer);
 

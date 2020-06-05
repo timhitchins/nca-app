@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { getMapStateAction } from "../../../actions/mapState";
+import {
+  logMarkerDragEvent,
+  onMarkerDragEnd,
+  setMarkerCoords,
+} from "../../../actions/mapData";
 import Pin from "./Pin";
 import "./Map.scss";
 
@@ -9,17 +14,51 @@ const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
 
 class CentralMarker extends Component {
+  static propTypes = {
+    mapData: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
+  _logDragEvent(name, event) {
+    this.props.dispatch(logMarkerDragEvent(name, event));
+  }
+
+  _onMarkerDragStart = (event) => {
+    this._logDragEvent("onDragStart", event);
+  };
+
+  _onMarkerDrag = (event) => {
+    this._logDragEvent("onDrag", event);
+  };
+
+  _onMarkerDragEnd = (event) => {
+    this._logDragEvent("onDragEnd", event);
+    this.props.dispatch(onMarkerDragEnd(event));
+    //change the window url
+
+    //then do stuff with the new coords
+    const [longitude, latitude] = event.lngLat;
+    const { year } = this.props.mapData;
+    const encodedCoords = encodeURI(
+      JSON.stringify({
+        longitude: longitude,
+        latitude: latitude,
+      })
+    );
+  };
+
   render() {
+    const { latitude, longitude } = this.props.mapData.centralMarker;
     return (
       <Marker
-        latitude={45.506243}
-        longitude={-122.608626}
+        latitude={latitude}
+        longitude={longitude}
         offsetTop={-20}
         offsetLeft={-10}
         draggable
-        // onDragStart={this._onMarkerDragStart}
-        // onDrag={this._onMarkerDrag}
-        // onDragEnd={this._onMarkerDragEnd}
+        onDragStart={this._onMarkerDragStart}
+        onDrag={this._onMarkerDrag}
+        onDragEnd={this._onMarkerDragEnd}
       >
         <Pin size={30} />
       </Marker>
@@ -49,6 +88,7 @@ class SiteMarker extends Component {
 class NCAMap extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
+    mapData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -57,6 +97,7 @@ class NCAMap extends Component {
   };
 
   render() {
+    const { latitude, longitude } = this.props.mapData.centralMarker;
     return (
       <section className="map">
         <ReactMapGL
@@ -76,7 +117,7 @@ class NCAMap extends Component {
           //     this._handleMapClick(e);
           //   }}
         >
-          <CentralMarker />
+          {latitude && longitude ? <CentralMarker {...this.props} /> : null}
           <SiteMarker />
         </ReactMapGL>
       </section>
