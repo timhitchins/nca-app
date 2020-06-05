@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NCAMap from "./Map";
 import SidePanel from "./SidePanel";
+import LoadingIndicator from "../Loading/LoadingIndicator";
 import "./Map.scss";
 
 class MapContainer extends Component {
@@ -11,12 +12,13 @@ class MapContainer extends Component {
         <div className="title">NCA Construction Diesel Toolkit</div>
         <NCAMap {...this.props} />
         <SidePanel />
+        <LoadingIndicator {...this.props} />
       </main>
     );
   }
 }
-function mapStateToProps({ mapState }) {
-  return { mapState };
+function mapStateToProps({ mapState, isLoading }) {
+  return { mapState, isLoading };
 }
 export default connect(mapStateToProps)(MapContainer);
 
