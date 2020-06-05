@@ -10,7 +10,6 @@ export const router = new Router();
 // Example URI
 // http://localhost:5000/api/location//%7B%22lon%22:-122.643154,%22lat%22:45.55659%7D/1/miles
 router.get("/:coords/:radius/:units", async (req, res) => {
-  // "/:coords/:radius/:units"
   const coords = JSON.parse(req.params.coords);
   const { radius, units } = req.params;
 
