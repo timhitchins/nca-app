@@ -1,31 +1,51 @@
+@import "../../theme.scss";
+
+/* ----- Side panel styles ----- */
 .side-panel-container {
-    grid-column: 1;
-    grid-row: 1 / span 3;
+  grid-column: 1;
+  grid-row: 1 / span 3;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   z-index: 1;
-  width: 300px;
-//   max-height: 100%;
-//   min-height: 500px;
+  width: 350px;
+  margin: 30px 0 20px 0;
   overflow-y: scroll;
+  //just need to set a max height to get overflow
+
+  /* ----- Outer panel item styles ----- */
+  div {
+    flex: 1;
+    border: 1px solid black;
+    transition: all 1.5s;
+    background-color: $ui-transparent-white;
+    margin: 1em;
+    padding: 1em;
+  }
+  div:hover {
+    transform: scale(1.1);
+  }
 }
 
-.map-title-item {
+/* ----- Inner Panel styles ----- */
+.panel-label {
+  color: $ui-black;
+  display: block;
+  font-family: "Archivo Narrow", sans-serif;
+  font-size: 13px;
+  margin-bottom: 0.5em;
+  margin-top: 0;
+  position: relative;
+  text-transform: uppercase;
 }
 
-.panel-item {
-  //   display: block;
-  //   position: relative;
-  border: 1px solid black;
-  transition: all 2s;
-  background-color: rgba(0, 0, 0, 0.25);
-  margin: 1em;
-  padding: 1em;
-}
-
-.panel-item:hover {
-  transform: scale(1.1);
+.panel-label:after {
+  content: "";
+  bottom: 0;
+  height: 1px;
+  background-color: $ui-gray;
+  left: 0;
+  right: 0;
+  position: absolute;
 }
