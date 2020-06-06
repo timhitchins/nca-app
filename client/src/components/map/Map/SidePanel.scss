@@ -13,6 +13,9 @@
   margin: 30px 0 20px 0;
   overflow-y: scroll;
   //just need to set a max height to get overflow
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 
   /* ----- Outer panel item styles ----- */
   div {
@@ -26,6 +29,11 @@
   div:hover {
     transform: scale(1.1);
   }
+}
+
+.side-panel-container::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 /* ----- Inner Panel styles ----- */

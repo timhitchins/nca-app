@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
-import { getMapStateAction } from "../../../actions/mapState";
+import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
   onMarkerDragEnd,
   setMarkerCoords,
+  handleGetSiteData,
 } from "../../../actions/mapData";
 import Pin from "./Pin";
+import { sitesLayer } from "./mapStyles";
 import "./Map.scss";
 
 const MAPBOX_TOKEN =
@@ -34,7 +36,6 @@ class CentralMarker extends Component {
   _onMarkerDragEnd = (event) => {
     this._logDragEvent("onDragEnd", event);
     this.props.dispatch(onMarkerDragEnd(event));
-    //change the window url
 
     //then do stuff with the new coords
     const [longitude, latitude] = event.lngLat;
@@ -66,25 +67,6 @@ class CentralMarker extends Component {
   }
 }
 
-class SiteMarker extends Component {
-  render() {
-    return (
-      <Marker
-        latitude={45.606243}
-        longitude={-122.708626}
-        offsetTop={-20}
-        offsetLeft={-10}
-        draggable
-        // onDragStart={this._onMarkerDragStart}
-        // onDrag={this._onMarkerDrag}
-        // onDragEnd={this._onMarkerDragEnd}
-      >
-        <Pin size={30} />
-      </Marker>
-    );
-  }
-}
-
 class NCAMap extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
@@ -93,11 +75,22 @@ class NCAMap extends Component {
   };
 
   _onViewportChange = (viewport) => {
-    this.props.dispatch(getMapStateAction({ ...viewport }));
+    this.props.dispatch(getMapState({ ...viewport }));
   };
+
+  /* ---- TESTING API ----- */
+  componentDidMount() {
+    this.props.dispatch(
+      handleGetSiteData(
+        "/api/location/%7B%22lon%22:-122.643154,%22lat%22:45.55659%7D/1/miles"
+      )
+    );
+  }
+  /* --------------------- */
 
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
+    const { siteMarkers } = this.props.mapData;
     return (
       <section className="map">
         <ReactMapGL
@@ -118,10 +111,31 @@ class NCAMap extends Component {
           //   }}
         >
           {latitude && longitude ? <CentralMarker {...this.props} /> : null}
-          <SiteMarker />
+          <Source id="sites" type="geojson" data={siteMarkers}>
+            <Layer key="sites-layer" {...sitesLayer} />
+          </Source>
         </ReactMapGL>
       </section>
     );
   }
 }
 export default NCAMap;
+
+// class SiteMarker extends Component {
+//     render() {
+//       return (
+//         <Marker
+//           latitude={45.606243}
+//           longitude={-122.708626}
+//           offsetTop={-20}
+//           offsetLeft={-10}
+//           draggable
+//           // onDragStart={this._onMarkerDragStart}
+//           // onDrag={this._onMarkerDrag}
+//           // onDragEnd={this._onMarkerDragEnd}
+//         >
+//           <Pin size={20} />
+//         </Marker>
+//       );
+//     }
+//   }
