@@ -82,7 +82,7 @@ class NCAMap extends Component {
   componentDidMount() {
     this.props.dispatch(
       handleGetSiteData(
-        "/api/location/%7B%22lon%22:-122.643154,%22lat%22:45.55659%7D/1/miles"
+        "/api/location/%7B%22lon%22:-122.643154,%22lat%22:45.55659%7D/500/meters"
       )
     );
   }

@@ -1,21 +1,36 @@
 import fetch from "node-fetch";
 import { featureServiceURI } from "../config/dataConfig";
 
-export async function fetchPermitData(geometryObject) {
+// Examples
+// https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=(+WORK_DESCRIPTION+=+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection',+'Under+Review',+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526,45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson
+// https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=(+WORK_DESCRIPTION+%3D+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection'%2C+'Under+Review'%2C+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526%2C45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson
+
+export async function fetchPermitData(coords, radius, units) {
+  const { lon, lat } = coords;
+
+  /*----- Constants to build uri -----*/
   const requestURL = featureServiceURI;
-  const format = "geoJSON";
-  const sr = 4326;
-  const overlay = "esriSpatialRelWithin";
   // this next query includes demolitions
   //   const whereClause = "( WORK_DESCRIPTION = 'New Construction' OR WORK_DESCRIPTION = 'Demolition' )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
   const whereClause =
-    "( WORK_DESCRIPTION = 'New Construction' )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
-
-  const shape = "esriGeometryPolygon";
-  const fields = "*";
+    "( WORK_DESCRIPTION IN ( 'New Construction', 'Demolition' ) )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
+  const geometry = `${lon},${lat}`;
+  const geometryType = "esriGeometryPoint";
+  const sr = 4326;
+  const spatialRel = "esriSpatialRelIntersects";
+  const distance = radius;
+  const outUnits = units === "meters" ? "esriSRUnit_Meter" : "esriSRUnit_Foot";
+  const outFields = "*";
+  const format = "geoJSON";
 
   // Build the URI
-  const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
+  // Examples:
+  // const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
+  // const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
+  // const uri = `${requestURL}query?where=(+WORK_DESCRIPTION+%3D+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection'%2C+'Under+Review'%2C+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526%2C45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson`;
+  //////////////////////////
+
+  const uri = `${requestURL}query?where=${whereClause}&geometry=${geometry}&geometryType=${geometryType}&inSR=${sr}&spatialRel=${spatialRel}&distance=${distance}&units=${outUnits}&outFields=${outFields}&outSR=${sr}&f=${format}&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&returnZ=false&returnM=false&false&sqlFormat=standard&returnGeometry=true`;
   try {
     const res = await fetch(uri);
     const geoJSON = await res.json();
@@ -24,4 +39,9 @@ export async function fetchPermitData(geometryObject) {
     console.log(`An error ocurred fetching permit data: ${err}`);
     return err;
   }
+}
+
+
+export function fetchDemoData(){
+  
 }
