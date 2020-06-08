@@ -2,9 +2,16 @@
 
 /* ----- Side panel styles ----- */
 .side-panel-container {
-  grid-column: 1;
-  grid-row: 1 / span 3;
-  position: relative;
+  //grid positioning
+  // grid-column: 1;
+  // grid-row: 1 / span 3;
+  // position: relative;
+  ///////////////////
+
+  //absolute positioning
+  position: absolute;
+  top: 0;
+  left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -18,30 +25,32 @@
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 
   /* ----- Outer panel item styles ----- */
-  div {
+  .outer-panel {
     flex: 1;
-    border: 1px solid black;
     transition: all 1.5s;
     background-color: $ui-transparent-white;
-    margin: 1em;
+    margin: 1em 2em 1em 1em;
     padding: 1em;
+    // border: 1px solid black;
+    box-shadow: 5px 10px 18px #888888;
   }
-  div:hover {
+  .outer-panel:hover {
     transform: scale(1.1);
   }
 }
 
-.side-panel-container::-webkit-scrollbar { /* WebKit */
+.side-panel-container::-webkit-scrollbar {
+  /* WebKit */
   width: 0;
   height: 0;
 }
 
 /* ----- Inner Panel styles ----- */
 .panel-label {
-  color: $ui-black;
+  color: $ui-dark-gray;
   display: block;
   font-family: "Archivo Narrow", sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 0.5em;
   margin-top: 0;
   position: relative;
@@ -56,4 +65,74 @@
   left: 0;
   right: 0;
   position: absolute;
+}
+
+/*----- Year dropdonw selector styles-----*/
+.year-selector {
+  font-family: "Archivo Narrow", sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+}
+
+/*----- Geocoder styles -----*/
+.search-bar {
+  width: 100%;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 12px 20px;
+  box-sizing: inherit;
+  border: none;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  outline: none;
+}
+
+.search-form {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  border: 2px solid $ui-dark-gray;
+}
+
+.search-form:focus-within {
+  border: 3px solid$ui-dark-gray;
+}
+
+//search button
+.search-button {
+  box-sizing: inherit;
+  width: 20%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  img {
+    height: 40px;
+    width: 40px;
+    border: none;
+  }
+}
+
+.clear-button {
+  box-sizing: inherit;
+  width: 10%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 25px;
+  color: $ui-dark-gray;
+  // border-right: 1px solid $ui-dark-gray;
 }
