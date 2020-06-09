@@ -3,6 +3,7 @@ import { fetchGeocdeResults } from "../utils/api";
 export const GEOCODE_SEARCH_TERM = "GEOCODE_SEARCH_TERM";
 export const SET_SEARCH_TERM = "SET_SEARCH_TERM";
 export const TOGGLE_GEOCODE_RESULTS = "TOGGLE_GEOCODE_RESULTS";
+export const TOGGLE_ERROR_MEASSAGE = "TOGGLE_ERROR_MESSAGE";
 
 function geocodeSearchTerm(geocodedResults) {
   return {
@@ -18,14 +19,23 @@ export function setSearchTerm(searchTerm) {
   };
 }
 
-// export function toggleGeocodeResults(resultsIsOpen) {
-//   return {
-//     type: TOGGLE_GEOCODE_RESULTS,
-//     payload: {
-//         resultsIsOpen,
-//     },
-//   };
-// }
+export function toggleGeocodeResults(resultsIsOpen) {
+  return {
+    type: TOGGLE_GEOCODE_RESULTS,
+    payload: {
+      resultsIsOpen,
+    },
+  };
+}
+
+export function toggleErrorMessage(errorMsgIsOpen) {
+  return {
+    type: TOGGLE_ERROR_MEASSAGE,
+    payload: {
+      errorMsgIsOpen,
+    },
+  };
+}
 
 export function handleGeocodeSearchTerm(searchTerm, route) {
   return async (dispatch) => {

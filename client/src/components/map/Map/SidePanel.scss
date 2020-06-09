@@ -160,3 +160,12 @@ input[type="text"] {
 .result-list-item-even:hover {
   background-color: $ui-light-gray;
 }
+
+.error-results-container {
+  position: relative;
+  z-index: 5;
+  font-size: 0.8rem;
+  color: $ui-white;
+  padding: 5px;
+  background-color: $ui-red;
+}

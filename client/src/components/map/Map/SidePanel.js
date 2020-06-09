@@ -5,10 +5,28 @@ import { createNewViewport } from "../../../utils/mapUtils";
 import {
   handleGeocodeSearchTerm,
   setSearchTerm,
+  toggleGeocodeResults,
+  toggleErrorMessage,
 } from "../../../actions/geocode";
 import { handleGetSiteData } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import "./SidePanel.scss";
+
+const NoGeocodedResults = ({ errorMsgIsOpen }) => {
+  console.log("errorMsgIsOpen", errorMsgIsOpen);
+  if (errorMsgIsOpen) {
+    return (
+      <div className="error-results-container">
+        &#9888; No construction sites near this location. Select a new location.
+      </div>
+    );
+  }
+  return null;
+};
+
+NoGeocodedResults.propTypes = {
+  errorMsgIsOpen: PropTypes.bool.isRequired,
+};
 
 class GeocodedResults extends Component {
   static propTypes = {
@@ -32,29 +50,61 @@ class GeocodedResults extends Component {
     );
   };
 
+  _setSearchInput = (placeName) => {
+    this.props.dispatch(setSearchTerm(placeName));
+  };
+
   /* 
   method to select the correct
-  central marker lon/lat and search site data
-  then create a new viewport 
+  central marker lon/lat and 
+  set search site data
+  and create a new viewport 
+  and set the input with clicked result
   */
-  _onResultClick = (resultCoords, distance, units) => {
+  _onResultClick = (resultCoords, distance, units, placeName) => {
     const { mapState } = this.props; //passed to viewport method
+
+    //close the error togle if open
+    this.props.dispatch(toggleErrorMessage(false));
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify(resultCoords));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-    this.props.dispatch(handleGetSiteData(route)).then((geoJSON) => {
-      this._createNewViewport(geoJSON, mapState);
+    this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
+      // set the search term by placename
+      this._setSearchInput(placeName);
+
+      // if return geoJSON has features then create a new vieport
+      const { features } = sitesGeoJSON;
+      if (features.length > 0) {
+        //open the geocoded results
+        this.props.dispatch(toggleGeocodeResults(false));
+        this._createNewViewport(sitesGeoJSON, mapState);
+      } else {
+        // else show the error message
+        this.props.dispatch(toggleGeocodeResults(false));
+        this.props.dispatch(toggleErrorMessage(true));
+        this._createNewViewport({}, mapState);
+      }
     });
   };
 
   render() {
-    const { geocodedResults, searchTerm } = this.props.geocodedData;
+    const {
+      geocodedResults,
+      searchTerm,
+      resultsIsOpen,
+    } = this.props.geocodedData;
     const { distance, units } = this.props.mapData.buffer;
-    if (geocodedResults.features !== undefined && searchTerm !== "") {
+    if (
+      geocodedResults.features !== undefined &&
+      searchTerm !== "" &&
+      resultsIsOpen
+    ) {
       return (
         <div className="results-container">
           {geocodedResults.features.map((feature, index) => {
+            console.log(feature);
             //pass coords to onClick
             const [lon, lat] = feature.geometry.coordinates;
             //render the place name
@@ -66,8 +116,12 @@ class GeocodedResults extends Component {
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
-                  console.log(feature);
-                  this._onResultClick({ lon, lat }, distance, units);
+                  this._onResultClick(
+                    { lon, lat },
+                    distance,
+                    units,
+                    place_name
+                  );
                 }}
               >
                 {place_name}
@@ -91,6 +145,12 @@ class GeocoderInput extends Component {
     const searchTerm = e.target.value;
     this.props.dispatch(setSearchTerm(searchTerm));
 
+    // toggle the results to be visible
+    this.props.dispatch(toggleGeocodeResults(true));
+
+    //close the error togle if open
+    this.props.dispatch(toggleErrorMessage(false));
+
     // geocoding route is /api/search/<searchTerm>
     const route = "/api/search/";
     this.props.dispatch(handleGeocodeSearchTerm(searchTerm, route));
@@ -98,6 +158,7 @@ class GeocoderInput extends Component {
 
   render() {
     const { searchTerm } = this.props.geocodedData;
+    console.log(this._textInput);
     return (
       <div className="search-bar">
         <div className="search-form">
@@ -105,6 +166,8 @@ class GeocoderInput extends Component {
             className="clear-button"
             onClick={() => {
               this.props.dispatch(setSearchTerm(""));
+              //close the error togle if open
+              this.props.dispatch(toggleErrorMessage(false));
               // this.props.dispatch(setMarkerCoordsAction(null, null));
             }}
           >
@@ -146,6 +209,7 @@ class GeocoderInput extends Component {
           </div>
         </div>
         <GeocodedResults {...this.props} />
+        <NoGeocodedResults {...this.props.geocodedData} />
       </div>
     );
   }

@@ -79,13 +79,13 @@ class NCAMap extends Component {
   };
 
   /* ---- TESTING API ----- */
-  componentDidMount() {
-    this.props.dispatch(
-      handleGetSiteData(
-        "/api/location/%7B%22lon%22:-122.553154,%22lat%22:45.55659%7D/1500/meters"
-      )
-    );
-  }
+  // componentDidMount() {
+  //   this.props.dispatch(
+  //     handleGetSiteData(
+  //       "/api/location/%7B%22lon%22:-122.553154,%22lat%22:45.55659%7D/1500/meters"
+  //     )
+  //   );
+  // }
   /* --------------------- */
 
   render() {
