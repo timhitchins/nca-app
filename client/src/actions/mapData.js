@@ -5,6 +5,7 @@ export const LOG_MARKER_DRAG = "LOG_MARKER_DRAG";
 export const MARKER_DRAG_END = "MARKER_DRAG_END";
 export const SET_MARKER_COORDS = "SET_MARKER_COORDS";
 export const GET_SITE_DATA = "GET_SITE_DATA";
+export const SET_BUFFER = "SET_BUFFER";
 
 export function logMarkerDragEvent(name, event) {
   return {
@@ -43,6 +44,16 @@ function getSiteData(data) {
   return {
     type: GET_SITE_DATA,
     payload: { siteMarkers: data },
+  };
+}
+
+export function setBuffer(distance, units) {
+  return {
+    type: SET_BUFFER,
+    payload: {
+      distance,
+      units,
+    },
   };
 }
 
