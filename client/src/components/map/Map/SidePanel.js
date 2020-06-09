@@ -1,27 +1,51 @@
 import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
+import { createNewViewport } from "../../../utils/mapUtils";
 import {
   handleGeocodeSearchTerm,
   setSearchTerm,
 } from "../../../actions/geocode";
 import { handleGetSiteData } from "../../../actions/mapData";
+import { getMapState } from "../../../actions/mapState";
 import "./SidePanel.scss";
 
 class GeocodedResults extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
+    mapState: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
-  // method to select the correct
-  // central marker lon/lat and search site data
+  _createNewViewport = (geojson, mapState) => {
+    //trigger new viewport
+    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
+    this.props.dispatch(
+      getMapState({
+        ...mapState,
+        longitude,
+        latitude,
+        zoom,
+        transitionDuration: 1000,
+      })
+    );
+  };
+
+  /* 
+  method to select the correct
+  central marker lon/lat and search site data
+  then create a new viewport 
+  */
   _onResultClick = (resultCoords, distance, units) => {
-    //set up route and dispatch action
+    const { mapState } = this.props; //passed to viewport method
+
+    //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify(resultCoords));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-    this.props.dispatch(handleGetSiteData(route));
+    this.props.dispatch(handleGetSiteData(route)).then((geoJSON) => {
+      this._createNewViewport(geoJSON, mapState);
+    });
   };
 
   render() {
@@ -42,6 +66,7 @@ class GeocodedResults extends Component {
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
+                  console.log(feature);
                   this._onResultClick({ lon, lat }, distance, units);
                 }}
               >
