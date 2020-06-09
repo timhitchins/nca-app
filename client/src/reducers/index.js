@@ -3,6 +3,7 @@ import slides from "./slides";
 import mapState from "./mapState";
 import mapData from "./mapData";
 import isLoading from "./loading";
+import geocodedData from "./geocode";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -11,4 +12,5 @@ export default combineReducers({
   mapState,
   mapData,
   isLoading,
+  geocodedData,
 });

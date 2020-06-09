@@ -1,16 +1,67 @@
 import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
+import PropTypes from "prop-types";
+import {
+  handleGeocodeSearchTerm,
+  setSearchTerm,
+  toggleGeocodeResults,
+} from "../../../actions/geocode";
 import "./SidePanel.scss";
 
-class GeocoderInput extends Component {
+class GeocodedResults extends Component {
+  static propTypes = {
+    geocodedData: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
   render() {
+    const { geocodedResults, searchTerm } = this.props.geocodedData;
+    if (geocodedResults.features !== undefined && searchTerm !== "") {
+      return (
+        <div className="results-container">
+          {geocodedResults.features.map((feature, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  index % 2 ? "result-list-item-odd" : "result-list-item-even"
+                }
+              >
+                {feature.place_name}
+              </div>
+            );
+          })}
+        </div>
+      );
+    }
+    return null;
+  }
+}
+
+class GeocoderInput extends Component {
+  static propTypes = {
+    geocodedData: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  };
+
+  _handleInputChange = async (e) => {
+    const searchTerm = e.target.value;
+    this.props.dispatch(setSearchTerm(searchTerm));
+
+    // geocoding route is /api/search/<searchTerm>
+    const route = "/api/search/";
+    this.props.dispatch(handleGeocodeSearchTerm(searchTerm, route));
+  };
+
+  render() {
+    const { searchTerm } = this.props.geocodedData;
     return (
       <div className="search-bar">
         <div className="search-form">
           <div
             className="clear-button"
             onClick={() => {
-              // this.props.dispatch(resetSearch({ ...resetSearchOptions }));
+              this.props.dispatch(setSearchTerm(""));
               // this.props.dispatch(setMarkerCoordsAction(null, null));
             }}
           >
@@ -18,9 +69,9 @@ class GeocoderInput extends Component {
           </div>
           <DebounceInput
             type="text"
-            // placeholder={this._setSearchPlaceholderText(searchType)}
-            // value={searchTerm} //controlled input
-            // onChange={this._handleInputChange}
+            placeholder="Search an address..."
+            value={searchTerm} //controlled input
+            onChange={this._handleInputChange}
             onKeyPress={(event) => {
               //need to update to action
               event.persist();
@@ -51,6 +102,7 @@ class GeocoderInput extends Component {
             ></img>
           </div>
         </div>
+        <GeocodedResults {...this.props} />
       </div>
     );
   }
@@ -63,7 +115,7 @@ class SidePanel extends Component {
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
           <aside className="panel-label">Search by location</aside>
-          <GeocoderInput />
+          <GeocoderInput {...this.props} />
         </div>
         <div className="outer-panel">
           <aside className="panel-label">Construction Site Information</aside>

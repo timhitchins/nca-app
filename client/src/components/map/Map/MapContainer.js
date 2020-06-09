@@ -11,14 +11,16 @@ class MapContainer extends Component {
       <main className="map-container">
         <div className="title">NCA Construction Diesel Toolkit</div>
         <NCAMap {...this.props} />
-        <SidePanel />
+        <SidePanel {...this.props} />
         <LoadingIndicator {...this.props} />
       </main>
     );
   }
 }
-function mapStateToProps({ mapState, mapData, isLoading }) {
-  return { mapState, mapData, isLoading };
+function mapStateToProps({ mapState, mapData, isLoading, geocodedData }) {
+  // const { features } = geocodedData.geocodedResults;
+
+  return { mapState, mapData, isLoading, geocodedData };
 }
 export default connect(mapStateToProps)(MapContainer);
 
