@@ -47,7 +47,7 @@ function getSiteData(data) {
 }
 
 export function handleGetSiteData(route) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleLoadingIndicator(true));
     return fetchSiteData(route)
       .then((json) => {

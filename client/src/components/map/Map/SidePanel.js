@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import {
   handleGeocodeSearchTerm,
   setSearchTerm,
-  toggleGeocodeResults,
 } from "../../../actions/geocode";
+import { handleGetSiteData } from "../../../actions/mapData";
 import "./SidePanel.scss";
 
 class GeocodedResults extends Component {
@@ -14,20 +14,35 @@ class GeocodedResults extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
+  // method to select the correct
+  // central marker lon/lat and search site data
+  _onResultClick = (resultCoords, distance, units) => {
+    const encodedCoords = encodeURI(JSON.stringify(resultCoords));
+    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+    this.props.dispatch(handleGetSiteData(route));
+  };
+
   render() {
     const { geocodedResults, searchTerm } = this.props.geocodedData;
     if (geocodedResults.features !== undefined && searchTerm !== "") {
       return (
         <div className="results-container">
           {geocodedResults.features.map((feature, index) => {
+            //pass coords to onClick
+            const [lon, lat] = feature.geometry.coordinates;
+            //render the place name
+            const { place_name } = feature;
             return (
               <div
-                key={index}
+                key={`result-${index}`}
                 className={
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
+                onClick={() => {
+                  this._onResultClick({ lon, lat }, 1000, "meters");
+                }}
               >
-                {feature.place_name}
+                {place_name}
               </div>
             );
           })}
