@@ -11,12 +11,14 @@ import "./SidePanel.scss";
 class GeocodedResults extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
+    mapData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
   // method to select the correct
   // central marker lon/lat and search site data
   _onResultClick = (resultCoords, distance, units) => {
+    //set up route and dispatch action
     const encodedCoords = encodeURI(JSON.stringify(resultCoords));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
     this.props.dispatch(handleGetSiteData(route));
@@ -24,6 +26,7 @@ class GeocodedResults extends Component {
 
   render() {
     const { geocodedResults, searchTerm } = this.props.geocodedData;
+    const { distance, units } = this.props.mapData.buffer;
     if (geocodedResults.features !== undefined && searchTerm !== "") {
       return (
         <div className="results-container">
@@ -39,7 +42,7 @@ class GeocodedResults extends Component {
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
-                  this._onResultClick({ lon, lat }, 1000, "meters");
+                  this._onResultClick({ lon, lat }, distance, units);
                 }}
               >
                 {place_name}
