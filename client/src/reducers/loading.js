@@ -1,6 +1,6 @@
 import { TOGGLE_LOADING_INDICATOR } from "../actions/loading";
 
-const initialLoadingState = false;
+const initialLoadingState = true;
 
 export default function isLoading(state = initialLoadingState, action) {
   switch (action.type) {

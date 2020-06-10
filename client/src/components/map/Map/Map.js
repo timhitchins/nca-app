@@ -9,6 +9,7 @@ import {
   handleGetSiteData,
 } from "../../../actions/mapData";
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
+import { toggleLoadingIndicator } from "../../../actions/loading";
 import Pin from "./Pin";
 import { sitesLayer } from "./mapStyles";
 import "./Map.scss";
@@ -110,6 +111,11 @@ class NCAMap extends PureComponent {
     this.props.dispatch(getMapState({ ...viewport }));
   };
 
+  _handleOnLoad = () => {
+    // hide loading container after mounting
+    this.props.dispatch(toggleLoadingIndicator(false));
+  };
+
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
     const { siteMarkers } = this.props.mapData;
@@ -126,6 +132,7 @@ class NCAMap extends PureComponent {
           //   maxZoom={18}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={this._onViewportChange}
+          onLoad={this._handleOnLoad}
           //   onHover={this._onHover}
           //   interactiveLayerIds={["parcel-polygon"]}
           //   onClick={(e) => {
