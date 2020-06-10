@@ -5,7 +5,7 @@ export const SET_SEARCH_TERM = "SET_SEARCH_TERM";
 export const TOGGLE_GEOCODE_RESULTS = "TOGGLE_GEOCODE_RESULTS";
 export const TOGGLE_ERROR_MEASSAGE = "TOGGLE_ERROR_MESSAGE";
 
-function geocodeSearchTerm(geocodedResults) {
+export function geocodeSearchTerm(geocodedResults) {
   return {
     type: GEOCODE_SEARCH_TERM,
     payload: { geocodedResults },

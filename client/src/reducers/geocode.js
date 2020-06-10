@@ -6,7 +6,7 @@ import {
 } from "../actions/geocode";
 
 const initialGeocodingState = {
-  geocodedResults: {},
+  geocodedResults: { features: [] },
   searchTerm: "",
   ressultsIsOpen: false,
   errorMsgIsOpen: false,

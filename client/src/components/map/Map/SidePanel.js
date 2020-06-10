@@ -3,6 +3,7 @@ import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
 import { createNewViewport } from "../../../utils/mapUtils";
 import {
+  geocodeSearchTerm,
   handleGeocodeSearchTerm,
   setSearchTerm,
   toggleGeocodeResults,
@@ -13,7 +14,6 @@ import { getMapState } from "../../../actions/mapState";
 import "./SidePanel.scss";
 
 const NoGeocodedResults = ({ errorMsgIsOpen }) => {
-  console.log("errorMsgIsOpen", errorMsgIsOpen);
   if (errorMsgIsOpen) {
     return (
       <div className="error-results-container">
@@ -34,20 +34,7 @@ class GeocodedResults extends Component {
     mapData: PropTypes.object.isRequired,
     mapState: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-  };
-
-  _createNewViewport = (geojson, mapState) => {
-    //trigger new viewport
-    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
-    this.props.dispatch(
-      getMapState({
-        ...mapState,
-        longitude,
-        latitude,
-        zoom,
-        transitionDuration: 1000,
-      })
-    );
+    _handleGetSiteData: PropTypes.func.isRequired,
   };
 
   _setSearchInput = (placeName) => {
@@ -70,23 +57,9 @@ class GeocodedResults extends Component {
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify(resultCoords));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-    this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
-      // set the search term by placename
-      this._setSearchInput(placeName);
 
-      // if return geoJSON has features then create a new vieport
-      const { features } = sitesGeoJSON;
-      if (features.length > 0) {
-        //open the geocoded results
-        this.props.dispatch(toggleGeocodeResults(false));
-        this._createNewViewport(sitesGeoJSON, mapState);
-      } else {
-        // else show the error message
-        this.props.dispatch(toggleGeocodeResults(false));
-        this.props.dispatch(toggleErrorMessage(true));
-        this._createNewViewport({}, mapState);
-      }
-    });
+    // method passed down from GeocoderInput
+    this.props._handleGetSiteData(route, placeName);
   };
 
   render() {
@@ -104,7 +77,6 @@ class GeocodedResults extends Component {
       return (
         <div className="results-container">
           {geocodedResults.features.map((feature, index) => {
-            console.log(feature);
             //pass coords to onClick
             const [lon, lat] = feature.geometry.coordinates;
             //render the place name
@@ -138,7 +110,23 @@ class GeocodedResults extends Component {
 class GeocoderInput extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
+    mapData: PropTypes.object.isRequired,
+    mapState: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+  };
+
+  _createNewViewport = (geojson, mapState) => {
+    //trigger new viewport
+    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
+    this.props.dispatch(
+      getMapState({
+        ...mapState,
+        longitude,
+        latitude,
+        zoom,
+        transitionDuration: 1000,
+      })
+    );
   };
 
   _handleInputChange = async (e) => {
@@ -156,19 +144,69 @@ class GeocoderInput extends Component {
     this.props.dispatch(handleGeocodeSearchTerm(searchTerm, route));
   };
 
+  _handleClearButtonClick = () => {
+    //reset the geocoded results
+    this.props.dispatch(geocodeSearchTerm({ features: [] }));
+    // reset the search term
+    this.props.dispatch(setSearchTerm(""));
+    //close the error toggle if open
+    this.props.dispatch(toggleErrorMessage(false));
+    // this.props.dispatch(setMarkerCoordsAction(null, null));
+  };
+
+  // this method is passed down the component tree
+  _handleGetSiteData = (route, placeName) => {
+    const { mapState } = this.props;
+    this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
+      // set the search term by placename
+      this.props.dispatch(setSearchTerm(placeName));
+
+      // if return geoJSON has features then create a new vieport
+      const { features } = sitesGeoJSON;
+      if (features.length > 0) {
+        // open the geocoded results
+        // and create the new viewport
+        this.props.dispatch(toggleGeocodeResults(false));
+        this._createNewViewport(sitesGeoJSON, mapState);
+      } else {
+        // else close geocoded results
+        // and show the error message
+        // and zoom to default viewport
+        this.props.dispatch(toggleGeocodeResults(false));
+        this.props.dispatch(toggleErrorMessage(true));
+        this._createNewViewport({}, mapState);
+      }
+    });
+  };
+
+  _handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      const { geocodedResults } = this.props.geocodedData;
+      const { distance, units } = this.props.mapData.buffer;
+
+      if (geocodedResults.features.length > 0) {
+        const topFeature = geocodedResults.features[0];
+        const [lon, lat] = topFeature.geometry.coordinates;
+        const { place_name } = topFeature;
+        //set up route and dispatch action for site data
+        const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
+        const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+
+        // get the site data and trigger other relevent actionsu
+        this._handleGetSiteData(route, place_name);
+      }
+    }
+  };
+
   render() {
     const { searchTerm } = this.props.geocodedData;
-    console.log(this._textInput);
     return (
       <div className="search-bar">
         <div className="search-form">
           <div
             className="clear-button"
             onClick={() => {
-              this.props.dispatch(setSearchTerm(""));
-              //close the error togle if open
-              this.props.dispatch(toggleErrorMessage(false));
-              // this.props.dispatch(setMarkerCoordsAction(null, null));
+              this._handleClearButtonClick();
             }}
           >
             &times;
@@ -178,10 +216,10 @@ class GeocoderInput extends Component {
             placeholder="Search an address..."
             value={searchTerm} //controlled input
             onChange={this._handleInputChange}
-            onKeyPress={(event) => {
+            onKeyPress={(e) => {
               //need to update to action
-              event.persist();
-              // this._handleKeyPress(event);
+              e.persist();
+              this._handleKeyPress(e);
             }}
             onClick={() => {
               // this.props.dispatch(toggleFullResultsAction(false));
@@ -208,7 +246,10 @@ class GeocoderInput extends Component {
             ></img>
           </div>
         </div>
-        <GeocodedResults {...this.props} />
+        <GeocodedResults
+          {...this.props}
+          _handleGetSiteData={this._handleGetSiteData}
+        />
         <NoGeocodedResults {...this.props.geocodedData} />
       </div>
     );
