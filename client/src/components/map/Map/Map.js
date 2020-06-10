@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { getMapState } from "../../../actions/mapState";
@@ -15,7 +15,7 @@ import "./Map.scss";
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
 
-class CentralMarker extends Component {
+class CentralMarker extends PureComponent {
   static propTypes = {
     mapData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
@@ -67,7 +67,7 @@ class CentralMarker extends Component {
   }
 }
 
-class NCAMap extends Component {
+class NCAMap extends PureComponent {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
@@ -77,16 +77,6 @@ class NCAMap extends Component {
   _onViewportChange = (viewport) => {
     this.props.dispatch(getMapState({ ...viewport }));
   };
-
-  /* ---- TESTING API ----- */
-  // componentDidMount() {
-  //   this.props.dispatch(
-  //     handleGetSiteData(
-  //       "/api/location/%7B%22lon%22:-122.553154,%22lat%22:45.55659%7D/1500/meters"
-  //     )
-  //   );
-  // }
-  /* --------------------- */
 
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
@@ -121,21 +111,3 @@ class NCAMap extends Component {
 }
 export default NCAMap;
 
-// class SiteMarker extends Component {
-//     render() {
-//       return (
-//         <Marker
-//           latitude={45.606243}
-//           longitude={-122.708626}
-//           offsetTop={-20}
-//           offsetLeft={-10}
-//           draggable
-//           // onDragStart={this._onMarkerDragStart}
-//           // onDrag={this._onMarkerDrag}
-//           // onDragEnd={this._onMarkerDragEnd}
-//         >
-//           <Pin size={20} />
-//         </Marker>
-//       );
-//     }
-//   }
