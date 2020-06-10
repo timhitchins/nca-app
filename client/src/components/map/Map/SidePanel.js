@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GeocoderInput from "./GeocoderInput";
+import MarkerSelector from "./MarkerSelector";
 import "./SidePanel.scss";
 
 class SidePanel extends Component {
@@ -9,7 +10,10 @@ class SidePanel extends Component {
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
           <aside className="panel-label">Search by location</aside>
-          <GeocoderInput {...this.props} />
+          <div className="geocoder-marker-container">
+            <GeocoderInput {...this.props} />
+            <MarkerSelector {...this.props} />
+          </div>
         </div>
         <div className="outer-panel">
           <aside className="panel-label">Construction Site Information</aside>

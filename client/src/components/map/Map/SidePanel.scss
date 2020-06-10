@@ -169,3 +169,17 @@ input[type="text"] {
   padding: 5px;
   background-color: $ui-red;
 }
+
+/*----- Marker selector styles -----*/
+.marker-selector {
+  height: 50px;
+  border: 2px solid $ui-dark-gray;
+  cursor: pointer;
+}
+
+/*----- Geocoder and Marker container styles -----*/
+.geocoder-marker-container {
+  display: flex;
+  align-items: center;
+  line-height: 50px;
+}

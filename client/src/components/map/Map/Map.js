@@ -60,7 +60,7 @@ class CentralMarker extends PureComponent {
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
 
-    //get mapstate
+    //get mapstate for changing viewport
     const { mapState } = this.props;
 
     // get site data related to where the marker dropped
@@ -112,7 +112,7 @@ class NCAMap extends PureComponent {
   };
 
   _handleOnLoad = () => {
-    // hide loading container after mounting
+    // hide loading container after loading
     this.props.dispatch(toggleLoadingIndicator(false));
   };
 
