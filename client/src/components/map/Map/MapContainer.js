@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NCAMap from "./Map";
 import SidePanel from "./SidePanel";
+import CursorTooltip from "../CursorTooltip/CursorTooltip";
 import LoadingIndicator from "../Loading/LoadingIndicator";
 import "./Map.scss";
 
@@ -13,12 +14,19 @@ class MapContainer extends Component {
         <NCAMap {...this.props} />
         <SidePanel {...this.props} />
         <LoadingIndicator {...this.props} />
+        <CursorTooltip {...this.props} />
       </main>
     );
   }
 }
-function mapStateToProps({ mapState, mapData, isLoading, geocodedData }) {
-  return { mapState, mapData, isLoading, geocodedData };
+function mapStateToProps({
+  mapState,
+  mapData,
+  isLoading,
+  geocodedData,
+  markerSelector,
+}) {
+  return { mapState, mapData, isLoading, geocodedData, markerSelector };
 }
 export default connect(mapStateToProps)(MapContainer);
 

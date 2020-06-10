@@ -67,7 +67,7 @@
   position: absolute;
 }
 
-/*----- Year dropdonw selector styles-----*/
+/*----- Year dropdown selector styles-----*/
 .year-selector {
   font-family: "Archivo Narrow", sans-serif;
   font-weight: bold;
@@ -172,6 +172,7 @@ input[type="text"] {
 
 /*----- Marker selector styles -----*/
 .marker-selector {
+  margin-left: 10px;
   height: 50px;
   border: 2px solid $ui-dark-gray;
   cursor: pointer;
@@ -183,3 +184,4 @@ input[type="text"] {
   align-items: center;
   line-height: 50px;
 }
+

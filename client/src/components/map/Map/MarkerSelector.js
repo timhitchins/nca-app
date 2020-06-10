@@ -1,9 +1,17 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { toggleMarkerSelector } from "../../../actions/markerSelect";
 import "./SidePanel.scss";
 
 class MarkerSelector extends Component {
-  _handleMarkerClick = (isActive) => {
-    console.log(isActive);
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    makerSelector: PropTypes.object.isRequired,
+  };
+
+  _handleMarkerSelectorClick = () => {
+    const { isActive } = this.props.markerSelector;
+    this.props.dispatch(toggleMarkerSelector(!isActive));
   };
 
   render() {
@@ -11,7 +19,7 @@ class MarkerSelector extends Component {
       <div
         className="marker-selector"
         onClick={() => {
-          this._handleMarkerClick(true);
+          this._handleMarkerSelectorClick();
         }}
       >
         &#9733;
