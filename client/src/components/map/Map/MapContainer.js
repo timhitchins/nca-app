@@ -18,8 +18,6 @@ class MapContainer extends Component {
   }
 }
 function mapStateToProps({ mapState, mapData, isLoading, geocodedData }) {
-  // const { features } = geocodedData.geocodedResults;
-
   return { mapState, mapData, isLoading, geocodedData };
 }
 export default connect(mapStateToProps)(MapContainer);
