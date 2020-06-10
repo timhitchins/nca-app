@@ -9,7 +9,7 @@ import {
   toggleGeocodeResults,
   toggleErrorMessage,
 } from "../../../actions/geocode";
-import { handleGetSiteData } from "../../../actions/mapData";
+import { handleGetSiteData, setMarkerCoords } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import "./SidePanel.scss";
 
@@ -158,6 +158,9 @@ class GeocoderInput extends Component {
     const { distance, units } = this.props.mapData.buffer;
     const [lon, lat] = feature.geometry.coordinates;
     const { place_name } = feature;
+
+    //add the central marker
+    this.props.dispatch(setMarkerCoords(lon, lat));
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));

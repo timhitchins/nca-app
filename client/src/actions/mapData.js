@@ -16,19 +16,7 @@ export function logMarkerDragEvent(name, event) {
   };
 }
 
-export function onMarkerDragEnd(event) {
-  return {
-    type: MARKER_DRAG_END,
-    payload: {
-      centralMarker: {
-        longitude: event.lngLat[0],
-        latitude: event.lngLat[1],
-      },
-    },
-  };
-}
-
-export function setMarkerCoords(latitude, longitude) {
+export function setMarkerCoords(longitude, latitude) {
   return {
     type: MARKER_DRAG_END,
     payload: {
@@ -51,8 +39,10 @@ export function setBuffer(distance, units) {
   return {
     type: SET_BUFFER,
     payload: {
-      distance,
-      units,
+      buffer: {
+        distance,
+        units,
+      },
     },
   };
 }

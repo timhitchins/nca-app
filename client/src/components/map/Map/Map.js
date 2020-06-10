@@ -1,13 +1,14 @@
 import React, { PureComponent } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
+import { createNewViewport } from "../../../utils/mapUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
-  onMarkerDragEnd,
   setMarkerCoords,
   handleGetSiteData,
 } from "../../../actions/mapData";
+import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import Pin from "./Pin";
 import { sitesLayer } from "./mapStyles";
 import "./Map.scss";
@@ -17,35 +18,66 @@ const MAPBOX_TOKEN =
 
 class CentralMarker extends PureComponent {
   static propTypes = {
+    mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
-  _logDragEvent(name, event) {
-    this.props.dispatch(logMarkerDragEvent(name, event));
-  }
-
-  _onMarkerDragStart = (event) => {
-    this._logDragEvent("onDragStart", event);
-  };
-
-  _onMarkerDrag = (event) => {
-    this._logDragEvent("onDrag", event);
-  };
-
-  _onMarkerDragEnd = (event) => {
-    this._logDragEvent("onDragEnd", event);
-    this.props.dispatch(onMarkerDragEnd(event));
-
-    //then do stuff with the new coords
-    const [longitude, latitude] = event.lngLat;
-    const { year } = this.props.mapData;
-    const encodedCoords = encodeURI(
-      JSON.stringify({
-        longitude: longitude,
-        latitude: latitude,
+  _createNewViewport = (geojson, mapState) => {
+    //trigger new viewport
+    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
+    this.props.dispatch(
+      getMapState({
+        ...mapState,
+        longitude,
+        latitude,
+        zoom,
+        transitionDuration: 1000,
       })
     );
+  };
+
+  _logDragEvent(name, e) {
+    this.props.dispatch(logMarkerDragEvent(name, e));
+  }
+
+  _onMarkerDragStart = (e) => {
+    this._logDragEvent("onDragStart", e);
+  };
+
+  _onMarkerDrag = (e) => {
+    this._logDragEvent("onDrag", e);
+  };
+
+  _onMarkerDragEnd = (e) => {
+    this._logDragEvent("onDragEnd", e);
+    const [lon, lat] = e.lngLat;
+    this.props.dispatch(setMarkerCoords(lon, lat));
+
+    //start building the route
+    const { distance, units } = this.props.mapData.buffer;
+    const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
+    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+
+    //get mapstate
+    const { mapState } = this.props;
+
+    // get site data related to where the marker dropped
+    this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
+      // set the search term to empty
+      this.props.dispatch(setSearchTerm(""));
+      // if return geoJSON has features then create a new vieport
+      const { features } = sitesGeoJSON;
+      if (features.length > 0) {
+        // create the new viewport
+        this._createNewViewport(sitesGeoJSON, mapState);
+      } else {
+        // show the error message
+        // and zoom to default viewport
+        this.props.dispatch(toggleErrorMessage(true));
+        this._createNewViewport({}, mapState);
+      }
+    });
   };
 
   render() {
@@ -110,4 +142,3 @@ class NCAMap extends PureComponent {
   }
 }
 export default NCAMap;
-
