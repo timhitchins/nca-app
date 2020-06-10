@@ -47,16 +47,12 @@ class GeocodedResults extends Component {
   and create a new viewport 
   and set the input with clicked result
   */
-  _onResultClick = (resultCoords, distance, units, placeName) => {
+  _onResultClick = (selectedFeature) => {
     //close the error togle if open
     this.props.dispatch(toggleErrorMessage(false));
 
-    //set up route and dispatch action for site data
-    const encodedCoords = encodeURI(JSON.stringify(resultCoords));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-
     // method passed down from GeocoderInput
-    this.props._handleGetSiteData(route, placeName);
+    this.props._handleGetSiteData(selectedFeature);
   };
 
   render() {
@@ -65,7 +61,6 @@ class GeocodedResults extends Component {
       searchTerm,
       resultsIsOpen,
     } = this.props.geocodedData;
-    const { distance, units } = this.props.mapData.buffer;
     if (
       geocodedResults.features !== undefined &&
       searchTerm !== "" &&
@@ -74,8 +69,6 @@ class GeocodedResults extends Component {
       return (
         <div className="results-container">
           {geocodedResults.features.map((feature, index) => {
-            //pass coords to onClick
-            const [lon, lat] = feature.geometry.coordinates;
             //render the place name
             const { place_name } = feature;
             return (
@@ -85,12 +78,7 @@ class GeocodedResults extends Component {
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
-                  this._onResultClick(
-                    { lon, lat },
-                    distance,
-                    units,
-                    place_name
-                  );
+                  this._onResultClick(feature);
                 }}
               >
                 {place_name}
@@ -129,43 +117,33 @@ class GeocoderInput extends Component {
   _handleInputChange = async (e) => {
     const searchTerm = e.target.value;
     this.props.dispatch(setSearchTerm(searchTerm));
-
-    // toggle the results to be visible
-    this.props.dispatch(toggleGeocodeResults(true));
-
     //close the error togle if open
     this.props.dispatch(toggleErrorMessage(false));
-
+    // toggle the results to be visible
+    this.props.dispatch(toggleGeocodeResults(true));
     // geocoding route is /api/search/<searchTerm>
     const route = "/api/search/";
     this.props.dispatch(handleGeocodeSearchTerm(searchTerm, route));
   };
 
   _handleClearButtonClick = () => {
+    //close the error toggle if open
+    this.props.dispatch(toggleErrorMessage(false));
     //reset the geocoded results
     this.props.dispatch(geocodeSearchTerm({ features: [] }));
     // reset the search term
     this.props.dispatch(setSearchTerm(""));
-    //close the error toggle if open
-    this.props.dispatch(toggleErrorMessage(false));
     // this.props.dispatch(setMarkerCoordsAction(null, null));
   };
 
   _handleKeyPressOrSearchClick = (e) => {
+    // if user clicked Enter button or the search button
     if (e.key === "Enter" || e.currentTarget.title === "Search Button") {
       const { geocodedResults } = this.props.geocodedData;
-      const { distance, units } = this.props.mapData.buffer;
-
       if (geocodedResults.features.length > 0) {
         const topFeature = geocodedResults.features[0];
-        const [lon, lat] = topFeature.geometry.coordinates;
-        const { place_name } = topFeature;
-        //set up route and dispatch action for site data
-        const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-        const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-
         // get the site data and trigger other relevent actionsu
-        this._handleGetSiteData(route, place_name);
+        this._handleGetSiteData(topFeature);
       }
     }
   };
@@ -175,11 +153,19 @@ class GeocoderInput extends Component {
   It handles gettinf the site data as well as setting
   all the UI to its correct state.
   */
-  _handleGetSiteData = (route, placeName) => {
+  _handleGetSiteData = (feature) => {
     const { mapState } = this.props;
+    const { distance, units } = this.props.mapData.buffer;
+    const [lon, lat] = feature.geometry.coordinates;
+    const { place_name } = feature;
+
+    //set up route and dispatch action for site data
+    const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
+    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
-      this.props.dispatch(setSearchTerm(placeName));
+      this.props.dispatch(setSearchTerm(place_name));
 
       // if return geoJSON has features then create a new vieport
       const { features } = sitesGeoJSON;
@@ -228,7 +214,7 @@ class GeocoderInput extends Component {
               this._textInput = ref;
             }}
             onFocus={() => {
-              // this.props.dispatch(togglePartialResultsAction(true));
+              //do something
             }}
           />
           <div
@@ -275,4 +261,3 @@ class SidePanel extends Component {
 }
 
 export default SidePanel;
-
