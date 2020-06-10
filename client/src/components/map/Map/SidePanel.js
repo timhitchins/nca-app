@@ -32,7 +32,6 @@ class GeocodedResults extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
-    mapState: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     _handleGetSiteData: PropTypes.func.isRequired,
   };
@@ -49,8 +48,6 @@ class GeocodedResults extends Component {
   and set the input with clicked result
   */
   _onResultClick = (resultCoords, distance, units, placeName) => {
-    const { mapState } = this.props; //passed to viewport method
-
     //close the error togle if open
     this.props.dispatch(toggleErrorMessage(false));
 
@@ -154,7 +151,30 @@ class GeocoderInput extends Component {
     // this.props.dispatch(setMarkerCoordsAction(null, null));
   };
 
-  // this method is passed down the component tree
+  _handleKeyPressOrSearchClick = (e) => {
+    if (e.key === "Enter" || e.currentTarget.title === "Search Button") {
+      const { geocodedResults } = this.props.geocodedData;
+      const { distance, units } = this.props.mapData.buffer;
+
+      if (geocodedResults.features.length > 0) {
+        const topFeature = geocodedResults.features[0];
+        const [lon, lat] = topFeature.geometry.coordinates;
+        const { place_name } = topFeature;
+        //set up route and dispatch action for site data
+        const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
+        const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+
+        // get the site data and trigger other relevent actionsu
+        this._handleGetSiteData(route, place_name);
+      }
+    }
+  };
+
+  /* 
+  This method is passed down the component tree.
+  It handles gettinf the site data as well as setting
+  all the UI to its correct state.
+  */
   _handleGetSiteData = (route, placeName) => {
     const { mapState } = this.props;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
@@ -179,25 +199,6 @@ class GeocoderInput extends Component {
     });
   };
 
-  _handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      const { geocodedResults } = this.props.geocodedData;
-      const { distance, units } = this.props.mapData.buffer;
-
-      if (geocodedResults.features.length > 0) {
-        const topFeature = geocodedResults.features[0];
-        const [lon, lat] = topFeature.geometry.coordinates;
-        const { place_name } = topFeature;
-        //set up route and dispatch action for site data
-        const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-        const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-
-        // get the site data and trigger other relevent actionsu
-        this._handleGetSiteData(route, place_name);
-      }
-    }
-  };
-
   render() {
     const { searchTerm } = this.props.geocodedData;
     return (
@@ -217,12 +218,8 @@ class GeocoderInput extends Component {
             value={searchTerm} //controlled input
             onChange={this._handleInputChange}
             onKeyPress={(e) => {
-              //need to update to action
               e.persist();
-              this._handleKeyPress(e);
-            }}
-            onClick={() => {
-              // this.props.dispatch(toggleFullResultsAction(false));
+              this._handleKeyPressOrSearchClick(e);
             }}
             minLength={1}
             debounceTimeout={300}
@@ -236,8 +233,9 @@ class GeocoderInput extends Component {
           />
           <div
             className="search-button"
-            onClick={() => {
-              console.log("clicked");
+            title="Search Button"
+            onClick={(e) => {
+              this._handleKeyPressOrSearchClick(e);
             }}
           >
             <img
@@ -278,9 +276,3 @@ class SidePanel extends Component {
 
 export default SidePanel;
 
-/* <select className="year-selector">
-<option value="2020">2020</option>
-<option value="2019">2019</option>
-<option value="2018">2018</option>
-<option value="2017">2017</option>
-</select> */
