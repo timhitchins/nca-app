@@ -176,12 +176,12 @@ input[type="text"] {
   height: 50px;
   border: 2px solid $ui-dark-gray;
   cursor: pointer;
+  line-height: 50px;
 }
 
 /*----- Geocoder and Marker container styles -----*/
 .geocoder-marker-container {
   display: flex;
   align-items: center;
-  line-height: 50px;
 }
 

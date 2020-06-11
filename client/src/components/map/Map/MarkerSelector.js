@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
+import {
+  setSearchTerm,
+  toggleGeocodeResults,
+  toggleErrorMessage,
+} from "../../../actions/geocode";
 import "./SidePanel.scss";
 
 class MarkerSelector extends Component {
@@ -12,6 +17,9 @@ class MarkerSelector extends Component {
   _handleMarkerSelectorClick = () => {
     const { isActive } = this.props.markerSelector;
     this.props.dispatch(toggleMarkerSelector(!isActive));
+    this.props.dispatch(toggleGeocodeResults(false));
+    this.props.dispatch(toggleErrorMessage(false));
+    this.props.dispatch(setSearchTerm(""));
   };
 
   render() {

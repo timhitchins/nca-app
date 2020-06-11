@@ -11,6 +11,7 @@ import {
 } from "../../../actions/geocode";
 import { handleGetSiteData, setMarkerCoords } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
+import MarkerSelector from "./MarkerSelector";
 import "./SidePanel.scss";
 
 const NoGeocodedResults = ({ errorMsgIsOpen }) => {
@@ -191,54 +192,59 @@ class GeocoderInput extends Component {
   render() {
     const { searchTerm } = this.props.geocodedData;
     return (
-      <div className="search-bar">
-        <div className="search-form">
-          <div
-            className="clear-button"
-            onClick={() => {
-              this._handleClearButtonClick();
-            }}
-          >
-            &times;
+      <React.Fragment>
+        <div className="geocoder-marker-container">
+          <div className="search-bar">
+            <div className="search-form">
+              <div
+                className="clear-button"
+                onClick={() => {
+                  this._handleClearButtonClick();
+                }}
+              >
+                &times;
+              </div>
+              <DebounceInput
+                type="text"
+                placeholder="Search an address..."
+                value={searchTerm} //controlled input
+                onChange={this._handleInputChange}
+                onKeyPress={(e) => {
+                  e.persist();
+                  this._handleKeyPressOrSearchClick(e);
+                }}
+                minLength={1}
+                debounceTimeout={300}
+                inputRef={(ref) => {
+                  //create a ref to the input
+                  this._textInput = ref;
+                }}
+                onFocus={() => {
+                  //do something
+                }}
+              />
+              <div
+                className="search-button"
+                title="Search Button"
+                onClick={(e) => {
+                  this._handleKeyPressOrSearchClick(e);
+                }}
+              >
+                <img
+                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/search.png"
+                  alt="search button"
+                ></img>
+              </div>
+            </div>
           </div>
-          <DebounceInput
-            type="text"
-            placeholder="Search an address..."
-            value={searchTerm} //controlled input
-            onChange={this._handleInputChange}
-            onKeyPress={(e) => {
-              e.persist();
-              this._handleKeyPressOrSearchClick(e);
-            }}
-            minLength={1}
-            debounceTimeout={300}
-            inputRef={(ref) => {
-              //create a ref to the input
-              this._textInput = ref;
-            }}
-            onFocus={() => {
-              //do something
-            }}
-          />
-          <div
-            className="search-button"
-            title="Search Button"
-            onClick={(e) => {
-              this._handleKeyPressOrSearchClick(e);
-            }}
-          >
-            <img
-              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/search.png"
-              alt="search button"
-            ></img>
-          </div>
+          <MarkerSelector {...this.props} />
         </div>
         <GeocodedResults
           {...this.props}
           _handleGetSiteData={this._handleGetSiteData}
         />
-        <NoGeocodedResults {...this.props.geocodedData} />
-      </div>
+        <NoGeocodedResults {...this.props.geocodedData} />{" "}
+      </React.Fragment>
     );
   }
 }

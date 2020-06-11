@@ -10,10 +10,11 @@ class SidePanel extends Component {
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
           <aside className="panel-label">Search by location</aside>
-          <div className="geocoder-marker-container">
+          {/* <div className="geocoder-marker-container">
             <GeocoderInput {...this.props} />
             <MarkerSelector {...this.props} />
-          </div>
+          </div> */}
+          <GeocoderInput {...this.props} />
         </div>
         <div className="outer-panel">
           <aside className="panel-label">Construction Site Information</aside>
