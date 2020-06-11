@@ -176,6 +176,12 @@ class NCAMap extends PureComponent {
             this._handleMapClick(e);
           }}
         >
+          {geoJSON ? (
+            <Source id="buffer" type="geojson" data={geoJSON}>
+              <Layer key="buffer-zone-layer" {...bufferZoneLayer} />
+              <Layer key="buffer-line-layer" {...bufferLineLayer} />
+            </Source>
+          ) : null}
           {latitude && longitude ? (
             <CentralMarker
               {...this.props}
@@ -185,12 +191,6 @@ class NCAMap extends PureComponent {
           <Source id="sites" type="geojson" data={siteMarkers}>
             <Layer key="sites-layer" {...sitesLayer} />
           </Source>
-          {geoJSON ? (
-            <Source id="buffer" type="geojson" data={geoJSON}>
-              <Layer key="buffer-zone-layer" {...bufferZoneLayer} />
-              <Layer key="buffer-line-layer" {...bufferLineLayer} />
-            </Source>
-          ) : null}
         </ReactMapGL>
       </section>
     );

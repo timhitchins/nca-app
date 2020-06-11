@@ -1,23 +1,58 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { setBufferValues } from "../../../actions/mapData";
-import { createBuffer } from "../../../utils/mapUtils";
+import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { setBufferValues, handleGetSiteData } from "../../../actions/mapData";
+import { getMapState } from "../../../actions/mapState";
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
 import "./BufferSlider.scss";
 
 class BufferSlider extends Component {
   static propTypes = {
+    geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
+    mapState: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
+  };
+
+  _createNewViewport = (geojson, mapState) => {
+    //trigger new viewport
+    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
+    this.props.dispatch(
+      getMapState({
+        ...mapState,
+        longitude,
+        latitude,
+        zoom,
+        transitionDuration: 1000,
+      })
+    );
   };
 
   _handleOnChangeComplete = (value) => {
     const { centralMarker } = this.props.mapData;
+    const { longitude, latitude } = centralMarker;
     const { distance, units } = this.props.mapData.buffer;
-    if (centralMarker.longitude !== null || centralMarker.latitude !== null) {
-      const bufferGeoJSON = createBuffer(centralMarker, distance, units);
-      this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
+    const { mapState } = this.props;
+    const { errorMsgIsOpen } = this.props.geocodedData;
+
+    if (
+      !errorMsgIsOpen &
+      (centralMarker.longitude !== null || centralMarker.latitude !== null)
+    ) {
+      //set up route and dispatch action for site data
+      const encodedCoords = encodeURI(
+        JSON.stringify({ lon: longitude, lat: latitude })
+      );
+      const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+      this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
+        //create the new buffer
+        const bufferGeoJSON = createBuffer(centralMarker, distance, units);
+        this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
+
+        // create the viewport
+        this._createNewViewport(sitesGeoJSON, mapState);
+      });
     }
   };
 
