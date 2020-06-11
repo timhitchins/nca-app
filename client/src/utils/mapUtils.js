@@ -35,7 +35,6 @@ export function createNewViewport(geojson, mapState) {
 export function createBuffer(coords, radius, units) {
   const { longitude, latitude } = coords;
   const centerPoint = point([longitude, latitude]);
-
-  const searchBuffer = buffer(centerPoint, radius, { units });
+  const searchBuffer = buffer(centerPoint, radius, {units} );
   return searchBuffer;
 }

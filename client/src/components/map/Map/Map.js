@@ -1,18 +1,19 @@
 import React, { PureComponent } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
-import { createNewViewport } from "../../../utils/mapUtils";
+import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
   setMarkerCoords,
   handleGetSiteData,
+  setBufferValues,
 } from "../../../actions/mapData";
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
 import Pin from "./Pin";
-import { sitesLayer } from "./mapStyles";
+import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
 import "./Map.scss";
 
 const MAPBOX_TOKEN =
@@ -42,32 +43,7 @@ class CentralMarker extends PureComponent {
     this._logDragEvent("onDragEnd", e);
     const [lon, lat] = e.lngLat;
     this.props.dispatch(setMarkerCoords(lon, lat));
-
     this.props._handleGetSiteData(lon, lat);
-    // //start building the route
-    // const { distance, units } = this.props.mapData.buffer;
-    // const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    // const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-
-    // //get mapstate for changing viewport
-    // const { mapState } = this.props;
-
-    // // get site data related to where the marker dropped
-    // this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
-    //   // set the search term to empty
-    //   this.props.dispatch(setSearchTerm(""));
-    //   // if return geoJSON has features then create a new vieport
-    //   const { features } = sitesGeoJSON;
-    //   if (features.length > 0) {
-    //     // create the new viewport
-    //     this.props._createNewViewport(sitesGeoJSON, mapState);
-    //   } else {
-    //     // show the error message
-    //     // and zoom to default viewport
-    //     this.props.dispatch(toggleErrorMessage(true));
-    //     this.props._createNewViewport({}, mapState);
-    //   }
-    // });
   };
 
   render() {
@@ -150,10 +126,14 @@ class NCAMap extends PureComponent {
       // if return geoJSON has features then create a new vieport
       const { features } = sitesGeoJSON;
       if (features.length > 0) {
+        // create the new buffer geoJSON
+        this._handleCreateNewBuffer(lon, lat);
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
       } else {
+        // destroy the buffer
+        this._handleDestroyBuffer();
         // show the error message
         // and zoom to default viewport
         this.props.dispatch(toggleErrorMessage(true));
@@ -162,9 +142,22 @@ class NCAMap extends PureComponent {
     });
   };
 
+  _handleCreateNewBuffer = (longitude, latitude) => {
+    const centerPoint = { longitude, latitude };
+    const { distance, units } = this.props.mapData.buffer;
+    const bufferGeoJSON = createBuffer(centerPoint, distance, units);
+    this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
+  };
+
+  _handleDestroyBuffer = () => {
+    const { distance, units } = this.props.mapData.buffer;
+    this.props.dispatch(setBufferValues(distance, units, null));
+  };
+
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
     const { siteMarkers } = this.props.mapData;
+    const { geoJSON } = this.props.mapData.buffer;
     return (
       <section className="map">
         <ReactMapGL
@@ -192,6 +185,12 @@ class NCAMap extends PureComponent {
           <Source id="sites" type="geojson" data={siteMarkers}>
             <Layer key="sites-layer" {...sitesLayer} />
           </Source>
+          {geoJSON ? (
+            <Source id="buffer" type="geojson" data={geoJSON}>
+              <Layer key="buffer-zone-layer" {...bufferZoneLayer} />
+              <Layer key="buffer-line-layer" {...bufferLineLayer} />
+            </Source>
+          ) : null}
         </ReactMapGL>
       </section>
     );

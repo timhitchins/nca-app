@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
-import { createNewViewport } from "../../../utils/mapUtils";
+import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
 import {
   geocodeSearchTerm,
   handleGeocodeSearchTerm,
@@ -9,7 +9,11 @@ import {
   toggleGeocodeResults,
   toggleErrorMessage,
 } from "../../../actions/geocode";
-import { handleGetSiteData, setMarkerCoords } from "../../../actions/mapData";
+import {
+  handleGetSiteData,
+  setMarkerCoords,
+  setBufferValues,
+} from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import MarkerSelector from "./MarkerSelector";
 import "./SidePanel.scss";
@@ -174,11 +178,15 @@ class GeocoderInput extends Component {
       // if return geoJSON has features then create a new vieport
       const { features } = sitesGeoJSON;
       if (features.length > 0) {
+        // create the new buffer geoJSON
+        this._handleCreateNewBuffer(lon, lat);
         // open the geocoded results
         // and create the new viewport
         this.props.dispatch(toggleGeocodeResults(false));
         this._createNewViewport(sitesGeoJSON, mapState);
       } else {
+        // destroy the buffer
+        this._handleDestroyBuffer();
         // else close geocoded results
         // and show the error message
         // and zoom to default viewport
@@ -188,7 +196,17 @@ class GeocoderInput extends Component {
       }
     });
   };
+  _handleCreateNewBuffer = (longitude, latitude) => {
+    const centerPoint = { longitude, latitude };
+    const { distance, units } = this.props.mapData.buffer;
+    const bufferGeoJSON = createBuffer(centerPoint, distance, units);
+    this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
+  };
 
+  _handleDestroyBuffer = () => {
+    const { distance, units } = this.props.mapData.buffer;
+    this.props.dispatch(setBufferValues(distance, units, null));
+  };
   render() {
     const { searchTerm } = this.props.geocodedData;
     return (
