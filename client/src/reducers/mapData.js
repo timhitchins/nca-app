@@ -3,13 +3,13 @@ import {
   MARKER_DRAG_END,
   SET_MARKER_COORDS,
   GET_SITE_DATA,
-  SET_BUFFER,
+  SET_BUFFER_VALUES,
 } from "../actions/mapData";
 
 const intialMapData = {
   centralMarker: { longitude: null, latitude: null },
   siteMarkers: null,
-  buffer: { distance: 1500, units: "meters" },
+  buffer: { distance: 500, units: "meters", geoJSON: null },
 };
 
 export default function mapData(state = intialMapData, action) {
@@ -22,7 +22,7 @@ export default function mapData(state = intialMapData, action) {
       return { ...state, ...action.payload };
     case GET_SITE_DATA:
       return { ...state, ...action.payload };
-    case SET_BUFFER:
+    case SET_BUFFER_VALUES:
       return { ...state, ...action.payload };
     default:
       return state;

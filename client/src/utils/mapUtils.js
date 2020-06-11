@@ -1,5 +1,7 @@
 import { WebMercatorViewport } from "react-map-gl";
 import bbox from "@turf/bbox";
+import buffer from "@turf/buffer"; //https://turfjs.org/docs/#buffer
+import point from "turf-point";
 
 // funtion to create the new viwport to zoom to
 export function createNewViewport(geojson, mapState) {
@@ -27,4 +29,13 @@ export function createNewViewport(geojson, mapState) {
     longitude: -122.608626,
     zoom: 10,
   };
+}
+
+// util to create buffer from point
+export function createBuffer(coords, radius, units) {
+  const { longitude, latitude } = coords;
+  const centerPoint = point([longitude, latitude]);
+
+  const searchBuffer = buffer(centerPoint, radius, { units });
+  return searchBuffer;
 }

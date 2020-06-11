@@ -5,7 +5,7 @@ export const LOG_MARKER_DRAG = "LOG_MARKER_DRAG";
 export const MARKER_DRAG_END = "MARKER_DRAG_END";
 export const SET_MARKER_COORDS = "SET_MARKER_COORDS";
 export const GET_SITE_DATA = "GET_SITE_DATA";
-export const SET_BUFFER = "SET_BUFFER";
+export const SET_BUFFER_VALUES = "SET_BUFFER_VALUES";
 
 export function logMarkerDragEvent(name, event) {
   return {
@@ -35,13 +35,14 @@ function getSiteData(data) {
   };
 }
 
-export function setBuffer(distance, units) {
+export function setBufferValues(distance, units, geoJSON) {
   return {
-    type: SET_BUFFER,
+    type: SET_BUFFER_VALUES,
     payload: {
       buffer: {
         distance,
         units,
+        geoJSON,
       },
     },
   };
