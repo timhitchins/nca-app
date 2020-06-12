@@ -1,0 +1,107 @@
+@import "../../theme.scss";
+
+/*----- Geocoder styles -----*/
+.search-bar {
+  width: 100%;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 12px 20px;
+  box-sizing: inherit;
+  border: none;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  outline: none;
+}
+
+.search-form {
+  display: flex;
+  height: 50px;
+  width: 100%;
+  border: 2px solid $ui-dark-gray;
+}
+
+.search-form:focus-within {
+  border: 3px solid$ui-dark-gray;
+}
+
+//search button
+.search-button {
+  box-sizing: inherit;
+  width: 20%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  img {
+    height: 40px;
+    width: 40px;
+    border: none;
+  }
+}
+
+.clear-button {
+  box-sizing: inherit;
+  padding-left: 5px;
+  width: 10%;
+  height: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 35px;
+  color: $ui-dark-gray;
+}
+
+/*----- Geocoded Results styles -----*/
+.results-container {
+  position: relative;
+  z-index: 5;
+  font-size: 1rem;
+  color: $ui-dark-gray;
+}
+.result-list-item-odd {
+  background-color: $ui-off-white;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.result-list-item-even {
+  background-color: $ui-white;
+  margin: 10px 0;
+  padding: 5px;
+}
+
+.result-list-item-odd:hover,
+.result-list-item-even:hover {
+  background-color: $ui-light-gray;
+}
+
+.error-results-container {
+  position: relative;
+  z-index: 5;
+  font-size: 0.8rem;
+  color: $ui-white;
+  padding: 5px;
+  background-color: $ui-red;
+}
+
+/*----- Marker selector styles -----*/
+.marker-selector {
+  margin-left: 10px;
+  height: 50px;
+  border: 2px solid $ui-dark-gray;
+  cursor: pointer;
+  line-height: 50px;
+}
+
+/*----- Geocoder and Marker container styles -----*/
+.geocoder-marker-container {
+  display: flex;
+  align-items: center;
+}

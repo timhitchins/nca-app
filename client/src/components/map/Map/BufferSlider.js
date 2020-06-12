@@ -29,7 +29,7 @@ class BufferSlider extends Component {
     );
   };
 
-  _handleOnChangeComplete = (value) => {
+  _handleOnChangeComplete = () => {
     const { centralMarker } = this.props.mapData;
     const { longitude, latitude } = centralMarker;
     const { distance, units } = this.props.mapData.buffer;

@@ -16,7 +16,7 @@ import {
 } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import MarkerSelector from "./MarkerSelector";
-import "./SidePanel.scss";
+import "./GeocoderInput.scss";
 
 const NoGeocodedResults = ({ errorMsgIsOpen }) => {
   if (errorMsgIsOpen) {
