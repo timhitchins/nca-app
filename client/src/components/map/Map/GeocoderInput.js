@@ -261,7 +261,7 @@ class GeocoderInput extends Component {
           {...this.props}
           _handleGetSiteData={this._handleGetSiteData}
         />
-        <NoGeocodedResults {...this.props.geocodedData} />{" "}
+        <NoGeocodedResults {...this.props.geocodedData} />
       </React.Fragment>
     );
   }

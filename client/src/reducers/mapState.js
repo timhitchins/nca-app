@@ -5,7 +5,8 @@ const initialViewport = {
   longitude: -122.608626,
   zoom: 10,
   bearing: 0,
-  pitch: 0
+  pitch: 0,
+  transitionDuration: 1000,
 };
 
 export default function mapState(state = initialViewport, action) {

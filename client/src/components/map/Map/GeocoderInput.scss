@@ -61,6 +61,7 @@ input[type="text"] {
 /*----- Geocoded Results styles -----*/
 .results-container {
   position: relative;
+  //   position: absolute;
   z-index: 5;
   font-size: 1rem;
   color: $ui-dark-gray;

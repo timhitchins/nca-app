@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import NCAMap from "./Map";
 import SidePanel from "./SidePanel";
+import MapController from "./MapController";
 import CursorTooltip from "../CursorTooltip/CursorTooltip";
 import LoadingIndicator from "../Loading/LoadingIndicator";
 import "./Map.scss";
@@ -15,6 +16,7 @@ class MapContainer extends Component {
         <SidePanel {...this.props} />
         <LoadingIndicator {...this.props} />
         <CursorTooltip {...this.props} />
+        <MapController {...this.props} />
       </main>
     );
   }
