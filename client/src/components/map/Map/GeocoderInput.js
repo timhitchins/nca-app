@@ -143,7 +143,7 @@ class GeocoderInput extends Component {
 
   _handleKeyPressOrSearchClick = (e) => {
     // if user clicked Enter button or the search button
-    if (e.key === "Enter" || e.currentTarget.title === "Search Button") {
+    if (e.key === "Enter" || e.currentTarget.title === "Search button") {
       const { geocodedResults } = this.props.geocodedData;
       if (geocodedResults.features.length > 0) {
         const topFeature = geocodedResults.features[0];
@@ -216,6 +216,7 @@ class GeocoderInput extends Component {
             <div className="search-form">
               <div
                 className="clear-button"
+                title="Clear search"
                 onClick={() => {
                   this._handleClearButtonClick();
                 }}
@@ -243,7 +244,7 @@ class GeocoderInput extends Component {
               />
               <div
                 className="search-button"
-                title="Search Button"
+                title="Search button"
                 onClick={(e) => {
                   this._handleKeyPressOrSearchClick(e);
                 }}

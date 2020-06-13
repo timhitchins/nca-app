@@ -39,25 +39,37 @@ class MapController extends Component {
       <aside>
         <div className="map-controller-container">
           <div
+            title="Home button"
             onClick={() => {
               this._createNewViewport(mapState, "home");
             }}
           >
-            home
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/home_symbol.png"
+              alt="Home button symbol."
+            />
           </div>
           <div
+            title="Zoom in"
             onClick={() => {
               this._createNewViewport(mapState, "zoom-in");
             }}
           >
-            &#x0002B;
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/plus_symbol.png"
+              alt="Zoom in button symbol."
+            />
           </div>
           <div
+            title="Zoom out"
             onClick={() => {
               this._createNewViewport(mapState, "zoom-out");
             }}
           >
-            &#x02014;
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/minus_symbol.png"
+              alt="Zome out button symbol."
+            />
           </div>
         </div>
       </aside>
