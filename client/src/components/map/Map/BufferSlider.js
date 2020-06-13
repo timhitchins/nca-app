@@ -24,7 +24,6 @@ class BufferSlider extends Component {
         longitude,
         latitude,
         zoom,
-        transitionDuration: 1000,
       })
     );
   };
@@ -77,6 +76,7 @@ class BufferSlider extends Component {
           orientation="horizontal"
           onChange={this._handleOnChange}
           onChangeComplete={this._handleOnChangeComplete}
+          labels={{ 500: "500", 2500: "2,500", 5000: "5,000" }}
         />
       </div>
     );

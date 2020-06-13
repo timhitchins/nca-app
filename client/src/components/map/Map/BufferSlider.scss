@@ -2,7 +2,7 @@
 
 .rangeslider-horizontal {
   height: 6px;
-  margin: 15px 0 35px 0;
+  margin: 15px 0 15px 0;
 }
 
 .rangeslider-horizontal .rangeslider__fill {
@@ -20,10 +20,14 @@
 }
 
 .rangeslider__labels {
-    position: relative;
-    bottom: 16px;
+  position: relative;
+  bottom: 16px;
 }
 
 .slider-title {
-    font-size: .8rem;
+  font-size: 0.8rem;
+}
+
+.rangeslider__label-item {
+  font-size: 0.7rem !important;
 }

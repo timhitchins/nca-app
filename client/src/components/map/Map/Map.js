@@ -86,7 +86,6 @@ class NCAMap extends PureComponent {
         longitude,
         latitude,
         zoom,
-        transitionDuration: 1000,
       })
     );
   };
