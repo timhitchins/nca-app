@@ -20,7 +20,7 @@ export function createNewViewport(geojson, mapState) {
         padding: 100,
       }
     );
-
+    //NOTE: this is a temporary solution for zoom level
     return { longitude, latitude, zoom: zoom - 1 };
   }
   //else return this default viewport

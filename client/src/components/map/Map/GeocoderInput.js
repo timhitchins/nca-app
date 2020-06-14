@@ -170,7 +170,6 @@ class GeocoderInput extends Component {
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
-
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(place_name));

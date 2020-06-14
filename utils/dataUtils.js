@@ -2,6 +2,29 @@
 // import buffer from "@turf/buffer"; //https://turfjs.org/docs/#buffer
 // import point from "turf-point";
 
+// calculates the count of types in
+function createTypeCounts(inJSON, type) {
+  if (type === "pjson") {
+    // handle pjson
+    const countDict = inJSON.features
+      .map((feature) => {
+        return feature.attributes.TYPE;
+      })
+      .filter((val) => val !== null || val !== undefined) // filter out the nulls
+      .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
+
+    return countDict;
+  } else if (type === "geoJSON") {
+    const countDict = inJSON.features
+      .map((feature) => {
+        return feature.properties.TYPE;
+      })
+      .filter((val) => val !== null || val !== undefined) // filter out the nulls
+      .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
+    return countDict;
+  }
+}
+
 //helper function to determine demolition value
 function calculateDemoDuplicates(inData) {
   //calculate the number of times an id exists
@@ -71,6 +94,51 @@ export function addPDIToFeatures(inData) {
 
   inData.features = pdiDataFeatures;
   return inData;
+}
+
+//this function can be extended to include the attribute names
+//currently they are hardcoded
+export function calculateAttributeTotals(json, type) {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  if (type === "pjson") {
+    //this could be DRY'd
+    const sumSqFt = json.features
+      .map((feature) => {
+        return feature.attributes.TOTALSQFT;
+      })
+      .reduce(reducer);
+    const sumStories = json.features
+      .map((feature) => {
+        return feature.attributes.NUMBSTORIES;
+      })
+      .reduce(reducer);
+
+    const typeCounts = createTypeCounts(json, "pjson");
+    //include them on the json
+    const totals = { sumSqFt, sumStories, typeCounts };
+
+    return totals;
+  } else if (type === "geoJSON") {
+    //parse the geoJSON
+    //calculate the total of sqft and stories
+    const sumSqFt = json.features
+      .map((feature) => {
+        return feature.properties.TOTALSQFT;
+      })
+      .reduce(reducer);
+    const sumStories = json.features
+      .map((feature) => {
+        return feature.properties.NUMBSTORIES;
+      })
+      .reduce(reducer);
+
+    const typeCounts = createTypeCounts(json, "geoJSON");
+    //include them on the json
+    json.totals = { sumSqFt, sumStories, typeCounts };
+
+    return json;
+  }
 }
 
 //util to build

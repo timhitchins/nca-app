@@ -1,6 +1,4 @@
-import {
-  addPDIToFeatures,
-} from "../utils/dataUtils";
+import { addPDIToFeatures, calculateAttributeTotals } from "../utils/dataUtils";
 import { fetchPermitData } from "../utils/fetchUtils";
 import Router from "express-promise-router";
 export const router = new Router();
@@ -19,8 +17,10 @@ router.get("/:coords/:radius/:units", async (req, res) => {
     //generate PDI
     const pdiGeoJSON = addPDIToFeatures(geoJSON);
 
-    // respond with pdi data
-    res.json(pdiGeoJSON);
+    //calcualte totals on geoJSON
+    const sumTotalsGeoJSON = calculateAttributeTotals(geoJSON, "geoJSON");
+    // respond with completed data
+    res.json(sumTotalsGeoJSON);
   } catch (err) {
     res.json({ message: err });
   }
