@@ -1,5 +1,6 @@
 /* ----- fonts ----- */
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;700&display=swap");
+
 /* ------- colors ------- */
 $ui-black: #000000;
 $ui-white: #ffffff;
@@ -29,6 +30,7 @@ $desktop-font-size-h1: 51px;
 $desktop-font-size-h3: 48px;
 $desktop-font-size-h5: 36px;
 
+$font-family-narrow: "Archivo Narrow", sans-serif;
 /*---------exports----------*/
 :export {
   uiBlack: $ui-black;

@@ -1,10 +1,11 @@
-import { fetchSiteData } from "../utils/api";
+import { fetchSiteData, fetchAttributeData } from "../utils/api";
 import { toggleLoadingIndicator } from "./loading";
 
 export const LOG_MARKER_DRAG = "LOG_MARKER_DRAG";
 export const MARKER_DRAG_END = "MARKER_DRAG_END";
 export const SET_MARKER_COORDS = "SET_MARKER_COORDS";
 export const GET_SITE_DATA = "GET_SITE_DATA";
+export const GET_ATTRIBUTE_DATA = "GET_ATTRIBUTE_DATA";
 export const SET_BUFFER_VALUES = "SET_BUFFER_VALUES";
 
 export function logMarkerDragEvent(name, event) {
@@ -28,13 +29,6 @@ export function setMarkerCoords(longitude, latitude) {
   };
 }
 
-function getSiteData(data) {
-  return {
-    type: GET_SITE_DATA,
-    payload: { siteMarkers: data },
-  };
-}
-
 export function setBufferValues(distance, units, geoJSON) {
   return {
     type: SET_BUFFER_VALUES,
@@ -45,6 +39,13 @@ export function setBufferValues(distance, units, geoJSON) {
         geoJSON,
       },
     },
+  };
+}
+
+function getSiteData(data) {
+  return {
+    type: GET_SITE_DATA,
+    payload: { siteMarkers: data },
   };
 }
 
@@ -59,6 +60,26 @@ export function handleGetSiteData(route) {
       })
       .catch((err) => {
         throw new Error(`An error occurred fetching site data: ${err}`);
+      });
+  };
+}
+
+function getAttributeData(data) {
+  return {
+    type: GET_ATTRIBUTE_DATA,
+    payload: { attributeTotals: data },
+  };
+}
+
+export function handleGetAttributeData(route) {
+  return async (dispatch) => {
+    return fetchAttributeData(route)
+      .then((json) => {
+        dispatch(getAttributeData(json));
+        return json;
+      })
+      .catch((err) => {
+        throw new Error(`An error occurred fetching attribute data: ${err}`);
       });
   };
 }

@@ -12,15 +12,25 @@ function createTypeCounts(inJSON, type) {
       })
       .filter((val) => val !== null || val !== undefined) // filter out the nulls
       .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
-
+    //count the total amt of sites
+    countDict.totalProjectSites = Object.values(countDict).reduce(
+      (a, b) => a + b,
+      0
+    );
     return countDict;
   } else if (type === "geoJSON") {
+    //handle regular geoJSON
     const countDict = inJSON.features
       .map((feature) => {
         return feature.properties.TYPE;
       })
       .filter((val) => val !== null || val !== undefined) // filter out the nulls
       .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
+    //count the total amt of sites
+    countDict.totalProjectSites = Object.values(countDict).reduce(
+      (a, b) => a + b,
+      0
+    );
     return countDict;
   }
 }

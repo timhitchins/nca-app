@@ -1,0 +1,15 @@
+@import "../../theme.scss";
+
+.permit-text-container {
+  font-family: $font-family-narrow;
+  margin: 10px 5px;
+  height: 200px;
+  div > span:first-child {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  div > span:nth-child(2) {
+    display: block;
+    font-size: 0.9rem;
+  }
+}

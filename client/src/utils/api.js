@@ -25,3 +25,14 @@ export async function fetchGeocdeResults(searchTerm, route) {
     return geocodeJSON;
   }
 }
+
+/*----- function to fetch the attribute totals -----*/ 
+export async function fetchAttributeData(route) {
+  const attributeDataResponse = await fetch(route);
+  if (attributeDataResponse.status === 200) {
+    const attributeDataJSON = await attributeDataResponse.json();
+    return attributeDataJSON;
+  } else {
+    throw new Error(attributeDataResponse.status);
+  }
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GeocoderInput from "./GeocoderInput";
 import BufferSlider from "./BufferSlider";
+import PermitTypeText from "./PermitTypeText";
 import "./SidePanel.scss";
 
 class SidePanel extends Component {
@@ -9,6 +10,7 @@ class SidePanel extends Component {
       <article className="side-panel-container">
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
+          <PermitTypeText {...this.props} />
           <aside className="panel-label">Search by location</aside>
           <GeocoderInput {...this.props} />
           <BufferSlider {...this.props} />
