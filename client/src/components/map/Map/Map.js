@@ -6,6 +6,7 @@ import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
   setMarkerCoords,
+  getSiteData,
   handleGetSiteData,
   setBufferValues,
 } from "../../../actions/mapData";
@@ -123,8 +124,12 @@ class NCAMap extends PureComponent {
       this.props.dispatch(setSearchTerm(""));
 
       // if return geoJSON has features then create a new vieport
-      const { features } = sitesGeoJSON;
-      if (features.length > 0) {
+      // const { features } = sitesGeoJSON;
+      if (
+        sitesGeoJSON !== null &&
+        sitesGeoJSON.features !== undefined &&
+        sitesGeoJSON.features.length > 0
+      ) {
         // create the new buffer geoJSON
         this._handleCreateNewBuffer(lon, lat);
         // create the new viewport
@@ -133,6 +138,10 @@ class NCAMap extends PureComponent {
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
+
+        //destroy the site markers
+        this._handleDestroySiteMarkers();
+
         // show the error message
         // and zoom to default viewport
         this.props.dispatch(toggleErrorMessage(true));
@@ -151,6 +160,10 @@ class NCAMap extends PureComponent {
   _handleDestroyBuffer = () => {
     const { distance, units } = this.props.mapData.buffer;
     this.props.dispatch(setBufferValues(distance, units, null));
+  };
+
+  _handleDestroySiteMarkers = () => {
+    this.props.dispatch(getSiteData(null));
   };
 
   render() {
@@ -187,9 +200,11 @@ class NCAMap extends PureComponent {
               _handleGetSiteData={this._handleGetSiteData}
             />
           ) : null}
-          <Source id="sites" type="geojson" data={siteMarkers}>
-            <Layer key="sites-layer" {...sitesLayer} />
-          </Source>
+          {siteMarkers ? (
+            <Source id="sites" type="geojson" data={siteMarkers}>
+              <Layer key="sites-layer" {...sitesLayer} />
+            </Source>
+          ) : null}
         </ReactMapGL>
       </section>
     );

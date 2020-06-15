@@ -66,9 +66,9 @@ class BufferSlider extends Component {
     const { distance } = this.props.mapData.buffer;
     return (
       <div>
-        <span className="slider-title">
+        <div className="slider-title">
           Show results within {distance} meters
-        </span>
+        </div>
         <Slider
           min={500}
           max={5000}

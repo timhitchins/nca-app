@@ -3,7 +3,12 @@ export async function fetchSiteData(route) {
   const siteDataResponse = await fetch(route);
   if (siteDataResponse.status === 200) {
     const siteDataJSON = await siteDataResponse.json();
-    return siteDataJSON;
+
+    if (siteDataJSON.message) {
+      return null;
+    } else {
+      return siteDataJSON;
+    }
   } else {
     throw new Error(siteDataResponse.status);
   }
@@ -26,7 +31,8 @@ export async function fetchGeocdeResults(searchTerm, route) {
   }
 }
 
-/*----- function to fetch the attribute totals -----*/ 
+/*----- function to fetch the attribute totals -----*/
+
 export async function fetchAttributeData(route) {
   const attributeDataResponse = await fetch(route);
   if (attributeDataResponse.status === 200) {

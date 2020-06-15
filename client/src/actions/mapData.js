@@ -42,7 +42,7 @@ export function setBufferValues(distance, units, geoJSON) {
   };
 }
 
-function getSiteData(data) {
+export function getSiteData(data) {
   return {
     type: GET_SITE_DATA,
     payload: { siteMarkers: data },
