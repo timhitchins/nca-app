@@ -16,7 +16,7 @@ const PermitTextSwitch = (props) => {
             {Math.round(attributeTotals.sumStories).toLocaleString()} flooors
             representing{" "}
             {attributeTotals.typeCounts.totalProjectSites.toLocaleString()}{" "}
-            project sites for all of Portland, OR
+            permits for all of Portland, OR
           </span>
         </div>
       );
@@ -29,7 +29,7 @@ const PermitTextSwitch = (props) => {
             {Math.round(siteMarkers.totals.sumStories).toLocaleString()} flooors
             representing{" "}
             {siteMarkers.totals.typeCounts.totalProjectSites.toLocaleString()}{" "}
-            project sites
+            permits
           </span>
         </div>
       );
