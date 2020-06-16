@@ -1,12 +1,12 @@
 @import "../../theme.scss";
 
-.pdi-container {
+.pdi-color-container {
   display: flex;
   justify-content: space-between;
   height: 40px;
 }
 
-.pdi-items {
+.pdi-color-items {
   border: 2px solid $ui-dark-gray;
   margin: 0 5px;
   flex: 1;

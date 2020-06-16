@@ -5,6 +5,7 @@ import mapData from "./mapData";
 import isLoading from "./loading";
 import geocodedData from "./geocode";
 import markerSelector from "./markerSelect";
+import siteData from "./siteData";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   isLoading,
   geocodedData,
   markerSelector,
+  siteData,
 });

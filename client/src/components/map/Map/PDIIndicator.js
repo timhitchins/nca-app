@@ -8,15 +8,20 @@ const indicatorColors = [
   styleVars.uiYellow,
   styleVars.uiRed,
 ];
-const mutedIndicatorColors = []
+const mutedIndicatorColors = [];
 
 class PDIIndicator extends Component {
   render() {
     return (
-      <div className="pdi-container">
-        {indicatorColors.map((color) => (
-          <div className="pdi-items" style={{ backgroundColor: color }}></div>
-        ))}
+      <div className="site-info-container">
+        <div className="pdi-color-container">
+          {indicatorColors.map((color) => (
+            <div
+              className="pdi-color-items"
+              style={{ backgroundColor: color }}
+            ></div>
+          ))}
+        </div>
       </div>
     );
   }
