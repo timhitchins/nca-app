@@ -1,11 +1,42 @@
+import * as styleVars from "../../theme.scss";
+
 export const sitesLayer = {
   id: "sites-layer",
   type: "circle",
   source: "sites",
   paint: {
-    "circle-radius": 30,
-    "circle-color": "red",
-    "circle-opacity": 1,
+    // "circle-radius": 30,
+    "circle-radius": {
+      base: 5,
+      stops: [
+        [12, 10],
+        [20, 180],
+      ],
+    },
+    // "circle-color": "red",
+    // "circle-color": {
+    //   property: "PDI",
+    //   stops: [
+    //     [7, "#00a750"],
+    //     [11, "#fff100"],
+    //     [13, "#ed1c34"],
+    //   ],
+    // },
+    "circle-color": [
+      "match",
+      ["get", "PDILevel"],
+      "low",
+      styleVars.uiGreen,
+      "med",
+      styleVars.uiYellow,
+      "high",
+      styleVars.uiRed,
+      /* other */ styleVars.uiDarkGray,
+    ],
+    "circle-opacity": 0.6,
+    "circle-stroke-color": styleVars.uiDarkGray,
+    "circle-stroke-width": 2,
+    "circle-stroke-opacity": 0.9,
   },
 };
 

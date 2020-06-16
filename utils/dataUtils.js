@@ -50,6 +50,19 @@ function calculateDemoDuplicates(inData) {
   return duplicates;
 }
 
+//caluclate low, med, high from PDI
+function calculatePDILevel(PDI) {
+  if (PDI <= 7) {
+    return "low";
+  } else if (PDI > 7 && PDI <= 11) {
+    return "med";
+  } else if (PDI > 11 && PDI <= 13) {
+    return "high";
+  } else {
+    return "no score";
+  }
+}
+
 //create the new PDI DATA
 export function addPDIToFeatures(inData) {
   const duplicates = calculateDemoDuplicates(inData);
@@ -99,6 +112,10 @@ export function addPDIToFeatures(inData) {
     //calculate PDI
     const PDI = demo + stat + sqFoot + stor;
     feature.properties.PDI = PDI;
+
+    //calculate PDI level
+    feature.properties.PDILevel = calculatePDILevel(PDI);
+
     return feature;
   });
 
