@@ -13,6 +13,7 @@ import {
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
+import { setSiteData } from "../../../actions/siteData";
 import Pin from "./Pin";
 import SiteMarkers from "./SiteMarkers";
 import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
@@ -101,7 +102,10 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
-    console.log(e)
+    //set the active site features for side panel
+    this._handleSetSiteData(e.features);
+
+    //logic to handle marker selector
     const { isActive } = this.props.markerSelector;
     if (isActive) {
       // hide the cursor tooltip
@@ -155,6 +159,21 @@ class NCAMap extends PureComponent {
     });
   };
 
+  _handleSetSiteData = (features) => {
+    if (features) {
+      const siteFeatures = features
+        .map((feature) => {
+          if (feature.layer.id === "sites-layer") {
+            return feature;
+          } else {
+            return null;
+          }
+        })
+        .filter((el) => el !== null);
+      this.props.dispatch(setSiteData(siteFeatures));
+    }
+  };
+
   _handleCreateNewBuffer = (longitude, latitude) => {
     const centerPoint = { longitude, latitude };
     const { distance, units } = this.props.mapData.buffer;
@@ -169,6 +188,10 @@ class NCAMap extends PureComponent {
 
   _handleDestroySiteMarkers = () => {
     this.props.dispatch(getSiteData(null));
+  };
+
+  _getCursor = ({ isHovering }) => {
+    return isHovering ? "pointer" : "default";
   };
 
   render() {
@@ -188,7 +211,7 @@ class NCAMap extends PureComponent {
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
           //   onHover={this._onHover}
-          //   interactiveLayerIds={["parcel-polygon"]}
+          interactiveLayerIds={["sites-layer"]}
           onClick={(e) => {
             this._handleMapClick(e);
           }}

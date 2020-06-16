@@ -1,7 +1,7 @@
 import { SET_SITE_DATA } from "../actions/siteData";
 
 const intialSiteDataState = {
-  sites: null,
+  sites: [],
 };
 
 export default function siteData(state = intialSiteDataState, action) {
