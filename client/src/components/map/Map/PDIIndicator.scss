@@ -1,0 +1,13 @@
+@import "../../theme.scss";
+
+.pdi-container {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.pdi-items {
+  border: 2px solid $ui-dark-gray;
+  margin: 0 5px;
+  flex: 1;
+}

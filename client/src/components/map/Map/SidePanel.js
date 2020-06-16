@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GeocoderInput from "./GeocoderInput";
 import BufferSlider from "./BufferSlider";
 import PermitTypeText from "./PermitTypeText";
+import PDIIndicator from "./PDIIndicator";
 import "./SidePanel.scss";
 
 class SidePanel extends Component {
@@ -17,6 +18,7 @@ class SidePanel extends Component {
         </div>
         <div className="outer-panel">
           <aside className="panel-label">Construction Site Information</aside>
+          <PDIIndicator {...this.props} />
         </div>
         <div className="outer-panel">
           <aside className="panel-label">About</aside>

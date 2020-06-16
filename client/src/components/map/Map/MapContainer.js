@@ -11,7 +11,7 @@ class MapContainer extends Component {
   render() {
     return (
       <main className="map-container">
-        <div className="title">NCA Construction Diesel Toolkit</div>
+        <div className="title">{"  NCA Construction Diesel Toolkit  "}</div>
         <NCAMap {...this.props} />
         <SidePanel {...this.props} />
         <LoadingIndicator {...this.props} />
