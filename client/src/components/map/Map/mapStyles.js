@@ -3,7 +3,7 @@ export const sitesLayer = {
   type: "circle",
   source: "sites",
   paint: {
-    "circle-radius": 3,
+    "circle-radius": 30,
     "circle-color": "red",
     "circle-opacity": 1,
   },

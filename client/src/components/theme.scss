@@ -31,8 +31,10 @@ $desktop-font-size-h3: 48px;
 $desktop-font-size-h5: 36px;
 
 $font-family-narrow: "Archivo Narrow", sans-serif;
+
 /*---------exports----------*/
 :export {
   uiBlack: $ui-black;
   uiWhite: $ui-white;
+  uiDarkGray: $ui-dark-gray;
 }

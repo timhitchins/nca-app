@@ -21,7 +21,7 @@ export function createNewViewport(geojson, mapState) {
       }
     );
     //NOTE: this is a temporary solution for zoom level
-    return { longitude, latitude, zoom: zoom - 1 };
+    return { longitude, latitude, zoom };
   }
   //else return this default viewport
   return {

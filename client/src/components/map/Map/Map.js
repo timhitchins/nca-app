@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
@@ -14,13 +14,14 @@ import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
 import Pin from "./Pin";
+import SiteMarkers from "./SiteMarkers";
 import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
 import "./Map.scss";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
 
-class CentralMarker extends PureComponent {
+class CentralMarker extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
@@ -54,13 +55,16 @@ class CentralMarker extends PureComponent {
         latitude={latitude}
         longitude={longitude}
         offsetTop={-20}
-        offsetLeft={-10}
+        offsetLeft={-20}
         draggable
         onDragStart={this._onMarkerDragStart}
         onDrag={this._onMarkerDrag}
         onDragEnd={this._onMarkerDragEnd}
+        onClick={(e) => {
+          console.log(e);
+        }}
       >
-        <Pin size={30} />
+        <Pin size={70} />
       </Marker>
     );
   }
@@ -97,6 +101,7 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
+    console.log(e)
     const { isActive } = this.props.markerSelector;
     if (isActive) {
       // hide the cursor tooltip
@@ -194,16 +199,25 @@ class NCAMap extends PureComponent {
               <Layer key="buffer-line-layer" {...bufferLineLayer} />
             </Source>
           ) : null}
+          {/* add site markers below */}
+          {/* {siteMarkers ? <SiteMarkers {...this.props} /> : null} */}
+          {siteMarkers ? (
+            <Source id="sites" type="geojson" data={siteMarkers}>
+              <Layer
+                key="sites-layer"
+                {...sitesLayer}
+                onClick={(e) => {
+                  console.log(e);
+                }}
+              />
+            </Source>
+          ) : null}
+
           {latitude && longitude ? (
             <CentralMarker
               {...this.props}
               _handleGetSiteData={this._handleGetSiteData}
             />
-          ) : null}
-          {siteMarkers ? (
-            <Source id="sites" type="geojson" data={siteMarkers}>
-              <Layer key="sites-layer" {...sitesLayer} />
-            </Source>
           ) : null}
         </ReactMapGL>
       </section>

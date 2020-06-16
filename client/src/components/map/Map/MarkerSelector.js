@@ -6,7 +6,7 @@ import {
   toggleGeocodeResults,
   toggleErrorMessage,
 } from "../../../actions/geocode";
-import "./SidePanel.scss";
+import "./GeocoderInput.scss";
 
 class MarkerSelector extends Component {
   static propTypes = {
@@ -30,7 +30,10 @@ class MarkerSelector extends Component {
           this._handleMarkerSelectorClick();
         }}
       >
-        &#9733;
+        <img
+          src="https://nca-toolkit.s3-us-west-2.amazonaws.com/central_marker_dark.svg"
+          alt="Map marker icon"
+        />
       </div>
     );
   }
