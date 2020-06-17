@@ -60,8 +60,6 @@ class BufferSlider extends Component {
     this.props.dispatch(setBufferValues(value, units, geoJSON));
   };
 
-  //one more method for recalculating the buffer zone needed
-
   render() {
     const { distance } = this.props.mapData.buffer;
     return (
@@ -71,12 +69,12 @@ class BufferSlider extends Component {
         </div>
         <Slider
           min={500}
-          max={5000}
+          max={3000}
           value={distance}
           orientation="horizontal"
           onChange={this._handleOnChange}
           onChangeComplete={this._handleOnChangeComplete}
-          labels={{ 500: "500", 2500: "2,500", 5000: "5,000" }}
+          labels={{ 500: "500", 1500: "1,500", 3000: "3,000" }}
         />
       </div>
     );

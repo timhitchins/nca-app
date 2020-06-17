@@ -34,7 +34,7 @@ export const sitesLayer = {
       /* other */ styleVars.uiDarkGray,
     ],
     "circle-opacity": 0.6,
-    "circle-stroke-color": styleVars.uiDarkGray,
+    "circle-stroke-color": styleVars.uiBlack,
     "circle-stroke-width": 2,
     "circle-stroke-opacity": 0.9,
   },

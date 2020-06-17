@@ -62,8 +62,8 @@ class CentralMarker extends Component {
       <Marker
         latitude={latitude}
         longitude={longitude}
-        offsetTop={-20}
-        offsetLeft={-20}
+        offsetTop={-30}
+        offsetLeft={-30}
         draggable
         onDragStart={this._onMarkerDragStart}
         onDrag={this._onMarkerDrag}
@@ -72,7 +72,7 @@ class CentralMarker extends Component {
           console.log(e);
         }}
       >
-        <Pin size={70} />
+        <Pin size={50} />
       </Marker>
     );
   }
@@ -213,6 +213,7 @@ class NCAMap extends PureComponent {
         <ReactMapGL
           {...this.props.mapState}
           mapOptions={{ attributionControl: false }}
+          maxZoom={20}
           ref={(reactMap) => (this.reactMap = reactMap)}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"

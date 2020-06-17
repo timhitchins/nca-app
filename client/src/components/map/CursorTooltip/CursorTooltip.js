@@ -12,7 +12,7 @@ class CursorTooltip extends Component {
     window.onmousemove = function (e) {
       var x = e.clientX,
         y = e.clientY;
-      el.style.top = y - 10 + "px";
+      el.style.top = y - 40 + "px";
       el.style.left = x - 10 + "px";
     };
   }

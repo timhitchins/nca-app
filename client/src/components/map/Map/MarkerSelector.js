@@ -26,12 +26,13 @@ class MarkerSelector extends Component {
     return (
       <div
         className="marker-selector"
+        title="Click to add point to map."
         onClick={() => {
           this._handleMarkerSelectorClick();
         }}
       >
         <img
-          src="https://nca-toolkit.s3-us-west-2.amazonaws.com/central_marker_dark.svg"
+          src="https://nca-toolkit.s3-us-west-2.amazonaws.com/central_marker_black.svg"
           alt="Map marker icon"
         />
       </div>

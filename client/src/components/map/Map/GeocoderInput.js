@@ -249,7 +249,7 @@ class GeocoderInput extends Component {
                 }}
               >
                 <img
-                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/search.png"
+                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/search_icon_black.png"
                   alt="search button"
                 ></img>
               </div>

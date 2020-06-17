@@ -5,6 +5,7 @@ import BufferSlider from "./BufferSlider";
 import PermitTypeText from "./PermitTypeText";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
+import About from "./About";
 import "./SidePanel.scss";
 import SiteMarkers from "./SiteMarkers";
 
@@ -24,6 +25,7 @@ class SidePanel extends Component {
           <GeocoderInput {...this.props} />
           <BufferSlider {...this.props} />
         </div>
+
         {/* Panel 2 */}
         {sites.length > 0 ? (
           <div className="outer-panel">
@@ -39,6 +41,7 @@ class SidePanel extends Component {
         {/* Panel 3 */}
         <div className="outer-panel">
           <aside className="panel-label">About</aside>
+          <About />
         </div>
       </article>
     );

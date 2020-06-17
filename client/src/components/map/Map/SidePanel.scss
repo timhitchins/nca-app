@@ -10,14 +10,14 @@
 
   //absolute positioning
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   z-index: 3;
-  width: 350px;
-  margin: 30px 0 20px 0;
+  width: 375px;
+  margin: 35px 0 20px 0;
   //just need to set a max height to get overflow
   max-height: calc(100vh - 100px);
   overflow-y: scroll;
@@ -47,7 +47,7 @@
 
 /* ----- Inner Panel styles ----- */
 .panel-label {
-  color: $ui-dark-gray;
+  color: $ui-black;
   display: block;
   font-family: "Archivo Narrow", sans-serif;
   font-size: 12px;
@@ -84,59 +84,59 @@
 }
 
 /*----- Geocoder styles -----*/
-.search-bar {
-  width: 100%;
-}
+// .search-bar {
+//   width: 100%;
+// }
 
-input[type="text"] {
-  width: 80%;
-  padding: 12px 20px;
-  box-sizing: inherit;
-  border: none;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  outline: none;
-}
+// input[type="text"] {
+//   width: 80%;
+//   padding: 12px 20px;
+//   box-sizing: inherit;
+//   border: none;
+//   -webkit-transition: 0.2s;
+//   transition: 0.2s;
+//   outline: none;
+// }
 
-.search-form {
-  display: flex;
-  height: 50px;
-  width: 100%;
-  border: 2px solid $ui-dark-gray;
-}
+// .search-form {
+//   display: flex;
+//   height: 50px;
+//   width: 100%;
+//   border: 2px solid $ui-dark-gray;
+// }
 
-.search-form:focus-within {
-  border: 3px solid$ui-dark-gray;
-}
+// .search-form:focus-within {
+//   border: 3px solid$ui-dark-gray;
+// }
 
-//search button
-.search-button {
-  box-sizing: inherit;
-  width: 20%;
-  height: 100%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+// //search button
+// .search-button {
+//   box-sizing: inherit;
+//   width: 20%;
+//   height: 100%;
+//   background: white;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
 
-  img {
-    height: 40px;
-    width: 40px;
-    border: none;
-  }
-}
+//   img {
+//     height: 40px;
+//     width: 40px;
+//     border: none;
+//   }
+// }
 
-.clear-button {
-  box-sizing: inherit;
-  padding-left: 5px;
-  width: 10%;
-  height: 100%;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 35px;
-  color: $ui-dark-gray;
-}
+// .clear-button {
+//   box-sizing: inherit;
+//   padding-left: 5px;
+//   width: 10%;
+//   height: 100%;
+//   background: white;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   cursor: pointer;
+//   font-size: 35px;
+//   color: $ui-dark-gray;
+// }
