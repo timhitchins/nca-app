@@ -5,9 +5,11 @@ import BufferSlider from "./BufferSlider";
 import PermitTypeText from "./PermitTypeText";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
+import { calculatePDIStyle } from "../../../utils/mapUtils";
 import About from "./About";
 import "./SidePanel.scss";
-import SiteMarkers from "./SiteMarkers";
+import * as styleVars from "../../theme.scss";
+// import SiteMarkers from "./SiteMarkers";
 
 class SidePanel extends Component {
   static propTypes = {
@@ -32,7 +34,24 @@ class SidePanel extends Component {
             <aside className="panel-label">Construction Site Information</aside>
             <PDIIndicator {...this.props} />
             <aside className="panel-label label-large">
-              Potential Diesel Impact
+              Potential Diesel Impact:{" "}
+              <span
+                style={
+                  currentFeature
+                    ? {
+                        color: calculatePDIStyle(
+                          currentFeature.properties.PDILevel
+                        ),
+                        fontWeight: "bold",
+                        backgroundColor: styleVars.uiGray,
+                      }
+                    : null
+                }
+              >
+                {currentFeature
+                  ? " " + currentFeature.properties.PDILevel + " "
+                  : null}
+              </span>
             </aside>
             <SiteDetails {...this.props} />
           </div>
