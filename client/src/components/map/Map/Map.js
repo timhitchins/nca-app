@@ -13,7 +13,7 @@ import {
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
-import { setSiteData } from "../../../actions/siteData";
+import { setSiteData, setCurrentFeature } from "../../../actions/siteData";
 import Pin from "./Pin";
 import SiteMarkers from "./SiteMarkers";
 import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
@@ -46,6 +46,8 @@ class CentralMarker extends Component {
     this._logDragEvent("onDragEnd", e);
     const [lon, lat] = e.lngLat;
     this.props.dispatch(setMarkerCoords(lon, lat));
+    this.props.dispatch(setCurrentFeature(null));
+    this.props.dispatch(setSiteData([]));
     this.props._handleGetSiteData(lon, lat);
   };
 

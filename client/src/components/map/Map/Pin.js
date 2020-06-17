@@ -16,6 +16,7 @@ export default class Pin extends PureComponent {
   };
 
   render() {
+    // default
     const { size = 20 } = this.props;
 
     return (

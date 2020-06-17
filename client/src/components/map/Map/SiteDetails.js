@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import * as styleVars from "../../theme.scss";
+import { setCurrentFeature } from "../../../actions/siteData";
+// import * as styleVars from "../../theme.scss";
 import "./SiteDetails.scss";
 
 class SiteDetails extends Component {
@@ -16,12 +17,21 @@ class SiteDetails extends Component {
 
   _handleArrowClick = (direction) => {
     const { featureIndex } = this.state;
+    const { sites } = this.props.siteData;
+
     if (direction === "left") {
       this.setState({ featureIndex: featureIndex - 1 });
+      this.props.dispatch(setCurrentFeature(sites[featureIndex - 1]));
     } else if (direction === "right") {
       this.setState({ featureIndex: featureIndex + 1 });
+      this.props.dispatch(setCurrentFeature(sites[featureIndex + 1]));
     }
   };
+
+  componentDidMount() {
+    const { sites } = this.props.siteData;
+    this.props.dispatch(setCurrentFeature(sites[0]));
+  }
 
   render() {
     const { sites } = this.props.siteData;
