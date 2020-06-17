@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { calculateHost } from "../../../utils/generalUtils";
 import {
   geocodeSearchTerm,
   handleGeocodeSearchTerm,
@@ -127,7 +128,7 @@ class GeocoderInput extends Component {
     // toggle the results to be visible
     this.props.dispatch(toggleGeocodeResults(true));
     // geocoding route is /api/search/<searchTerm>
-    const route = "/api/search/";
+    const route = `${calculateHost(5000)}/api/search/`;
     this.props.dispatch(handleGeocodeSearchTerm(searchTerm, route));
   };
 
@@ -169,7 +170,7 @@ class GeocoderInput extends Component {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+    const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(place_name));

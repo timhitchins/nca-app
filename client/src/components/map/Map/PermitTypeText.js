@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { handleGetAttributeData } from "../../../actions/mapData";
+import { calculateHost } from "../../../utils/generalUtils";
 import "./PermitType.scss";
 
 const PermitTextSwitch = (props) => {
@@ -65,7 +66,9 @@ class PermitTypeText extends Component {
 
     if (!attributeTotals) {
       this.props.dispatch(
-        handleGetAttributeData("/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE")
+        handleGetAttributeData(
+          `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
+        )
       );
     }
   }

@@ -2,6 +2,7 @@ import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { calculateHost } from "../../../utils/generalUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -19,7 +20,7 @@ import {
   setSlideIndex,
 } from "../../../actions/siteData";
 import Pin from "./Pin";
-import SiteMarkers from "./SiteMarkers";
+// import SiteMarkers from "./SiteMarkers";
 import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
 import "./Map.scss";
 
@@ -110,7 +111,7 @@ class NCAMap extends PureComponent {
 
   _handleMapClick = (e) => {
     //reset the details index
-    this._handleFeatureClick()
+    this._handleFeatureClick();
 
     //set the active site features for side panel
     this._handleSetSiteData(e.features);
@@ -136,7 +137,7 @@ class NCAMap extends PureComponent {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+    const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
 
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
@@ -154,7 +155,6 @@ class NCAMap extends PureComponent {
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
-
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
@@ -204,7 +204,6 @@ class NCAMap extends PureComponent {
   _handleFeatureClick = () => {
     //reset the details index
     this.props.dispatch(setSlideIndex(0));
-
   };
 
   _getCursor = ({ isHovering }) => {
