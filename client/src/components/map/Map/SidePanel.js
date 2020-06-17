@@ -23,6 +23,7 @@ class SidePanel extends Component {
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
           <PermitTypeText {...this.props} />
+          <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/graph-example.png"></img>
           <aside className="panel-label">Search by location</aside>
           <GeocoderInput {...this.props} />
           <BufferSlider {...this.props} />
