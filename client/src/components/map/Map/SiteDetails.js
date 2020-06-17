@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { setCurrentFeature } from "../../../actions/siteData";
+import { setCurrentFeature, setSlideIndex } from "../../../actions/siteData";
 // import * as styleVars from "../../theme.scss";
 import "./SiteDetails.scss";
 
@@ -10,32 +10,20 @@ class SiteDetails extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
-  //keep this in the component
-  state = {
-    featureIndex: 0,
-  };
-
   _handleArrowClick = (direction) => {
-    const { featureIndex } = this.state;
-    const { sites } = this.props.siteData;
+    const { sites, slideIndex } = this.props.siteData;
 
     if (direction === "left") {
-      this.setState({ featureIndex: featureIndex - 1 });
-      this.props.dispatch(setCurrentFeature(sites[featureIndex - 1]));
+      this.props.dispatch(setSlideIndex(slideIndex - 1));
+      this.props.dispatch(setCurrentFeature(sites[slideIndex - 1]));
     } else if (direction === "right") {
-      this.setState({ featureIndex: featureIndex + 1 });
-      this.props.dispatch(setCurrentFeature(sites[featureIndex + 1]));
+      this.props.dispatch(setSlideIndex(slideIndex + 1));
+      this.props.dispatch(setCurrentFeature(sites[slideIndex + 1]));
     }
   };
 
-  componentDidMount() {
-    const { sites } = this.props.siteData;
-    this.props.dispatch(setCurrentFeature(sites[0]));
-  }
-
   render() {
-    const { sites } = this.props.siteData;
-    const { featureIndex } = this.state;
+    const { sites, slideIndex } = this.props.siteData;
 
     const {
       STATEIDKEY,
@@ -48,12 +36,12 @@ class SiteDetails extends Component {
       TYPE,
       ISSUED,
       WORK_DESCRIPTION,
-    } = sites[featureIndex].properties;
+    } = sites[slideIndex].properties;
 
     return (
       <div className="site-details-container">
         <div className="left-arrow">
-          {featureIndex !== 0 ? (
+          {slideIndex !== 0 ? (
             <span
               onClick={() => {
                 this._handleArrowClick("left");
@@ -109,7 +97,7 @@ class SiteDetails extends Component {
           </div>
         </div>
         <div className="right-arrow">
-          {featureIndex < sites.length - 1 ? (
+          {slideIndex < sites.length - 1 ? (
             <span
               onClick={() => {
                 this._handleArrowClick("right");

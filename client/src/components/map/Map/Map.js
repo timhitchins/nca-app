@@ -13,7 +13,11 @@ import {
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
-import { setSiteData, setCurrentFeature } from "../../../actions/siteData";
+import {
+  setSiteData,
+  setCurrentFeature,
+  setSlideIndex,
+} from "../../../actions/siteData";
 import Pin from "./Pin";
 import SiteMarkers from "./SiteMarkers";
 import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
@@ -48,6 +52,7 @@ class CentralMarker extends Component {
     this.props.dispatch(setMarkerCoords(lon, lat));
     this.props.dispatch(setCurrentFeature(null));
     this.props.dispatch(setSiteData([]));
+    this.props.dispatch(setSlideIndex(0));
     this.props._handleGetSiteData(lon, lat);
   };
 
@@ -104,6 +109,9 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
+    //reset the details index
+    this.props.dispatch(setSlideIndex(0));
+
     //set the active site features for side panel
     this._handleSetSiteData(e.features);
 
