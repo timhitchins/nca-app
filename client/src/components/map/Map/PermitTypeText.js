@@ -14,7 +14,7 @@ const PermitTextSwitch = (props) => {
           <span>{Math.round(attributeTotals.sumSqFt).toLocaleString()}</span>
           <span>
             sqaure feet of construction area and{" "}
-            {Math.round(attributeTotals.sumStories).toLocaleString()} flooors
+            {Math.round(attributeTotals.sumStories).toLocaleString()} floors
             representing{" "}
             {attributeTotals.typeCounts.totalProjectSites.toLocaleString()}{" "}
             permits for all of Portland, OR
@@ -27,7 +27,7 @@ const PermitTextSwitch = (props) => {
           <span>{Math.round(siteMarkers.totals.sumSqFt).toLocaleString()}</span>
           <span>
             sqaure feet of construction area and{" "}
-            {Math.round(siteMarkers.totals.sumStories).toLocaleString()} flooors
+            {Math.round(siteMarkers.totals.sumStories).toLocaleString()} floors
             representing{" "}
             {siteMarkers.totals.typeCounts.totalProjectSites.toLocaleString()}{" "}
             permits
@@ -67,7 +67,8 @@ class PermitTypeText extends Component {
     if (!attributeTotals) {
       this.props.dispatch(
         handleGetAttributeData(
-          `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
+          // `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
+          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
         )
       );
     }
