@@ -14,7 +14,7 @@ class SidePanel extends Component {
     siteData: PropTypes.object.isRequired,
   };
   render() {
-    const { sites } = this.props.siteData;
+    const { sites, currentFeature } = this.props.siteData;
     return (
       <article className="side-panel-container">
         {/* Panel 1 */}

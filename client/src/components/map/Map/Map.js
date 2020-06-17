@@ -110,7 +110,7 @@ class NCAMap extends PureComponent {
 
   _handleMapClick = (e) => {
     //reset the details index
-    this.props.dispatch(setSlideIndex(0));
+    this._handleFeatureClick()
 
     //set the active site features for side panel
     this._handleSetSiteData(e.features);
@@ -154,6 +154,7 @@ class NCAMap extends PureComponent {
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
+
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
@@ -198,6 +199,12 @@ class NCAMap extends PureComponent {
 
   _handleDestroySiteMarkers = () => {
     this.props.dispatch(getSiteData(null));
+  };
+
+  _handleFeatureClick = () => {
+    //reset the details index
+    this.props.dispatch(setSlideIndex(0));
+
   };
 
   _getCursor = ({ isHovering }) => {

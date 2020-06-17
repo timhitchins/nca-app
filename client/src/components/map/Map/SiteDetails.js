@@ -22,6 +22,15 @@ class SiteDetails extends Component {
     }
   };
 
+  componentDidMount() {
+    const { sites } = this.props.siteData;
+    this.props.dispatch(setCurrentFeature(sites[0]));
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(setCurrentFeature(null));
+  }
+
   render() {
     const { sites, slideIndex } = this.props.siteData;
 
