@@ -137,8 +137,8 @@ class NCAMap extends PureComponent {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
-
+    // const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(""));
