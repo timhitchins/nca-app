@@ -27,7 +27,7 @@ function mapStateToProps({
   isLoading,
   geocodedData,
   markerSelector,
-  sitesData,
+  siteData,
 }) {
   return {
     mapState,
@@ -35,7 +35,7 @@ function mapStateToProps({
     isLoading,
     geocodedData,
     markerSelector,
-    sitesData,
+    siteData,
   };
 }
 export default connect(mapStateToProps)(MapContainer);

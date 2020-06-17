@@ -13,15 +13,13 @@ const mutedIndicatorColors = [];
 class PDIIndicator extends Component {
   render() {
     return (
-      <div className="site-info-container">
-        <div className="pdi-color-container">
-          {indicatorColors.map((color) => (
-            <div
-              className="pdi-color-items"
-              style={{ backgroundColor: color }}
-            ></div>
-          ))}
-        </div>
+      <div className="pdi-color-container">
+        {indicatorColors.map((color) => (
+          <div
+            className="pdi-color-items"
+            style={{ backgroundColor: color }}
+          ></div>
+        ))}
       </div>
     );
   }
