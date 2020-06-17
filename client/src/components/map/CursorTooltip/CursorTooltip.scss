@@ -1,0 +1,17 @@
+@import "../../theme.scss";
+
+/*----- Cursor-tooltip style -----*/
+.cursor-tooltip-hidden {
+  display: none;
+}
+
+.cursor-tooltip-visible {
+  position: absolute;
+  background-color: $ui-transparent-white;
+  border: 2px solid $ui-dark-gray;
+  color: $ui-dark-gray;
+  padding: 5px;
+  font-size: .8rem;
+  z-index: 10;
+  width: max-content;
+}

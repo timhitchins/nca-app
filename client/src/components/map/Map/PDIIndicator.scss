@@ -1,0 +1,18 @@
+@import "../../theme.scss";
+
+.pdi-color-container {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.pdi-color-items {
+  border: 2px solid $ui-dark-gray;
+  margin: 0 2px;
+  flex: 1;
+}
+
+// .pdi-color-items:active {
+//   transform: translateY(1px);
+// }

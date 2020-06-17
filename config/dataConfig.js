@@ -1,1 +1,2 @@
-export const featureServiceURI = "https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/"
+export const featureServiceURI = "https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22"
+export const mapboxGeocoderURI = "https://api.mapbox.com/geocoding/v5/mapbox.places"

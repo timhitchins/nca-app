@@ -1,8 +1,20 @@
 import navbar from "./navbar";
-import slides from "./slides"
+import slides from "./slides";
+import mapState from "./mapState";
+import mapData from "./mapData";
+import isLoading from "./loading";
+import geocodedData from "./geocode";
+import markerSelector from "./markerSelect";
+import siteData from "./siteData";
 import { combineReducers } from "redux";
 
 export default combineReducers({
   navbar,
-  slides
+  slides,
+  mapState,
+  mapData,
+  isLoading,
+  geocodedData,
+  markerSelector,
+  siteData,
 });

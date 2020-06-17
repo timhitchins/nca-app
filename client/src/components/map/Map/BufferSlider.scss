@@ -1,0 +1,34 @@
+@import "../../theme.scss";
+
+.rangeslider-horizontal {
+  height: 6px;
+  margin: 15px 0 15px 0;
+}
+
+.rangeslider-horizontal .rangeslider__fill {
+  background-color: $ui-gray;
+}
+
+.rangeslider-horizontal .rangeslider__handle {
+  width: 20px;
+  height: 20px;
+  border: 2px solid $ui-black;
+}
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  content: none;
+}
+
+.rangeslider__labels {
+  position: relative;
+  bottom: 16px;
+}
+
+.slider-title {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.rangeslider__label-item {
+  font-size: 0.7rem !important;
+}
