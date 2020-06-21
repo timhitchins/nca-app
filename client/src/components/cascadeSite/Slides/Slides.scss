@@ -270,13 +270,19 @@ summary {
 .bottom-container {
   position: relative;
   margin: 0 1rem;
-  bottom: 56px;
+  bottom: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 50px;
   width: 90%;
+
+  @media (max-width: $mobile) {
+    bottom: 56px;
+  }
 }
+
+
 
 /* ----- scroll button style ----- */
 .scroll-down {
@@ -296,10 +302,13 @@ summary {
 
 /* ----- Bottom right corner logo style----- */
 .nca-logo {
-  max-width: 40px;
+  max-width: 65px;
   // position: relative;
   // bottom: 60px;
   // right: 20px;
+  @media (max-width: $mobile) {
+    max-width: 40px;
+  }
 }
 
 /* ----- footer  style ----- */
@@ -342,9 +351,9 @@ summary {
   }
 }
 
-
 /* ----- Last Slide Buttons ----- */
-.take-action, .to-map {
+.take-action,
+.to-map {
   display: flex;
   margin-bottom: 20px;
   padding: 10px;
@@ -369,7 +378,8 @@ summary {
   max-width: 250px;
 }
 
-.take-action:hover, .to-map:hover {
+.take-action:hover,
+.to-map:hover {
   background-color: $ui-black;
   border: 3px solid $ui-white;
   color: $ui-white;
@@ -379,7 +389,8 @@ summary {
   }
 }
 
-.take-action:active, .to-map:active{
+.take-action:active,
+.to-map:active {
   transform: translateY(-2px);
 }
 

@@ -210,6 +210,12 @@ class NCAMap extends PureComponent {
     return isHovering ? "pointer" : "default";
   };
 
+  componentDidMount() {
+    // const data = await fetchBoundaryData();
+    // console.log(data);
+    console.log("hello");
+  }
+
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
     const { siteMarkers } = this.props.mapData;
