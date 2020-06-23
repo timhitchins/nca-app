@@ -69,12 +69,12 @@ class BufferSlider extends Component {
         </div>
         <Slider
           min={500}
-          max={3000}
+          max={1500}
           value={distance}
           orientation="horizontal"
           onChange={this._handleOnChange}
           onChangeComplete={this._handleOnChangeComplete}
-          labels={{ 500: "500", 1500: "1,500", 3000: "3,000" }}
+          labels={{ 500: "500", 1000: "1,000", 1500: "1,500" }}
         />
       </div>
     );

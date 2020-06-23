@@ -19,6 +19,7 @@ class SidePanel extends Component {
     const { sites, currentFeature } = this.props.siteData;
     return (
       <article className="side-panel-container">
+        <div>X</div>
         {/* Panel 1 */}
         <div className="outer-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
