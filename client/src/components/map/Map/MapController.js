@@ -1,14 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { getMapState } from "../../../actions/mapState";
+import {
+  setMarkerCoords,
+  setBufferValues,
+  getSiteData,
+} from "../../../actions/mapData";
 import "./MapController.scss";
 
 class MapController extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
+    mapData: PropTypes.object.isRequired,
   };
   _createNewViewport = (mapState, type) => {
     const { zoom } = mapState;
+    const { distance, units } = this.props.mapData.buffer;
 
     const defaultMapState = {
       ...mapState,
@@ -25,7 +32,11 @@ class MapController extends Component {
         this.props.dispatch(getMapState({ ...mapState, zoom: zoom - 1 }));
         break;
       case "home":
+        // reset the map
         this.props.dispatch(getMapState(defaultMapState));
+        this.props.dispatch(setMarkerCoords(null, null));
+        this.props.dispatch(setBufferValues(distance, units, null));
+        this.props.dispatch(getSiteData(null));
         break;
       default:
         this.props.dispatch(getMapState(defaultMapState));
@@ -39,7 +50,7 @@ class MapController extends Component {
       <aside>
         <div className="map-controller-container">
           <div
-            title="Home button"
+            title="Reset map"
             onClick={() => {
               this._createNewViewport(mapState, "home");
             }}

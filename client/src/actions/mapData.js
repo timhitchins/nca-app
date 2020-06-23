@@ -43,10 +43,10 @@ export function setBufferValues(distance, units, bufferGeoJSON) {
   };
 }
 
-export function getSiteData(data) {
+export function getSiteData(siteMarkers) {
   return {
     type: GET_SITE_DATA,
-    payload: { siteMarkers: data },
+    payload: { siteMarkers },
   };
 }
 
