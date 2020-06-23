@@ -98,7 +98,7 @@ class NCAMap extends PureComponent {
   };
 
   _createNewViewport = (geojson, mapState) => {
-    //trigger new viewport
+    // trigger new viewport
     const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
     this.props.dispatch(
       getMapState({
@@ -116,13 +116,13 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
-    //reset the details index
+    // reset the details index
     this._handleFeatureClick();
 
-    //set the active site features for side panel
+    // set the active site features for side panel
     this._handleSetSiteData(e.features);
 
-    //logic to handle marker selector
+    // logic to handle marker selector
     const { isActive } = this.props.markerSelector;
     if (isActive) {
       // hide the cursor tooltip
@@ -138,10 +138,10 @@ class NCAMap extends PureComponent {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
 
-    //add the central marker
+    // add the central marker
     this.props.dispatch(setMarkerCoords(lon, lat));
 
-    //set up route and dispatch action for site data
+    // set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
     // const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
     const route = `/api/location/${encodedCoords}/${distance}/${units}`;
@@ -150,7 +150,6 @@ class NCAMap extends PureComponent {
       this.props.dispatch(setSearchTerm(""));
 
       // if return geoJSON has features then create a new vieport
-      // const { features } = sitesGeoJSON;
       if (
         sitesGeoJSON !== null &&
         sitesGeoJSON.features !== undefined &&
@@ -165,7 +164,7 @@ class NCAMap extends PureComponent {
         // destroy the buffer
         this._handleDestroyBuffer();
 
-        //destroy the site markers
+        // destroy the site markers
         this._handleDestroySiteMarkers();
 
         // show the error message
@@ -208,7 +207,7 @@ class NCAMap extends PureComponent {
   };
 
   _handleFeatureClick = () => {
-    //reset the details index
+    // reset the details index
     this.props.dispatch(setSlideIndex(0));
   };
 
@@ -217,9 +216,14 @@ class NCAMap extends PureComponent {
   };
 
   componentDidMount() {
-    //fetch the pdx boundary data
+    // fetch the pdx boundary data
     const pdxBoundaryRoute = `/api/geojson/pdx-boundary`;
     this.props.dispatch(handlegetPDXBoundayData(pdxBoundaryRoute));
+  }
+
+  componentWillUnmount() {
+    // set the loading indicator on unmount
+    this.props.dispatch(toggleLoadingIndicator(true));
   }
 
   render() {
