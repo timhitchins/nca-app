@@ -2,6 +2,7 @@
 // import { useIsVisible } from "./useIsVisible";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import ReactCompareImage from "react-compare-image";
 import PropTypes from "prop-types";
@@ -97,10 +98,16 @@ class Section extends Component {
               </div>
             )}
             {slide.takeAction && (
-              <div>
-                <div className="take-action">
-                  <div>Take Action</div> <div>&#10148;</div>
-                </div>
+              <div className="buttons-container">
+                <Link
+                  to={{
+                    pathname: "/take-action",
+                  }}
+                >
+                  <div className="take-action">
+                    <div>Take Action</div> <div>&#10148;</div>
+                  </div>
+                </Link>
                 <div className="to-map">
                   <div>
                     See the impacts of contruction sites in your neighborhood
@@ -127,7 +134,7 @@ class Section extends Component {
                 }
               }}
             >
-              &#x2913; Scroll down to continue
+              &#x025BF; Scroll down to continue
             </div>
 
             <div className="nca-logo">

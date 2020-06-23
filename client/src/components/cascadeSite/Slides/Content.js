@@ -216,6 +216,9 @@ class AllContent extends Component {
               break;
             case 2:
               className = "two-col pie-chart";
+            case 7:
+            case 8:
+              className = "two-col fit-text"
               break;
             case 9:
               className = "one-col font-adjust";
