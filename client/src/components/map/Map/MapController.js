@@ -6,6 +6,11 @@ import {
   setBufferValues,
   getSiteData,
 } from "../../../actions/mapData";
+import {
+  setSiteData,
+  setCurrentFeature,
+  setSlideIndex,
+} from "../../../actions/siteData";
 import "./MapController.scss";
 
 class MapController extends Component {
@@ -37,6 +42,9 @@ class MapController extends Component {
         this.props.dispatch(setMarkerCoords(null, null));
         this.props.dispatch(setBufferValues(distance, units, null));
         this.props.dispatch(getSiteData(null));
+        this.props.dispatch(setSiteData([]));
+        this.props.dispatch(setSlideIndex(0));
+        this.props.dispatch(setCurrentFeature(null));
         break;
       default:
         this.props.dispatch(getMapState(defaultMapState));

@@ -1,8 +1,9 @@
+// import { calculateHost } from "../../../utils/generalUtils";
+// import SiteMarkers from "./SiteMarkers";
 import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
-// import { calculateHost } from "../../../utils/generalUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -21,7 +22,6 @@ import {
   setSlideIndex,
 } from "../../../actions/siteData";
 import Pin from "./Pin";
-// import SiteMarkers from "./SiteMarkers";
 import {
   sitesLayer,
   bufferZoneLayer,
@@ -264,13 +264,7 @@ class NCAMap extends PureComponent {
           {/* {siteMarkers ? <SiteMarkers {...this.props} /> : null} */}
           {siteMarkers ? (
             <Source id="sites" type="geojson" data={siteMarkers}>
-              <Layer
-                key="sites-layer-markers"
-                {...sitesLayer}
-                onClick={(e) => {
-                  console.log(e);
-                }}
-              />
+              <Layer key="sites-layer-markers" {...sitesLayer} />
             </Source>
           ) : null}
 
