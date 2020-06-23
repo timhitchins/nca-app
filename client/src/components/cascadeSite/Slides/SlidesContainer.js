@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  toggleImageOpacityAction,
-  handleSetContentAction,
-} from "../../../actions/slides";
+import { handleSetContentAction } from "../../../actions/slides";
 import SlideBackground from "./SlideBackground";
 import AllContent from "./Content";
 import { imageConfig } from "../../../config/config";
