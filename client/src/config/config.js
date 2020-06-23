@@ -1,6 +1,8 @@
 //slide constants
 export const MAX_SECTION_NO = 12;
 export const MIN_SECTION_NO = 0;
+export const VIDEO_1_SECTION = 6;
+export const VIDEO_2_SECTION = 10;
 
 //configuration for the slides
 export const imageConfig = [
