@@ -1,66 +1,66 @@
-@import "../../theme.scss";
+// @import "../../theme.scss";
 
-.site-details-container {
-  display: grid;
-  grid-gap: 5px;
-  grid-template-columns: 25px 1fr 25px;
+// .site-details-container {
+//   display: grid;
+//   grid-gap: 5px;
+//   grid-template-columns: 25px 1fr 25px;
 
-  //left arrow
-  .left-arrow {
-    grid-column: 1;
-  }
+//   //left arrow
+//   .left-arrow {
+//     grid-column: 1;
+//   }
 
-  //right arrow
-  .right-arrow {
-    grid-column: 3;
-  }
+//   //right arrow
+//   .right-arrow {
+//     grid-column: 3;
+//   }
 
-  //combined
-  .left-arrow,
-  .right-arrow {
-    display: flex;
-    flex-direction: column;
-    font-size: 50px;
-    margin-top: 40px;
-    color: $ui-black;
-  }
+//   //combined
+//   .left-arrow,
+//   .right-arrow {
+//     display: flex;
+//     flex-direction: column;
+//     font-size: 50px;
+//     margin-top: 40px;
+//     color: $ui-black;
+//   }
 
-  .left-arrow > span:hover,
-  .right-arrow > span:hover {
-    cursor: pointer;
-    color: $ui-dark-gray;
-  }
-}
+//   .left-arrow > span:hover,
+//   .right-arrow > span:hover {
+//     cursor: pointer;
+//     color: $ui-dark-gray;
+//   }
+// }
 
-.permit-id {
-  margin-top: 15px;
-  color: $ui-black;
-  font-size: $font-size-base;
-}
+// .permit-id {
+//   margin-top: 15px;
+//   color: $ui-black;
+//   font-size: $font-size-base;
+// }
 
-.divider {
-  height: 1px;
-  background-color: $ui-gray;
-  width: 100%;
-}
+// .divider {
+//   height: 1px;
+//   background-color: $ui-gray;
+//   width: 100%;
+// }
 
-.permit-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  color: $ui-black;
-  font-size: $font-size-small;
-  margin-top: 10px;
-  div {
-    margin-top: 5px;
-  }
-  div > span {
-    color: $ui-dark-gray;
-    text-decoration: underline;
-  }
-  div > a {
-    text-decoration: underline;
-    color: $ui-link;
-  }
-}
+// .permit-content {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-start;
+//   align-items: flex-start;
+//   color: $ui-black;
+//   font-size: $font-size-small;
+//   margin-top: 10px;
+//   div {
+//     margin-top: 5px;
+//   }
+//   div > span {
+//     color: $ui-dark-gray;
+//     text-decoration: underline;
+//   }
+//   div > a {
+//     text-decoration: underline;
+//     color: $ui-link;
+//   }
+// }
