@@ -1,5 +1,9 @@
 /* ----- fonts ----- */
-@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:wght@400;900&display=swap");
+/*
+font-family: 'Archivo Narrow', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
 
 /* ------- colors ------- */
 $ui-black: #000000;
@@ -21,9 +25,13 @@ $ui-link: #004170;
 $mobile-small: 400px;
 $mobile: 600px;
 $desktop: 768px;
+$small-landscape-height: 300px;
+$landscape-height: 400px;
+$large-landscape-height: 500px;
 
 /* ------- typography ------- */
 $font-size-smallest: 10px;
+$font-size-smaller: 12px;
 $font-size-small: 14px;
 $font-size-base: 16px;
 $font-size-large: 20px;

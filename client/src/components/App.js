@@ -1,15 +1,11 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-// import queryString from "query-string";
-import { handleSetContentAction } from "./../actions/slides";
 import { setDocHeightOnWindow } from "./../utils/mobileHelper";
-// import { imageConfig } from "../config/config";
 import Navbar from "./cascadeSite/Navbar/Navbar";
 import SlidesContainer from "./cascadeSite/Slides/SlidesContainer";
 import MapContainer from "./map/Map/MapContainer";
 import TakeAction from "./cascadeSite/TakeAction/TakeAction";
-import "./App.scss";
 
 class App extends Component {
   componentDidMount() {

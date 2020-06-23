@@ -66,6 +66,17 @@ export async function fetchTotalAttributeData(outFields) {
   }
 }
 
+export async function fetchBoundaryData(route){
+  const pdxBoundaryResponse = await fetch(route);
+  debugger;
+  if (pdxBoundaryResponse.status === 200) {
+    const pdxBoundaryJSON = await pdxBoundaryResponse.json();
+    return pdxBoundaryJSON;
+  } else {
+    throw new Error(pdxBoundaryResponse.status);
+  }
+}
+
 // Build the URI
 // Examples:
 // const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
