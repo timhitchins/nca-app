@@ -2,7 +2,7 @@ import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
-import { calculateHost } from "../../../utils/generalUtils";
+// import { calculateHost } from "../../../utils/generalUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -10,6 +10,7 @@ import {
   getSiteData,
   handleGetSiteData,
   setBufferValues,
+  handlegetPDXBoundayData,
 } from "../../../actions/mapData";
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
@@ -21,7 +22,12 @@ import {
 } from "../../../actions/siteData";
 import Pin from "./Pin";
 // import SiteMarkers from "./SiteMarkers";
-import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
+import {
+  sitesLayer,
+  bufferZoneLayer,
+  bufferLineLayer,
+  pdxBoundaryLineLayer,
+} from "./mapStyles";
 import "./Map.scss";
 
 const MAPBOX_TOKEN =
@@ -211,15 +217,15 @@ class NCAMap extends PureComponent {
   };
 
   componentDidMount() {
-    // const data = await fetchBoundaryData();
-    // console.log(data);
-    console.log("hello");
+    //fetch the pdx boundary data
+    const pdxBoundaryRoute = `/api/geojson/pdx-boundary`;
+    this.props.dispatch(handlegetPDXBoundayData(pdxBoundaryRoute));
   }
 
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
-    const { siteMarkers } = this.props.mapData;
-    const { geoJSON } = this.props.mapData.buffer;
+    const { siteMarkers, boundaryGeoJSON } = this.props.mapData;
+    const { bufferGeoJSON } = this.props.mapData.buffer;
     return (
       <section className="map">
         <ReactMapGL
@@ -239,8 +245,13 @@ class NCAMap extends PureComponent {
             this._handleMapClick(e);
           }}
         >
-          {geoJSON ? (
-            <Source id="buffer" type="geojson" data={geoJSON}>
+          {boundaryGeoJSON ? (
+            <Source id="pdx-boundary" type="geojson" data={boundaryGeoJSON}>
+              <Layer key="pdx-boundary-line-layer" {...pdxBoundaryLineLayer} />
+            </Source>
+          ) : null}
+          {bufferGeoJSON ? (
+            <Source id="buffer" type="geojson" data={bufferGeoJSON}>
               <Layer key="buffer-zone-layer" {...bufferZoneLayer} />
               <Layer key="buffer-line-layer" {...bufferLineLayer} />
             </Source>
@@ -250,7 +261,7 @@ class NCAMap extends PureComponent {
           {siteMarkers ? (
             <Source id="sites" type="geojson" data={siteMarkers}>
               <Layer
-                key="sites-layer"
+                key="sites-layer-markers"
                 {...sitesLayer}
                 onClick={(e) => {
                   console.log(e);

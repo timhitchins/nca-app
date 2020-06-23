@@ -62,3 +62,15 @@ export const bufferLineLayer = {
     "line-dasharray": [3, 3],
   },
 };
+
+export const pdxBoundaryLineLayer = {
+  id: "pdx-boundary",
+  type: "line",
+  source: "pdx-boundary",
+  tolerance: 0.9,
+  paint: {
+    "line-color": "rgba(0,0,0,1)",
+    "line-width": 2,
+    // "line-dasharray": [3, 3],
+  },
+}
