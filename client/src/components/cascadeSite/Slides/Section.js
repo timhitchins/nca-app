@@ -8,7 +8,12 @@ import {
   createSectionRefAction,
   handleSetContentAction,
 } from "../../../actions/slides";
-import { MAX_SECTION_NO, imageConfig } from "../../../config/config";
+import {
+  MAX_SECTION_NO,
+  VIDEO_1_SECTION,
+  VIDEO_2_SECTION,
+  imageConfig,
+} from "../../../config/config";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -46,28 +51,20 @@ class Section extends Component {
                   <div>
                     {slide.videoName === "our-air" && (
                       <ReactPlayer
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                        }}
                         width={null} // override
                         height={null} // override
                         url={slide.videoURI}
                         controls={true}
-                        playing={sectionNo === 3 ? true : false}
+                        playing={sectionNo === VIDEO_1_SECTION ? true : false}
                       />
                     )}
                     {slide.videoName === "we-are-with-earth" && (
                       <ReactPlayer
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "100%",
-                        }}
                         width={null} // override
                         height={null} // override
                         url={slide.videoURI}
                         controls={true}
-                        playing={sectionNo === 9 ? true : false}
+                        playing={sectionNo === VIDEO_2_SECTION ? true : false}
                       />
                     )}
                   </div>
