@@ -8,10 +8,10 @@ import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
 import { toggleSidePanel } from "../../../actions/sidePanel";
 import About from "./About";
-import "./SidePanel.scss";
+import "./SidePanelContainer.scss";
 import * as styleVars from "../../theme.scss";
 
-class SidePanel extends Component {
+class SidePanelContainer extends Component {
   static propTypes = {
     siteData: PropTypes.object.isRequired,
     panelIsOpen: PropTypes.bool.isRequired,
@@ -104,4 +104,4 @@ class SidePanel extends Component {
   }
 }
 
-export default SidePanel;
+export default SidePanelContainer;
