@@ -26,11 +26,11 @@ export const sitesLayer = {
       "match",
       ["get", "PDILevel"],
       "low",
-      styleVars.uiGreen,
+      styleVars.pdiLow,
       "med",
-      styleVars.uiYellow,
+      styleVars.pdiMed,
       "high",
-      styleVars.uiRed,
+      styleVars.pdiHigh,
       /* other */ styleVars.uiDarkGray,
     ],
     "circle-opacity": 0.6,
@@ -73,4 +73,4 @@ export const pdxBoundaryLineLayer = {
     "line-width": 2,
     // "line-dasharray": [3, 3],
   },
-}
+};

@@ -2,12 +2,14 @@ import {
   SET_SITE_DATA,
   SET_CURRENT_FEATURE,
   SET_SLIDE_INDEX,
+  SET_PDI_FILTER,
 } from "../actions/siteData";
 
 const intialSiteDataState = {
   sites: [],
   currentFeature: null,
   slideIndex: 0,
+  activeFilter: [],
 };
 
 export default function siteData(state = intialSiteDataState, action) {
@@ -18,6 +20,15 @@ export default function siteData(state = intialSiteDataState, action) {
       return { ...state, ...action.payload };
     case SET_SLIDE_INDEX:
       return { ...state, ...action.payload };
+    case SET_PDI_FILTER:
+      const newFilter = action.payload.activeFilter;
+      const oldFilter = state.activeFilter;
+      let activeFilter;
+
+      oldFilter.indexOf(newFilter[0]) > -1
+        ? (activeFilter = oldFilter.filter((item) => item !== newFilter[0]))
+        : (activeFilter = [...oldFilter, ...newFilter]);
+      return { ...state, ...{ activeFilter } };
     default:
       return state;
   }

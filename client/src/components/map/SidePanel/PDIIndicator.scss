@@ -8,11 +8,11 @@
 }
 
 .pdi-color-items {
-  border: 2px solid $ui-dark-gray;
   margin: 0 2px;
   flex: 1;
+  cursor: pointer;
 }
 
-// .pdi-color-items:active {
-//   transform: translateY(1px);
-// }
+.pdi-color-items:active {
+  transform: translateY(1px);
+}

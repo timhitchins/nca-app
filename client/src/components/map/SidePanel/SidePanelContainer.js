@@ -14,6 +14,7 @@ import * as styleVars from "../../theme.scss";
 class SidePanelContainer extends Component {
   static propTypes = {
     siteData: PropTypes.object.isRequired,
+    mapData: PropTypes.object.isRequired,
     panelIsOpen: PropTypes.bool.isRequired,
   };
 
@@ -37,6 +38,7 @@ class SidePanelContainer extends Component {
 
   render() {
     const { sites, currentFeature } = this.props.siteData;
+    const { siteMarkers } = this.props.mapData;
     const { panelIsOpen } = this.props;
     return (
       <article
@@ -66,31 +68,35 @@ class SidePanelContainer extends Component {
         </div>
 
         {/* Panel 2 */}
-        {sites.length > 0 ? (
+        {siteMarkers ? (
           <div className="outer-panel">
             <aside className="panel-label">Construction Site Information</aside>
             <PDIIndicator {...this.props} />
-            <aside className="panel-label label-large">
-              Potential Diesel Impact:{" "}
-              <span
-                style={
-                  currentFeature
-                    ? {
-                        color: calculatePDIStyle(
-                          currentFeature.properties.PDILevel
-                        ),
-                        fontWeight: "bold",
-                        backgroundColor: styleVars.uiGray,
-                      }
-                    : null
-                }
-              >
-                {currentFeature
-                  ? " " + currentFeature.properties.PDILevel + " "
-                  : null}
-              </span>
-            </aside>
-            <SiteDetails {...this.props} />
+            {sites.length > 0 ? (
+              <React.Fragment>
+                <aside className="panel-label label-large">
+                  Potential Diesel Impact:{" "}
+                  <span
+                    style={
+                      currentFeature
+                        ? {
+                            color: calculatePDIStyle(
+                              currentFeature.properties.PDILevel
+                            ),
+                            fontWeight: "bold",
+                            backgroundColor: styleVars.uiGray,
+                          }
+                        : null
+                    }
+                  >
+                    {currentFeature
+                      ? " " + currentFeature.properties.PDILevel + " "
+                      : null}
+                  </span>
+                </aside>
+                <SiteDetails {...this.props} />{" "}
+              </React.Fragment>
+            ) : null}
           </div>
         ) : null}
 

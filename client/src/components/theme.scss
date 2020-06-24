@@ -20,6 +20,9 @@ $ui-yellow: #fff100;
 $ui-green: #00a750;
 $ui-link-light: #6699cc;
 $ui-link: #004170;
+$pdi-low: #fd8d3c;
+$pdi-medium: #e31a1c;
+$pdi-high: #800026;
 
 /* ------- breakpoints ------- */
 $mobile-small: 400px;
@@ -57,4 +60,7 @@ $font-family-narrow: "Archivo Narrow", sans-serif;
   uiRed: $ui-red;
   uiYellow: $ui-yellow;
   uiGreen: $ui-green;
+  pdiLow: $pdi-low;
+  pdiMed: $pdi-medium;
+  pdiHigh: $pdi-high;
 }
