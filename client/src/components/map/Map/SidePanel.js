@@ -6,23 +6,58 @@ import PermitTypeText from "./PermitTypeText";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
+import { toggleSidePanel } from "../../../actions/sidePanel";
 import About from "./About";
 import "./SidePanel.scss";
 import * as styleVars from "../../theme.scss";
-// import SiteMarkers from "./SiteMarkers";
 
 class SidePanel extends Component {
   static propTypes = {
     siteData: PropTypes.object.isRequired,
+    panelIsOpen: PropTypes.bool.isRequired,
   };
+
+  _toggleSidePanel = (isOpen) => {
+    this.props.dispatch(toggleSidePanel(!isOpen));
+  };
+
+  _getMedia = () => {
+    const isMoble = window.matchMedia("(max-width: 500px)").matches;
+    if (isMoble) {
+      this.props.dispatch(toggleSidePanel(false));
+    }
+  };
+
+  componentDidMount() {
+    this._getMedia();
+    window.addEventListener("resize", () => {
+      this._getMedia();
+    });
+  }
+
   render() {
     const { sites, currentFeature } = this.props.siteData;
+    const { panelIsOpen } = this.props;
     return (
-      <article className="side-panel-container">
-        <div>X</div>
+      <article
+        className={
+          panelIsOpen
+            ? "side-panel-container container-open"
+            : "side-panel-container container-closed"
+        }
+      >
         {/* Panel 1 */}
-        <div className="outer-panel">
+        <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
+          <div
+            className="close-button"
+            title={panelIsOpen ? "Close panel" : "Open panel"}
+            onClick={() => {
+              this._toggleSidePanel(panelIsOpen);
+            }}
+          >
+            {panelIsOpen ? <span>&#x025C3;</span> : <span>&#x025B9;</span>}
+          </div>
           <PermitTypeText {...this.props} />
           <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/graph-example.png"></img>
           <aside className="panel-label">Search by location</aside>

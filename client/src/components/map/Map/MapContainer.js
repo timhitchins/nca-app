@@ -28,6 +28,7 @@ function mapStateToProps({
   geocodedData,
   markerSelector,
   siteData,
+  panelIsOpen,
 }) {
   return {
     mapState,
@@ -36,6 +37,7 @@ function mapStateToProps({
     geocodedData,
     markerSelector,
     siteData,
+    panelIsOpen,
   };
 }
 export default connect(mapStateToProps)(MapContainer);

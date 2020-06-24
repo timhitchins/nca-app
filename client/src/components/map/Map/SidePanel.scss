@@ -11,7 +11,6 @@
   //absolute positioning
   position: absolute;
   top: 20px;
-  left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,7 +22,6 @@
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
-
   /* ----- Outer panel item styles ----- */
   .outer-panel {
     flex: 1;
@@ -35,7 +33,26 @@
     box-shadow: 5px 10px 18px #888888;
   }
   .outer-panel:hover {
-    transform: scale(1.05);
+    transform: scale(1.01);
+  }
+
+  /* ----- T0p panel ----- */
+  .top-panel {
+    // padding: 0 1em 1em 1em;
+    /*----- close button styles -----*/
+    .close-button {
+      position: relative;
+      left: 303px;
+      bottom: 0px;
+      padding: 0 5px;
+      background-color: $ui-transparent-white;
+      width: fit-content;
+      font-size: 2rem;
+
+      span:hover {
+        color: $ui-gray;
+      }
+    }
   }
 }
 
@@ -45,6 +62,16 @@
   height: 0;
 }
 
+/*----- panel toggle classes -----*/
+.container-open {
+  left: 10px;
+  transition: left 2s ease;
+}
+
+.container-closed {
+  left: -340px;
+  transition: left 2s ease;
+}
 /* ----- Inner Panel styles ----- */
 .panel-label {
   color: $ui-black;

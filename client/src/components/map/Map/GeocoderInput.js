@@ -180,8 +180,9 @@ class GeocoderInput extends Component {
       this.props.dispatch(setSearchTerm(place_name));
 
       // if return geoJSON has features then create a new vieport
-      const { features } = sitesGeoJSON;
-      if (features.length > 0) {
+      if ( sitesGeoJSON !== null &&
+        sitesGeoJSON.features !== undefined &&
+        sitesGeoJSON.features.length > 0) {
         // create the new buffer geoJSON
         this._handleCreateNewBuffer(lon, lat);
         // open the geocoded results
