@@ -187,6 +187,9 @@ class NCAMap extends PureComponent {
         })
         .filter((el) => el !== null);
       this.props.dispatch(setSiteData(siteFeatures));
+      if (siteFeatures) {
+        this.props.dispatch(setCurrentFeature(siteFeatures[0]));
+      }
     }
   };
 

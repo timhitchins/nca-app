@@ -22,8 +22,8 @@ class SidePanel extends Component {
   };
 
   _getMedia = () => {
-    const isMoble = window.matchMedia("(max-width: 500px)").matches;
-    if (isMoble) {
+    const isMobile = window.matchMedia("(max-width: 500px)").matches;
+    if (isMobile) {
       this.props.dispatch(toggleSidePanel(false));
     }
   };

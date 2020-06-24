@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
-import { calculateHost } from "../../../utils/generalUtils";
 import {
   geocodeSearchTerm,
   handleGeocodeSearchTerm,

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NCAMap from "./Map";
-import SidePanel from "./SidePanel";
+import SidePanel from "../SidePanel/SidePanel";
 import MapController from "./MapController";
 import CursorTooltip from "../CursorTooltip/CursorTooltip";
 import LoadingIndicator from "../Loading/LoadingIndicator";
