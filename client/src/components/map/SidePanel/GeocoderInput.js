@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { toggleMarkerSelector } from "../../../actions/markerSelect";
 import {
   geocodeSearchTerm,
   handleGeocodeSearchTerm,
@@ -15,8 +16,40 @@ import {
   setBufferValues,
 } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
-import MarkerSelector from "./MarkerSelector";
 import "./GeocoderInput.scss";
+
+/*----- Class component to add marker to map -----*/ 
+class MarkerSelector extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    makerSelector: PropTypes.object.isRequired,
+  };
+
+  _handleMarkerSelectorClick = () => {
+    const { isActive } = this.props.markerSelector;
+    this.props.dispatch(toggleMarkerSelector(!isActive));
+    this.props.dispatch(toggleGeocodeResults(false));
+    this.props.dispatch(toggleErrorMessage(false));
+    this.props.dispatch(setSearchTerm(""));
+  };
+
+  render() {
+    return (
+      <div
+        className="marker-selector"
+        title="Click to add point to map."
+        onClick={() => {
+          this._handleMarkerSelectorClick();
+        }}
+      >
+        <img
+          src="https://nca-toolkit.s3-us-west-2.amazonaws.com/central_marker_black.svg"
+          alt="Map marker icon"
+        />
+      </div>
+    );
+  }
+}
 
 const NoGeocodedResults = ({ errorMsgIsOpen }) => {
   if (errorMsgIsOpen) {
@@ -179,9 +212,11 @@ class GeocoderInput extends Component {
       this.props.dispatch(setSearchTerm(place_name));
 
       // if return geoJSON has features then create a new vieport
-      if ( sitesGeoJSON !== null &&
+      if (
+        sitesGeoJSON !== null &&
         sitesGeoJSON.features !== undefined &&
-        sitesGeoJSON.features.length > 0) {
+        sitesGeoJSON.features.length > 0
+      ) {
         // create the new buffer geoJSON
         this._handleCreateNewBuffer(lon, lat);
         // open the geocoded results

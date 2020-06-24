@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { handleGetAttributeData } from "../../../actions/mapData";
-import { calculateHost } from "../../../utils/generalUtils";
 import "./PermitType.scss";
 
 const PermitTextSwitch = (props) => {
