@@ -1,5 +1,3 @@
-// import { calculateHost } from "../../../utils/generalUtils";
-// import SiteMarkers from "./SiteMarkers";
 import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
@@ -29,6 +27,7 @@ import {
   pdxBoundaryLineLayer,
 } from "./mapStyles";
 import "./Map.scss";
+import { toggleSidePanel } from "../../../actions/sidePanel";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
@@ -116,8 +115,9 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
-    // reset the details index
-    this._handleFeatureClick();
+    // reset the details index and
+    // open the side panel if closed
+    this._handleFeatureClick(e.features);
 
     // set the active site features for side panel
     this._handleSetSiteData(e.features);
@@ -157,9 +157,13 @@ class NCAMap extends PureComponent {
       ) {
         // create the new buffer geoJSON
         this._handleCreateNewBuffer(lon, lat);
+
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
+
+        // // open the sidePanel if closed
+        // this.props.dispatch(toggleSidePanel(true));
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
@@ -175,8 +179,9 @@ class NCAMap extends PureComponent {
     });
   };
 
-  _handleSetSiteData = (features) => {
-    if (features) {
+  // returns features or null
+  _checkForFeatures = (features) => {
+    if (features.length > 0) {
       const siteFeatures = features
         .map((feature) => {
           if (feature.layer.id === "sites-layer") {
@@ -186,10 +191,24 @@ class NCAMap extends PureComponent {
           }
         })
         .filter((el) => el !== null);
-      this.props.dispatch(setSiteData(siteFeatures));
-      if (siteFeatures) {
-        this.props.dispatch(setCurrentFeature(siteFeatures[0]));
-      }
+
+      // return it for use later
+      return siteFeatures;
+    } else {
+      return features;
+    }
+  };
+
+  _handleSetSiteData = (features) => {
+    const siteFeatures = this._checkForFeatures(features);
+
+    //set the data empty or not
+    this.props.dispatch(setSiteData(siteFeatures));
+
+    // if there are features, the set the first "current" feature
+    if (siteFeatures.length > 0) {
+      //reset the current feature to the top
+      this.props.dispatch(setCurrentFeature(siteFeatures[0]));
     }
   };
 
@@ -209,9 +228,14 @@ class NCAMap extends PureComponent {
     this.props.dispatch(getSiteData(null));
   };
 
-  _handleFeatureClick = () => {
-    // reset the details index
-    this.props.dispatch(setSlideIndex(0));
+  _handleFeatureClick = (features) => {
+    if (features.length > 0) {
+      // reset the details index
+      this.props.dispatch(setSlideIndex(0));
+
+      //toggle open the side panel if closed
+      this.props.dispatch(toggleSidePanel(true));
+    }
   };
 
   _getCursor = ({ isHovering }) => {

@@ -28,6 +28,7 @@ class SiteDetails extends Component {
   }
 
   componentWillUnmount() {
+    console.log("unmount")
     this.props.dispatch(setCurrentFeature(null));
   }
 
