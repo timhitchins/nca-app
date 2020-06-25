@@ -1,6 +1,8 @@
 export const SET_SITE_DATA = "SET_SITE_DATA";
 export const SET_CURRENT_FEATURE = "SET_CURRENT_FEATURE";
 export const SET_SLIDE_INDEX = "SET_SLIDE_INDEX";
+export const SET_PDI_FILTER = "SET_PDI_FILTER";
+export const SET_YEAR = "SET_YEAR";
 
 export function setSiteData(sites) {
   return {
@@ -20,5 +22,19 @@ export function setSlideIndex(slideIndex) {
   return {
     type: SET_SLIDE_INDEX,
     payload: { slideIndex },
+  };
+}
+
+export function setActivePDIFilter(val) {
+  return {
+    type: SET_PDI_FILTER,
+    payload: { activeFilter: [val] },
+  };
+}
+
+export function setYear(yearSelection) {
+  return {
+    type: SET_YEAR,
+    payload: { yearSelection },
   };
 }

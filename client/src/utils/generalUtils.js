@@ -7,7 +7,7 @@ export function calculateSectionScrollTo(sections, scrollTop) {
   return Math.max(...sectionNos);
 }
 
-export function calculateHost(serverPort) {
-  const { protocol, hostname } = window.location;
-  return `${protocol}//${hostname}:${serverPort}`;
-}
+// export function calculateHost(serverPort) {
+//   const { protocol, hostname } = window.location;
+//   return `${protocol}//${hostname}:${serverPort}`;
+// }

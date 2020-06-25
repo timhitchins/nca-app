@@ -189,8 +189,8 @@ export const imageConfig = [
      construction projects.</p>
      <p>The images below show the difference in air quality between regulated and unregulated diesel emissions.</p>`,
     compareImageURIs: [
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMmodel_layout12x8_300dpi.png",
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/DPMcon_layout12x8_300dpi.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_B_1_1200dpi_legend_800px.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_Ben_1200dpi_legend_800px.png",
     ],
   },
   {

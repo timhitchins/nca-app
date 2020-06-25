@@ -1,4 +1,4 @@
-import { fetchSiteData, fetchAttributeData } from "../utils/api";
+import { fetchJSONData } from "../utils/api";
 import { toggleLoadingIndicator } from "./loading";
 
 export const LOG_MARKER_DRAG = "LOG_MARKER_DRAG";
@@ -7,6 +7,7 @@ export const SET_MARKER_COORDS = "SET_MARKER_COORDS";
 export const GET_SITE_DATA = "GET_SITE_DATA";
 export const GET_ATTRIBUTE_DATA = "GET_ATTRIBUTE_DATA";
 export const SET_BUFFER_VALUES = "SET_BUFFER_VALUES";
+export const GET_BOUNDARY_DATA = "GET_BOUNDARY_DATA";
 
 export function logMarkerDragEvent(name, event) {
   return {
@@ -29,30 +30,30 @@ export function setMarkerCoords(longitude, latitude) {
   };
 }
 
-export function setBufferValues(distance, units, geoJSON) {
+export function setBufferValues(distance, units, bufferGeoJSON) {
   return {
     type: SET_BUFFER_VALUES,
     payload: {
       buffer: {
         distance,
         units,
-        geoJSON,
+        bufferGeoJSON,
       },
     },
   };
 }
 
-export function getSiteData(data) {
+export function getSiteData(siteMarkers) {
   return {
     type: GET_SITE_DATA,
-    payload: { siteMarkers: data },
+    payload: { siteMarkers },
   };
 }
 
 export function handleGetSiteData(route) {
   return async (dispatch) => {
     dispatch(toggleLoadingIndicator(true));
-    return fetchSiteData(route)
+    return fetchJSONData(route)
       .then((json) => {
         dispatch(getSiteData(json));
         dispatch(toggleLoadingIndicator(false));
@@ -64,22 +65,44 @@ export function handleGetSiteData(route) {
   };
 }
 
-function getAttributeData(data) {
+function getAttributeData(attributeTotals) {
   return {
     type: GET_ATTRIBUTE_DATA,
-    payload: { attributeTotals: data },
+    payload: { attributeTotals },
   };
 }
 
 export function handleGetAttributeData(route) {
   return async (dispatch) => {
-    return fetchAttributeData(route)
+    return fetchJSONData(route)
       .then((json) => {
         dispatch(getAttributeData(json));
         return json;
       })
       .catch((err) => {
         throw new Error(`An error occurred fetching attribute data: ${err}`);
+      });
+  };
+}
+
+function getPDXBoundaryData(boundaryGeoJSON) {
+  return {
+    type: GET_BOUNDARY_DATA,
+    payload: { boundaryGeoJSON },
+  };
+}
+
+export function handlegetPDXBoundayData(route) {
+  return async (dispatch) => {
+    return fetchJSONData(route)
+      .then((json) => {
+        dispatch(getPDXBoundaryData(json));
+        return json;
+      })
+      .catch((err) => {
+        throw new Error(
+          `An error occurred fetching boundary geojson data: ${err}`
+        );
       });
   };
 }

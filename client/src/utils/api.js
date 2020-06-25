@@ -1,16 +1,18 @@
-/* ----- function to get construction sites ----- */
-export async function fetchSiteData(route) {
-  const siteDataResponse = await fetch(route);
-  if (siteDataResponse.status === 200) {
-    const siteDataJSON = await siteDataResponse.json();
-
-    if (siteDataJSON.message) {
+/*----- 
+function to fetch the 
+construction sites, attribute totals, and pdxBoundary data 
+-----*/
+export async function fetchJSONData(route) {
+  const dataResponse = await fetch(route);
+  if (dataResponse.status === 200) {
+    const dataJSON = await dataResponse.json();
+    if (dataJSON.message) {
       return null;
     } else {
-      return siteDataJSON;
+      return dataJSON;
     }
   } else {
-    throw new Error(siteDataResponse.status);
+    throw new Error(dataResponse.status);
   }
 }
 
@@ -28,17 +30,5 @@ export async function fetchGeocdeResults(searchTerm, route) {
       throw Error(`An error occured searching: ${geocodeResponse.status}`);
     }
     return geocodeJSON;
-  }
-}
-
-/*----- function to fetch the attribute totals -----*/
-
-export async function fetchAttributeData(route) {
-  const attributeDataResponse = await fetch(route);
-  if (attributeDataResponse.status === 200) {
-    const attributeDataJSON = await attributeDataResponse.json();
-    return attributeDataJSON;
-  } else {
-    throw new Error(attributeDataResponse.status);
   }
 }

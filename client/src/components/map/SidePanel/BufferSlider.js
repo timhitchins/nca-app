@@ -5,13 +5,14 @@ import { setBufferValues, handleGetSiteData } from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import Slider from "react-rangeslider";
 import "react-rangeslider/lib/index.css";
-import "./BufferSlider.scss";
+import "./Sliders.scss";
 
 class BufferSlider extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     mapState: PropTypes.object.isRequired,
+    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -34,6 +35,7 @@ class BufferSlider extends Component {
     const { distance, units } = this.props.mapData.buffer;
     const { mapState } = this.props;
     const { errorMsgIsOpen } = this.props.geocodedData;
+    const { yearSelector } = this.props.siteData;
 
     if (
       !errorMsgIsOpen &
@@ -43,7 +45,7 @@ class BufferSlider extends Component {
       const encodedCoords = encodeURI(
         JSON.stringify({ lon: longitude, lat: latitude })
       );
-      const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+      const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelector}`;
       this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
         //create the new buffer
         const bufferGeoJSON = createBuffer(centralMarker, distance, units);
@@ -69,12 +71,12 @@ class BufferSlider extends Component {
         </div>
         <Slider
           min={500}
-          max={3000}
+          max={1500}
           value={distance}
           orientation="horizontal"
           onChange={this._handleOnChange}
           onChangeComplete={this._handleOnChangeComplete}
-          labels={{ 500: "500", 1500: "1,500", 3000: "3,000" }}
+          labels={{ 500: "500", 1000: "1,000", 1500: "1,500" }}
         />
       </div>
     );

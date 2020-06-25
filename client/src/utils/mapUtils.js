@@ -44,12 +44,31 @@ export function createBuffer(coords, radius, units) {
 export function calculatePDIStyle(pdiVal) {
   switch (pdiVal) {
     case "low":
-      return styleVars.uiGreen;
+      return styleVars.pdiLow;
     case "med":
-      return styleVars.uiYellow;
+      return styleVars.pdiMed;
     case "high":
-      return styleVars.uiRed;
+      return styleVars.pdiHigh;
     default:
       return styleVars.uiDarkGray;
   }
+}
+
+export function createLayerFilter(arr) {
+  let layerFilter = [];
+
+  const fullFilter = arr.map((item) => {
+    if (item === "Low PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "low"]]];
+    }
+    if (item === "Medium PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "med"]]];
+    }
+    if (item === "High PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "high"]]];
+    }
+    return null;
+  });
+
+  return ["none", ...fullFilter.flat(1)];
 }

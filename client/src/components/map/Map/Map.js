@@ -1,8 +1,11 @@
 import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
-import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
-import { calculateHost } from "../../../utils/generalUtils";
+import {
+  createNewViewport,
+  createBuffer,
+  createLayerFilter,
+} from "../../../utils/mapUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -10,6 +13,7 @@ import {
   getSiteData,
   handleGetSiteData,
   setBufferValues,
+  handlegetPDXBoundayData,
 } from "../../../actions/mapData";
 import { setSearchTerm, toggleErrorMessage } from "../../../actions/geocode";
 import { toggleLoadingIndicator } from "../../../actions/loading";
@@ -20,9 +24,15 @@ import {
   setSlideIndex,
 } from "../../../actions/siteData";
 import Pin from "./Pin";
-// import SiteMarkers from "./SiteMarkers";
-import { sitesLayer, bufferZoneLayer, bufferLineLayer } from "./mapStyles";
+import {
+  sitesFillLayer,
+  sitesActiveLayer,
+  bufferZoneLayer,
+  bufferLineLayer,
+  pdxBoundaryLineLayer,
+} from "./mapStyles";
 import "./Map.scss";
+import { toggleSidePanel } from "../../../actions/sidePanel";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
@@ -84,6 +94,7 @@ class NCAMap extends PureComponent {
     mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     markerSelector: PropTypes.object.isRequired,
+    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -92,7 +103,7 @@ class NCAMap extends PureComponent {
   };
 
   _createNewViewport = (geojson, mapState) => {
-    //trigger new viewport
+    // trigger new viewport
     const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
     this.props.dispatch(
       getMapState({
@@ -110,13 +121,14 @@ class NCAMap extends PureComponent {
   };
 
   _handleMapClick = (e) => {
-    //reset the details index
-    this._handleFeatureClick();
+    // reset the details index and
+    // open the side panel if closed
+    this._handleFeatureClick(e.features);
 
-    //set the active site features for side panel
+    // set the active site features for side panel
     this._handleSetSiteData(e.features);
 
-    //logic to handle marker selector
+    // logic to handle marker selector
     const { isActive } = this.props.markerSelector;
     if (isActive) {
       // hide the cursor tooltip
@@ -131,20 +143,20 @@ class NCAMap extends PureComponent {
   _handleGetSiteData = (lon, lat) => {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
+    const { yearSelection } = this.props.siteData;
 
-    //add the central marker
+    // add the central marker
     this.props.dispatch(setMarkerCoords(lon, lat));
 
-    //set up route and dispatch action for site data
+    // set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
     // const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
-    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelection}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(""));
 
       // if return geoJSON has features then create a new vieport
-      // const { features } = sitesGeoJSON;
       if (
         sitesGeoJSON !== null &&
         sitesGeoJSON.features !== undefined &&
@@ -152,14 +164,18 @@ class NCAMap extends PureComponent {
       ) {
         // create the new buffer geoJSON
         this._handleCreateNewBuffer(lon, lat);
+
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
+
+        // // open the sidePanel if closed
+        // this.props.dispatch(toggleSidePanel(true));
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
 
-        //destroy the site markers
+        // destroy the site markers
         this._handleDestroySiteMarkers();
 
         // show the error message
@@ -170,18 +186,36 @@ class NCAMap extends PureComponent {
     });
   };
 
-  _handleSetSiteData = (features) => {
-    if (features) {
+  // returns features or null
+  _checkForFeatures = (features) => {
+    if (features.length > 0) {
       const siteFeatures = features
         .map((feature) => {
-          if (feature.layer.id === "sites-layer") {
+          if (feature.layer.id === "sites-fill-layer") {
             return feature;
           } else {
             return null;
           }
         })
         .filter((el) => el !== null);
-      this.props.dispatch(setSiteData(siteFeatures));
+
+      // return it for use later
+      return siteFeatures;
+    } else {
+      return features;
+    }
+  };
+
+  _handleSetSiteData = (features) => {
+    const siteFeatures = this._checkForFeatures(features);
+
+    //set the data empty or not
+    this.props.dispatch(setSiteData(siteFeatures));
+
+    // if there are features, the set the first "current" feature
+    if (siteFeatures.length > 0) {
+      //reset the current feature to the top
+      this.props.dispatch(setCurrentFeature(siteFeatures[0]));
     }
   };
 
@@ -201,9 +235,14 @@ class NCAMap extends PureComponent {
     this.props.dispatch(getSiteData(null));
   };
 
-  _handleFeatureClick = () => {
-    //reset the details index
-    this.props.dispatch(setSlideIndex(0));
+  _handleFeatureClick = (features) => {
+    if (features.length > 0) {
+      // reset the details index
+      this.props.dispatch(setSlideIndex(0));
+
+      //toggle open the side panel if closed
+      this.props.dispatch(toggleSidePanel(true));
+    }
   };
 
   _getCursor = ({ isHovering }) => {
@@ -211,22 +250,36 @@ class NCAMap extends PureComponent {
   };
 
   componentDidMount() {
-    // const data = await fetchBoundaryData();
-    // console.log(data);
-    console.log("hello");
+    // fetch the pdx boundary data
+    const pdxBoundaryRoute = `/api/geojson/pdx-boundary`;
+    this.props.dispatch(handlegetPDXBoundayData(pdxBoundaryRoute));
+  }
+
+  componentWillUnmount() {
+    // set the loading indicator on unmount
+    this.props.dispatch(toggleLoadingIndicator(true));
   }
 
   render() {
     const { latitude, longitude } = this.props.mapData.centralMarker;
-    const { siteMarkers } = this.props.mapData;
-    const { geoJSON } = this.props.mapData.buffer;
+    const { siteMarkers, boundaryGeoJSON } = this.props.mapData;
+    const { bufferGeoJSON } = this.props.mapData.buffer;
+    const { activeFilter, currentFeature } = this.props.siteData;
+
+    // create additional filters vars
+    const siteLayerFilter = createLayerFilter(activeFilter);
+    const activeSiteFilter = currentFeature
+      ? currentFeature.properties.OBJECTID
+      : -1;
+
     return (
       <section className="map">
         <ReactMapGL
           {...this.props.mapState}
+          ref={(reactMap) => (this.reactMap = reactMap)}
           mapOptions={{ attributionControl: false }}
           maxZoom={20}
-          ref={(reactMap) => (this.reactMap = reactMap)}
+          minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"
           height="100%"
@@ -234,27 +287,35 @@ class NCAMap extends PureComponent {
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
           //   onHover={this._onHover}
-          interactiveLayerIds={["sites-layer"]}
+          interactiveLayerIds={["sites-fill-layer"]}
           onClick={(e) => {
             this._handleMapClick(e);
           }}
         >
-          {geoJSON ? (
-            <Source id="buffer" type="geojson" data={geoJSON}>
+          {boundaryGeoJSON ? (
+            <Source id="pdx-boundary" type="geojson" data={boundaryGeoJSON}>
+              <Layer key="pdx-boundary-line-layer" {...pdxBoundaryLineLayer} />
+            </Source>
+          ) : null}
+          {bufferGeoJSON ? (
+            <Source id="buffer" type="geojson" data={bufferGeoJSON}>
               <Layer key="buffer-zone-layer" {...bufferZoneLayer} />
               <Layer key="buffer-line-layer" {...bufferLineLayer} />
             </Source>
           ) : null}
-          {/* add site markers below */}
-          {/* {siteMarkers ? <SiteMarkers {...this.props} /> : null} */}
           {siteMarkers ? (
             <Source id="sites" type="geojson" data={siteMarkers}>
               <Layer
-                key="sites-layer"
-                {...sitesLayer}
-                onClick={(e) => {
-                  console.log(e);
-                }}
+                key="sites-fill-layer"
+                {...sitesFillLayer}
+                // dependant on PDI Indicator Color
+                filter={siteLayerFilter}
+              />
+              <Layer
+                key="sites-active-layer"
+                {...sitesActiveLayer}
+                // dependant on OBJECTID feature property of current features
+                filter={["in", "OBJECTID", activeSiteFilter]}
               />
             </Source>
           ) : null}
