@@ -67,7 +67,7 @@ class PermitTypeText extends Component {
       this.props.dispatch(
         handleGetAttributeData(
           // `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
-          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
+          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR`
         )
       );
     }

@@ -1,7 +1,3 @@
-// import { geojsonToArcGIS } from "@terraformer/arcgis";
-// import buffer from "@turf/buffer"; //https://turfjs.org/docs/#buffer
-// import point from "turf-point";
-
 // calculates the count of types in
 function createTypeCounts(inJSON, type) {
   if (type === "pjson") {
@@ -35,13 +31,17 @@ function createTypeCounts(inJSON, type) {
   }
 }
 
+//helper function to calculate determine all the query years
+function calculateYears(json) {
+  const years = json.map((json) => json.attributes.YEAR);
+  return [...new Set(years)];
+}
+
 //helper function to determine demolition value
 function calculateDemoDuplicates(inData) {
   //calculate the number of times an id exists
   const idDict = inData.features
-    .map((feature) => {
-      return feature.properties.STATEIDKEY;
-    })
+    .map((feature) => feature.properties.STATEIDKEY)
     .filter((val) => val !== null || val !== undefined) // filter out the nulls
     .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
 
@@ -60,6 +60,57 @@ function calculatePDILevel(PDI) {
     return "high";
   } else {
     return "no score";
+  }
+}
+
+//this function can be extended to include the attribute names
+//currently they are hardcoded
+export function calculateAttributeTotals(json, type) {
+  const reducer = (accumulator, currentValue) => accumulator + currentValue;
+
+  if (type === "pjson") {
+    //this could be DRY'd
+    const sumSqFt = json.features
+      .map((feature) => {
+        return feature.attributes.TOTALSQFT;
+      })
+      .reduce(reducer);
+    const sumStories = json.features
+      .map((feature) => {
+        return feature.attributes.NUMBSTORIES;
+      })
+      .reduce(reducer);
+
+    // calculate the number of unique years
+    const years = calculateYears(json.features);
+    console.log(years);
+
+    // count how many of each feature TYPE
+    const typeCounts = createTypeCounts(json, "pjson");
+
+    //include them on the json
+    const totals = { sumSqFt, sumStories, typeCounts };
+
+    return totals;
+  } else if (type === "geoJSON") {
+    //parse the geoJSON
+    //calculate the total of sqft and stories
+    const sumSqFt = json.features
+      .map((feature) => {
+        return feature.properties.TOTALSQFT;
+      })
+      .reduce(reducer);
+    const sumStories = json.features
+      .map((feature) => {
+        return feature.properties.NUMBSTORIES;
+      })
+      .reduce(reducer);
+
+    const typeCounts = createTypeCounts(json, "geoJSON");
+    //include them on the json
+    json.totals = { sumSqFt, sumStories, typeCounts };
+
+    return json;
   }
 }
 
@@ -121,51 +172,6 @@ export function addPDIToFeatures(inData) {
 
   inData.features = pdiDataFeatures;
   return inData;
-}
-
-//this function can be extended to include the attribute names
-//currently they are hardcoded
-export function calculateAttributeTotals(json, type) {
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
-  if (type === "pjson") {
-    //this could be DRY'd
-    const sumSqFt = json.features
-      .map((feature) => {
-        return feature.attributes.TOTALSQFT;
-      })
-      .reduce(reducer);
-    const sumStories = json.features
-      .map((feature) => {
-        return feature.attributes.NUMBSTORIES;
-      })
-      .reduce(reducer);
-
-    const typeCounts = createTypeCounts(json, "pjson");
-    //include them on the json
-    const totals = { sumSqFt, sumStories, typeCounts };
-
-    return totals;
-  } else if (type === "geoJSON") {
-    //parse the geoJSON
-    //calculate the total of sqft and stories
-    const sumSqFt = json.features
-      .map((feature) => {
-        return feature.properties.TOTALSQFT;
-      })
-      .reduce(reducer);
-    const sumStories = json.features
-      .map((feature) => {
-        return feature.properties.NUMBSTORIES;
-      })
-      .reduce(reducer);
-
-    const typeCounts = createTypeCounts(json, "geoJSON");
-    //include them on the json
-    json.totals = { sumSqFt, sumStories, typeCounts };
-
-    return json;
-  }
 }
 
 //util to build
