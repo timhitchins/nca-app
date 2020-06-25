@@ -18,11 +18,12 @@ import {
 import { getMapState } from "../../../actions/mapState";
 import "./GeocoderInput.scss";
 
-/*----- Class component to add marker to map -----*/ 
+/*----- Class component to add marker to map -----*/
+
 class MarkerSelector extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    makerSelector: PropTypes.object.isRequired,
+    markerSelector: PropTypes.object.isRequired,
   };
 
   _handleMarkerSelectorClick = () => {
@@ -135,6 +136,7 @@ class GeocoderInput extends Component {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     mapState: PropTypes.object.isRequired,
+    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -195,6 +197,7 @@ class GeocoderInput extends Component {
   _handleGetSiteData = (feature) => {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
+    const { yearSelection } = this.props.siteData;
     const [lon, lat] = feature.geometry.coordinates;
     const { place_name } = feature;
 
@@ -203,7 +206,7 @@ class GeocoderInput extends Component {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelection}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(place_name));
