@@ -33,8 +33,11 @@ function createTypeCounts(inJSON, type) {
 
 //helper function to calculate determine all the query years
 function calculateYears(json) {
-  const years = json.map((json) => json.attributes.YEAR);
-  return [...new Set(years)];
+  const years = json
+    .map((json) => Number(`20${json.attributes.YEAR}`))
+    .sort()
+    .reverse()
+  return ["All years", ...new Set(years)].slice(0, 7);
 }
 
 //helper function to determine demolition value
@@ -83,13 +86,12 @@ export function calculateAttributeTotals(json, type) {
 
     // calculate the number of unique years
     const years = calculateYears(json.features);
-    console.log(years);
 
     // count how many of each feature TYPE
     const typeCounts = createTypeCounts(json, "pjson");
 
     //include them on the json
-    const totals = { sumSqFt, sumStories, typeCounts };
+    const totals = { sumSqFt, sumStories, typeCounts, years };
 
     return totals;
   } else if (type === "geoJSON") {

@@ -6,11 +6,11 @@ import { keys } from "../config/keys";
 // https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=(+WORK_DESCRIPTION+=+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection',+'Under+Review',+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526,45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson
 // https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=(+WORK_DESCRIPTION+%3D+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection'%2C+'Under+Review'%2C+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526%2C45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson
 
-export async function fetchPermitData(coords, radius, units) {
+export async function fetchPermitData(coords, radius, units, year) {
   const { lon, lat } = coords;
   /*----- Constants to build uri -----*/
   const whereClause = encodeURIComponent(
-    "( WORK_DESCRIPTION = 'New Construction' ) AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential Building Permit', 'Residential 1 & 2 Family Permit' ) )"
+    "( WORK_DESCRIPTION = 'New Construction' ) AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential Building Permit', 'Residential 1 & 2 Family Permit' ) ) AND ( YEAR IN ( '20', '19', '18', '17', '16', '15' ) )"
   );
   const geometry = `${lon},${lat}`;
   const geometryType = "esriGeometryPoint";

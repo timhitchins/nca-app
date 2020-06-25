@@ -7,9 +7,41 @@ import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
 import { toggleSidePanel } from "../../../actions/sidePanel";
+import { setYear } from "../../../actions/siteData";
 import About from "./About";
 import "./SidePanelContainer.scss";
 import * as styleVars from "../../theme.scss";
+
+class YearSelector extends Component {
+  static propsTypes = {
+    mapData: PropTypes.object.isRequired,
+    dispatch: PropTypes.object.isRequired,
+  };
+
+  _handleYearSelection = (e) => {
+    const { value } = e.target;
+    this.props.dispatch(setYear(value));
+  };
+
+  render() {
+    const { attributeTotals } = this.props.mapData;
+    if (attributeTotals) {
+      const { years } = this.props.mapData.attributeTotals;
+      return (
+        <select
+          id="years"
+          className="year-selector"
+          onChange={this._handleYearSelection}
+        >
+          {years.map((year) => (
+            <option value={`${year}`}>{`${year}`}</option>
+          ))}
+        </select>
+      );
+    }
+    return null;
+  }
+}
 
 class SidePanelContainer extends Component {
   static propTypes = {
@@ -51,16 +83,9 @@ class SidePanelContainer extends Component {
         {/* Panel 1 */}
         <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
-          {/*  */}
-          <select id="years" className="year-selector">
-            <option value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="vw">VW</option>
-            <option value="audi" selected>
-              Audisdgsdfgsdgdsgsdg
-            </option>
-          </select>
-          {/*  */}
+
+          <YearSelector {...this.props} />
+
           <div
             className="close-button"
             title={panelIsOpen ? "Close panel" : "Open panel"}
