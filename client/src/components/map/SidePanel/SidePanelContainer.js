@@ -51,6 +51,16 @@ class SidePanelContainer extends Component {
         {/* Panel 1 */}
         <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
+          {/*  */}
+          <select id="years" className="year-selector">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="vw">VW</option>
+            <option value="audi" selected>
+              Audisdgsdfgsdgdsgsdg
+            </option>
+          </select>
+          {/*  */}
           <div
             className="close-button"
             title={panelIsOpen ? "Close panel" : "Open panel"}

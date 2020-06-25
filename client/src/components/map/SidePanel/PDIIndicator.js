@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { setActivePDIFilter } from "../../../actions/siteData";
+import {
+  setActivePDIFilter,
+  setSiteData,
+  setCurrentFeature,
+} from "../../../actions/siteData";
 import * as styleVars from "../../theme.scss";
 import "./PDIIndicator.scss";
 
@@ -30,6 +34,8 @@ class PDIIndicator extends Component {
             onClick={(event) => {
               event.preventDefault();
               this.props.dispatch(setActivePDIFilter(titles[index]));
+              this.props.dispatch(setSiteData([]));
+              this.props.dispatch(setCurrentFeature(null));
             }}
           ></div>
         ))}

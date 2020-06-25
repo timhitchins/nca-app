@@ -2,13 +2,6 @@
 
 /* ----- Side panel styles ----- */
 .side-panel-container {
-  //grid positioning
-  // grid-column: 1;
-  // grid-row: 1 / span 3;
-  // position: relative;
-  ///////////////////
-
-  //absolute positioning
   position: absolute;
   top: 20px;
   display: flex;
@@ -22,6 +15,7 @@
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
+
   /* ----- Outer panel item styles ----- */
   .outer-panel {
     flex: 1;
@@ -29,14 +23,13 @@
     background-color: $ui-transparent-white;
     margin: 1em 2em 1em 1em;
     padding: 1em;
-    // border: 1px solid black;
     box-shadow: 5px 10px 18px #888888;
   }
   .outer-panel:hover {
     transform: scale(1.01);
   }
 
-  /* ----- T0p panel ----- */
+  /* ----- Top panel ----- */
   .top-panel {
     // padding: 0 1em 1em 1em;
     /*----- close button styles -----*/
@@ -100,70 +93,38 @@
 
 /*----- Year dropdown selector styles-----*/
 .year-selector {
+  display: block;
   font-family: "Archivo Narrow", sans-serif;
   font-weight: bold;
-  font-size: 1.5rem;
-  -webkit-appearance: none;
-  background-color: transparent;
-  border: 0;
-  border-radius: 0;
+  font-size: 1.2rem;
   color: inherit;
+  padding: 0.2em 1.4em 0.2em 0.2em;
+  margin: 0;
+  border: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  background-image: url("https://nca-toolkit.s3-us-west-2.amazonaws.com/down_arrow.svg");
+  background-repeat: no-repeat, repeat;
+  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+  background-position: right 0.7em top 50%, 0 0;
+  /* icon size, then gradient */
+  background-size: 0.65em auto, 100%;
+  option {
+    font-weight: normal;
+    font-size: 0.8rem;
+  }
 }
-
-/*----- Geocoder styles -----*/
-// .search-bar {
-//   width: 100%;
-// }
-
-// input[type="text"] {
-//   width: 80%;
-//   padding: 12px 20px;
-//   box-sizing: inherit;
-//   border: none;
-//   -webkit-transition: 0.2s;
-//   transition: 0.2s;
-//   outline: none;
-// }
-
-// .search-form {
-//   display: flex;
-//   height: 50px;
-//   width: 100%;
-//   border: 2px solid $ui-dark-gray;
-// }
-
-// .search-form:focus-within {
-//   border: 3px solid$ui-dark-gray;
-// }
-
-// //search button
-// .search-button {
-//   box-sizing: inherit;
-//   width: 20%;
-//   height: 100%;
-//   background: white;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-
-//   img {
-//     height: 40px;
-//     width: 40px;
-//     border: none;
-//   }
-// }
-
-// .clear-button {
-//   box-sizing: inherit;
-//   padding-left: 5px;
-//   width: 10%;
-//   height: 100%;
-//   background: white;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   cursor: pointer;
-//   font-size: 35px;
-//   color: $ui-dark-gray;
-// }
+/* Hide arrow icon in IE browsers */
+.year-selector::-ms-expand {
+  display: none;
+}
+/* Hover style */
+.year-selector:hover {
+  border-color: $ui-gray;
+}
+/* Focus style */
+.year-selector:focus {
+  outline: none;
+}

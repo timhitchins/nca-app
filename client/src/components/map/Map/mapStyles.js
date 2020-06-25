@@ -1,7 +1,7 @@
 import * as styleVars from "../../theme.scss";
 
-export const sitesLayer = {
-  id: "sites-layer",
+export const sitesFillLayer = {
+  id: "sites-fill-layer",
   type: "circle",
   source: "sites",
   paint: {
@@ -13,15 +13,6 @@ export const sitesLayer = {
         [20, 180],
       ],
     },
-    // "circle-color": "red",
-    // "circle-color": {
-    //   property: "PDI",
-    //   stops: [
-    //     [7, "#00a750"],
-    //     [11, "#fff100"],
-    //     [13, "#ed1c34"],
-    //   ],
-    // },
     "circle-color": [
       "match",
       ["get", "PDILevel"],
@@ -40,6 +31,24 @@ export const sitesLayer = {
   },
 };
 
+export const sitesActiveLayer = {
+  id: "sites-active-layer",
+  type: "circle",
+  source: "sites",
+  paint: {
+    "circle-radius": {
+      base: 5,
+      stops: [
+        [12, 10],
+        [20, 180],
+      ],
+    },
+    "circle-stroke-color": styleVars.activeMarker,
+    "circle-stroke-width": 4,
+    "circle-opacity": 0,
+  },
+};
+
 export const bufferZoneLayer = {
   id: "buffer-zone-layer",
   type: "fill",
@@ -52,7 +61,7 @@ export const bufferZoneLayer = {
 };
 
 export const bufferLineLayer = {
-  id: "buffer-zone",
+  id: "buffer-line-layer",
   type: "line",
   source: "buffer",
   tolerance: 0.9,
@@ -74,3 +83,13 @@ export const pdxBoundaryLineLayer = {
     // "line-dasharray": [3, 3],
   },
 };
+
+// "circle-color": "red",
+// "circle-color": {
+//   property: "PDI",
+//   stops: [
+//     [7, "#00a750"],
+//     [11, "#fff100"],
+//     [13, "#ed1c34"],
+//   ],
+// },

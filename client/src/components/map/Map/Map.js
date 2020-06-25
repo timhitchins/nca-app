@@ -1,7 +1,11 @@
 import React, { PureComponent, Component } from "react";
 import ReactMapGL, { Source, Layer, Marker } from "react-map-gl";
 import PropTypes from "prop-types";
-import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import {
+  createNewViewport,
+  createBuffer,
+  createLayerFilter,
+} from "../../../utils/mapUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -21,7 +25,8 @@ import {
 } from "../../../actions/siteData";
 import Pin from "./Pin";
 import {
-  sitesLayer,
+  sitesFillLayer,
+  sitesActiveLayer,
   bufferZoneLayer,
   bufferLineLayer,
   pdxBoundaryLineLayer,
@@ -89,6 +94,7 @@ class NCAMap extends PureComponent {
     mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     markerSelector: PropTypes.object.isRequired,
+    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -184,7 +190,7 @@ class NCAMap extends PureComponent {
     if (features.length > 0) {
       const siteFeatures = features
         .map((feature) => {
-          if (feature.layer.id === "sites-layer") {
+          if (feature.layer.id === "sites-fill-layer") {
             return feature;
           } else {
             return null;
@@ -257,13 +263,22 @@ class NCAMap extends PureComponent {
     const { latitude, longitude } = this.props.mapData.centralMarker;
     const { siteMarkers, boundaryGeoJSON } = this.props.mapData;
     const { bufferGeoJSON } = this.props.mapData.buffer;
+    const { activeFilter, currentFeature } = this.props.siteData;
+
+    // create additional filters vars
+    const siteLayerFilter = createLayerFilter(activeFilter);
+    const activeSiteFilter = currentFeature
+      ? currentFeature.properties.OBJECTID
+      : -1;
+
     return (
       <section className="map">
         <ReactMapGL
           {...this.props.mapState}
+          ref={(reactMap) => (this.reactMap = reactMap)}
           mapOptions={{ attributionControl: false }}
           maxZoom={20}
-          ref={(reactMap) => (this.reactMap = reactMap)}
+          minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"
           height="100%"
@@ -271,7 +286,7 @@ class NCAMap extends PureComponent {
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
           //   onHover={this._onHover}
-          interactiveLayerIds={["sites-layer"]}
+          interactiveLayerIds={["sites-fill-layer"]}
           onClick={(e) => {
             this._handleMapClick(e);
           }}
@@ -287,11 +302,20 @@ class NCAMap extends PureComponent {
               <Layer key="buffer-line-layer" {...bufferLineLayer} />
             </Source>
           ) : null}
-          {/* add site markers below */}
-          {/* {siteMarkers ? <SiteMarkers {...this.props} /> : null} */}
           {siteMarkers ? (
             <Source id="sites" type="geojson" data={siteMarkers}>
-              <Layer key="sites-layer-markers" {...sitesLayer} />
+              <Layer
+                key="sites-fill-layer"
+                {...sitesFillLayer}
+                // dependant on PDI Indicator Color
+                filter={siteLayerFilter}
+              />
+              <Layer
+                key="sites-active-layer"
+                {...sitesActiveLayer}
+                // dependant on OBJECTID feature property of current features
+                filter={["in", "OBJECTID", activeSiteFilter]}
+              />
             </Source>
           ) : null}
 

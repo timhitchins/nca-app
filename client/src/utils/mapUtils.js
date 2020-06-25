@@ -53,3 +53,22 @@ export function calculatePDIStyle(pdiVal) {
       return styleVars.uiDarkGray;
   }
 }
+
+export function createLayerFilter(arr) {
+  let layerFilter = [];
+
+  const fullFilter = arr.map((item) => {
+    if (item === "Low PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "low"]]];
+    }
+    if (item === "Medium PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "med"]]];
+    }
+    if (item === "High PDI") {
+      return [...layerFilter, ...[["==", "PDILevel", "high"]]];
+    }
+    return null;
+  });
+
+  return ["none", ...fullFilter.flat(1)];
+}

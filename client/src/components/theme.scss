@@ -23,6 +23,7 @@ $ui-link: #004170;
 $pdi-low: #fd8d3c;
 $pdi-medium: #e31a1c;
 $pdi-high: #800026;
+$active-marker: #00abdf;
 
 /* ------- breakpoints ------- */
 $mobile-small: 400px;
@@ -63,4 +64,5 @@ $font-family-narrow: "Archivo Narrow", sans-serif;
   pdiLow: $pdi-low;
   pdiMed: $pdi-medium;
   pdiHigh: $pdi-high;
+  activeMarker: $active-marker;
 }

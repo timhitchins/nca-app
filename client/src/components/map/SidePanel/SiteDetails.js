@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { setCurrentFeature, setSlideIndex } from "../../../actions/siteData";
-// import * as styleVars from "../../theme.scss";
 import "./SiteDetails.scss";
 
 class SiteDetails extends Component {
@@ -28,7 +27,6 @@ class SiteDetails extends Component {
   }
 
   componentWillUnmount() {
-    console.log("unmount")
     this.props.dispatch(setCurrentFeature(null));
   }
 
