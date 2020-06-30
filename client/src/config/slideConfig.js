@@ -179,15 +179,14 @@ export const imageConfig = [
     imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
     altText: "An image of downtown Portland construction",
     heading: "we need a statewide clean standard",
-    body:
-      `<p>The first step toward changing the landscape of diesel pollution is awareness. 
+    body: `<p>The first step toward changing the landscape of diesel pollution is awareness. 
       NCA is committed to making a lasting difference by ensuring that all residents 
       of the Portland Metro region have the information necessary to bring about changes 
       in their neighborhoods and community.<br><br>
       You can take action. First, you can review NCA’s <strong>
-      <a className="slide-config-link" href="/mapping-tool" rel="noopener noreferrer">interactive mapping tool</a></strong> that shows you what 
+      <a href="/mapping-tool" rel="noopener noreferrer">interactive mapping tool</a></strong> that shows you what 
       construction is happening in your neighborhood and affecting your air.<br><br>
-      Then, you <strong>can <a className="slide-config-link" href="/join-us" rel="noopener noreferrer">Join Us</a> to help improve the air you breath.</strong> 
+      Then, you <strong>can <a href="/join-us" rel="noopener noreferrer">Join Us</a> to help improve the air you breath.</strong> 
       We will connect you to actions you can take to help us all have a breath of fresh air.</p>`,
     takeAction: true,
     footer: true,

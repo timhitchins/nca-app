@@ -94,6 +94,16 @@ class GeocodedResults extends Component {
     this.props._handleGetSiteData(selectedFeature);
   };
 
+  _onKeyPress = (e, selectedFeature) => {
+    if (e.key === "Enter") {
+      //close the error togle if open
+      this.props.dispatch(toggleErrorMessage(false));
+
+      // method passed down from GeocoderInput
+      this.props._handleGetSiteData(selectedFeature);
+    }
+  };
+
   render() {
     const {
       geocodedResults,
@@ -112,12 +122,16 @@ class GeocodedResults extends Component {
             const { place_name } = feature;
             return (
               <div
+                tabIndex="0"
                 key={`result-${index}`}
                 className={
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
                   this._onResultClick(feature);
+                }}
+                onKeyPress={(e) => {
+                  this._onKeyPress(e, feature);
                 }}
               >
                 {place_name}
@@ -248,6 +262,7 @@ class GeocoderInput extends Component {
   };
   render() {
     const { searchTerm } = this.props.geocodedData;
+
     return (
       <React.Fragment>
         <div className="geocoder-marker-container">
@@ -263,6 +278,7 @@ class GeocoderInput extends Component {
                 &times;
               </div>
               <DebounceInput
+                tabIndex="0"
                 type="text"
                 placeholder="Search an address..."
                 value={searchTerm} //controlled input
@@ -297,10 +313,12 @@ class GeocoderInput extends Component {
           </div>
           <MarkerSelector {...this.props} />
         </div>
+
         <GeocodedResults
           {...this.props}
           _handleGetSiteData={this._handleGetSiteData}
         />
+
         <NoGeocodedResults {...this.props.geocodedData} />
       </React.Fragment>
     );

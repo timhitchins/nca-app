@@ -8,7 +8,7 @@ import {
 const initialGeocodingState = {
   geocodedResults: { features: [] }, //using this to mimic no features
   searchTerm: "",
-  ressultsIsOpen: false,
+  resultsIsOpen: false,
   errorMsgIsOpen: false,
 };
 
