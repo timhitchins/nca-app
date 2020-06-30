@@ -139,7 +139,7 @@ export const imageConfig = [
       <ul>
       <li>Black carbon is the second highest global warming agent in the world, tied with methane.</li>
       <li>Black carbon only lives in the atmosphere for 2-6 weeks, so if we stop emitting we could 
-      see cooling effects relatively quickly unlike CO2 which takes about 100 years</li>
+      see cooling effects relatively quickly unlike CO2 which takes about 100 years.</li>
       <li>Black carbon can land on snow and increase the melting and warming of the arctic.</li>
       </ul>`,
   },
