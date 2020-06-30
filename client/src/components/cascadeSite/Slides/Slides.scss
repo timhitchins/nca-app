@@ -247,6 +247,13 @@ summary {
   }
 }
 
+/*----- additional style for extending tow-col -----*/
+.half-size {
+  grid-template-columns: 1fr;
+  max-width: 700px;
+}
+
+
 /* ----- image compare style ----- */
 .two-col-compare-images {
   display: flex;
@@ -342,7 +349,7 @@ video {
 
 /* ----- Bottom right corner logo style----- */
 .nca-logo {
-  max-width: 65px;
+  max-width: 55px;
   @media (max-width: $mobile) {
     max-width: 40px;
   }
@@ -398,7 +405,7 @@ video {
   }
 }
 
-.take-action,
+.join-us,
 .to-map {
   display: flex;
   margin-bottom: 20px;
@@ -419,7 +426,7 @@ video {
   }
 }
 
-.take-action {
+.join-us {
   max-width: 120px;
   @media (max-height: $landscape-height) {
     max-width: 100%;
@@ -433,7 +440,7 @@ video {
   }
 }
 
-.take-action:hover,
+.join-us:hover,
 .to-map:hover {
   background-color: $ui-black;
   border: 3px solid $ui-white;
@@ -444,7 +451,7 @@ video {
   }
 }
 
-.take-action:active,
+.join-us:active,
 .to-map:active {
   transform: translateY(-2px);
 }

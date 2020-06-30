@@ -88,7 +88,11 @@ class Section extends Component {
               <div className="compare-image-container">
                 <ReactCompareImage
                   leftImage={slide.compareImageURIs[0]}
+                  leftImageAlt={slide.compareImageAltText[0]}
+                  leftImageCss={{ objectFit: "contain" }}
                   rightImage={slide.compareImageURIs[1]}
+                  rightImageAlt={slide.compareImageAltText[1]}
+                  rightImageCss={{ objectFit: "contain" }}
                 />
               </div>
             )}
@@ -96,16 +100,16 @@ class Section extends Component {
               <div className="buttons-container">
                 <Link
                   to={{
-                    pathname: "/take-action",
+                    pathname: "/join-us",
                   }}
                 >
-                  <div className="take-action">
-                    <div>Take Action</div> <div>&#10148;</div>
+                  <div className="join-us">
+                    <div>Join Us</div> <div>&#10148;</div>
                   </div>
                 </Link>
                 <Link
                   to={{
-                    pathname: "/the-tool",
+                    pathname: "/mapping-tool",
                   }}
                 >
                   <div className="to-map">

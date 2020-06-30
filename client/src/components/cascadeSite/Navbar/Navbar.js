@@ -40,22 +40,22 @@ class Navbar extends Component {
           <NavLink
             activeClassName="nav-link-active"
             exact
-            to="/the-tool"
+            to="/mapping-tool"
             onClick={() => {
               this.props.dispatch(togglenavDrawerAction(false));
             }}
           >
-            The Tool
+            Mapping Tool
           </NavLink>
           <NavLink
             activeClassName="nav-link-active"
             exact
-            to="/take-action"
+            to="/join-us"
             onClick={() => {
               this.props.dispatch(togglenavDrawerAction(false));
             }}
           >
-            Take Action
+            Join Us
           </NavLink>
         </div>
         <div

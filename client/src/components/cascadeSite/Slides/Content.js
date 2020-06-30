@@ -207,9 +207,13 @@ class AllContent extends Component {
           let className = "two-col";
           switch (i) {
             case 0:
+            case 9:
+              className = "two-col half-size";
+              break;
             case 12:
               className = "one-col";
               break;
+            case 0:
             case 1:
             case 5:
               className = "two-col border-image";
@@ -218,11 +222,11 @@ class AllContent extends Component {
               className = "two-col pie-chart";
             case 7:
             case 8:
-              className = "two-col fit-text"
+              className = "two-col fit-text";
               break;
-            case 9:
+            {/* case 9:
               className = "one-col font-adjust";
-              break;
+              break; */}
             case 6:
             case 10:
               className = "two-col single-video";

@@ -9,9 +9,9 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/OregonLive_hazepdxjpg-e8d26d8245f61043.jpg",
-    altText: "person running",
+    altText: "An image of a person running in smoky air",
     heading: "Oregon has toxic air pollution",
-    body: `<span><strong>We all have the right to breathe clean air.</strong> 
+    body: `<span><strong><h2>We all have the right to breathe clean air.</h2></strong> 
       However, in the Portland metro area, the presence of fine and ultra-fine 
       particulate matter from older dirty diesel engines makes our air unhealthy. 
       <strong>Clackamas, Multnomah, and Washington counties rank in the top 5 
@@ -20,12 +20,9 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "An image with of a construction site",
+    altText: "An image of an active construction site",
     heading: "Diesel engines are a primary source of pollution",
-    // innerImageURI:
-    //   "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_w_Trans.png",
-    // innerAltText:
-    //   "A illustration of the impact of diesel particulate on the lungs",
+    innerImageURI: `https://nca-toolkit.s3-us-west-2.amazonaws.com/Three_clouds.png`,
     body: `<p>While there are many sources for air pollution in Oregon – industry, automobiles, 
       burning wood at homes, wildfires – one of the most significant and underregulated 
       sources is diesel.</p> 
@@ -36,7 +33,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+    altText: "An image of an active construction site",
     heading: "Where does diesel pollution come from?",
     innerImageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Emissions_graph.png",
@@ -48,7 +45,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+    altText: "An image of an active construction site",
     heading: "What is off-road equipment?",
     body: `<p>Off-road equipment is what we call the heavy construction vehicles such as excavators, 
     wheel loaders, articulated and rigid dump trucks moving in and out of all of our neighborhoods. 
@@ -61,7 +58,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+    altText: "An image of an active construction site",
     heading: "Old diesel engines are dangerous",
     body: `<p>One component of the dangerous particles produced by diesel is black carbon, 
     which not only harms human health but is a significant contributor to climate change.</p>
@@ -75,10 +72,10 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "An image with of a construction site",
+    altText: "An image of an active construction site",
     heading: "Diesel engines endanger our health",
     innerImageURI:
-      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_w_Trans.png",
+      "https://nca-toolkit.s3-us-west-2.amazonaws.com/Lungs_Deisel_with_text.png",
     innerAltText:
       "A illustration of the impact of diesel particulate on the lungs",
     body: `<p>Diesel engines emit fine particulate matter, tiny particles that work deeply into our 
@@ -91,13 +88,8 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/parking+construction+no+copyright.jpg",
-    altText: "construction site",
+    altText: "An image of an active construction site",
     heading: "Breath Oregon Collaborative",
-    // body:
-    //   "Exposure to diesel engine exhaust can cause cancer, increase the risk of heart attack, stroke and cardiovascular disease, cause adverse nervous system impacts, exacerbate asthma, and can lead to low-weight and preterm births.",
-    // innerImageURI:
-    //   "https://nca-toolkit.s3-us-west-2.amazonaws.com/Deaths_and_work_days_lost_new2.png",
-    // innerAltText: "An infographic of construction stats",
     body: "<div></div>",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/OurAir_11.6.19.mp4",
@@ -106,7 +98,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
-    altText: "children playing",
+    altText: "An image of children playing",
     heading: "Historically underserved people are at high risk",
     body: `<p>A recent PSU study found that nearly 40% of people of color live close to a major polluter, 
     with 42% of culturally-specific, redlined neighborhoods being less than a mile away from one.</p>
@@ -122,7 +114,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikimedia_Children_dancing.jpg",
-    altText: "children playing",
+    altText: "An image of children playing",
     heading: "Women, children and the elderly are especially vulnerable",
     body: `<p>Studies have shown that women exposed to high levels of air pollution in their third
      trimester were twice as likely to deliver children with autism.</p>
@@ -140,7 +132,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
-    altText: "thawing ice",
+    altText: "An image of thawing ice",
     heading: "Diesel engines endanger our planet",
     body: `<p><strong>Black carbon is a leading contributor to global warming and climate change.</strong>
     Black carbon warms the climate 460-1,500 times more than CO2.</p>
@@ -154,7 +146,7 @@ export const imageConfig = [
   {
     imageURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Wikipedia_Svalbard1-e1444847759534.jpg",
-    altText: "thawing ice",
+    altText: "An image of thawing ice",
     body: "<div></div>",
     videoURI:
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/we-are-with-earth-v6.mp4",
@@ -166,20 +158,6 @@ export const imageConfig = [
     altText: "white-background",
     heading: "we need a statewide clean standard",
     summary: `About these images`,
-    // details: `<p>In 2018 the <a href="https://www.portlandoregon.gov/brfs/79317">Clean Air Construction Collaborative<a/> did a study to better understand
-    // clean diesel construction procurement standards and determine best practices. This research
-    // informed development of the Clean Air Construction Standard. In addition, the City of Portland
-    // and Multnomah County co-funded an air quality feasibility study to perform an in-depth assessment
-    // of various strategies actionable by local government to address Portland metro’s air quality issues.
-    // A top recommended action in the study was to implement diesel engine specifications for public
-    // construction projects.</p>
-    // <p>There has been significant public pressure on government entities to take action to improve
-    // local air quality. Community organizations such as Oregon Environmental Council Neighbors for
-    // Clean Air and Portland Neighbors for Diesel Action are supportive of local governments taking
-    // leadership on this issue, although they strongly advocate for an accelerated timeline for
-    // implementation.</p>
-    // <p>The images below show the difference in air quality between regulated and unregulated diesel emissions.</p>
-    // `,
     details: `<p>In 2018 the <a href="https://www.portlandoregon.gov/brfs/79317">Clean Air Construction Collaborative<a/> did a study to better understand 
      clean diesel construction procurement standards and determine best practices. This research 
      informed development of the Clean Air Construction Standard. In addition, the City of Portland 
@@ -192,6 +170,10 @@ export const imageConfig = [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_B_1_1200dpi_legend_800px.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_Ben_1200dpi_legend_800px.png",
     ],
+    compareImageAltText: [
+      "An image with low diesel particulate matter over Portland, OR",
+      "An image with high diesel particulate matter over Portland, OR",
+    ],
   },
   {
     imageURI: "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction.jpg",
@@ -203,18 +185,3 @@ export const imageConfig = [
     footer: true,
   },
 ];
-
-// {
-//   imageURI:
-//     "https://nca-toolkit.s3-us-west-2.amazonaws.com/white-background.png", //white background instead for "the tool"
-//   altText: "white background",
-//   heading: "explore pollution in your area",
-//   body:
-//     "<p>Click the map to see the projected diesel pollution from construction sites in your area.</p>",
-// },
-// {
-//   videoURI:
-//     "https://nca-toolkit.s3-us-west-2.amazonaws.com/construction+video.mp4", //white background instead for "take action"
-//   altText: null,
-//   heading: "take action",
-// },

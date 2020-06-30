@@ -17,6 +17,7 @@
     "query-string": "^6.12.1",
     "react": "^16.13.0",
     "react-compare-image": "^2.0.4",
+    "react-compound-slider": "^2.5.0",
     "react-debounce-input": "^3.2.2",
     "react-dom": "^16.13.0",
     "react-map-gl": "^5.2.5",

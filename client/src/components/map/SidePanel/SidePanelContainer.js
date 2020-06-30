@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import GeocoderInput from "./GeocoderInput";
 import BufferSlider from "./BufferSlider";
+// import YearRangeSlider
 import PermitTypeText from "./PermitTypeText";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";

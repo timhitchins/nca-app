@@ -28,8 +28,8 @@ class App extends Component {
             path={["/", "/the-issue"]}
             component={SlidesContainer}
           ></Route>
-          <Route exact path={"/the-tool"} component={MapContainer}></Route>
-          <Route exact path={"/take-action"} component={TakeAction}></Route>
+          <Route exact path={"/mapping-tool"} component={MapContainer}></Route>
+          <Route exact path={"/join-us"} component={TakeAction}></Route>
         </Switch>
       </Router>
     );
