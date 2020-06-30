@@ -253,7 +253,6 @@ summary {
   max-width: 700px;
 }
 
-
 /* ----- image compare style ----- */
 .two-col-compare-images {
   display: flex;
@@ -392,103 +391,130 @@ video {
   }
 }
 
-/* ----- Last Slide Buttons ----- */
-.buttons-container {
-  a {
-    text-decoration: none;
-  }
-  a:visited {
-    color: $ui-black;
-  }
-  @media (max-height: $landscape-height) {
-    display: flex;
-  }
-}
+/*----- last slide links -----*/
+// .slide-config-link {
+//   text-decoration: underline;
+//   text-transform: uppercase;
+//   color: $ui-black;
+// }
+// .slide-config-link:hover {
+//   color: $ui-gray;
+// }
 
-.join-us,
-.to-map {
-  display: flex;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: $ui-white;
+strong > a {
+  text-decoration: underline;
   text-transform: uppercase;
-  border: 3px solid $ui-black;
-  border-radius: 5px;
-  font-weight: bold;
-  align-items: center;
-  justify-content: center;
-  @media (max-height: $landscape-height) {
-    margin-bottom: 2px;
-  }
-
-  div:last-child {
-    font-size: 30px;
-  }
+  color: $ui-link;
 }
 
-.join-us {
-  max-width: 120px;
-  @media (max-height: $landscape-height) {
-    max-width: 100%;
-  }
+strong > a:hover {
+  color: $ui-green;
 }
+/* ----- Last Slide Buttons ----- */
+// .buttons-container {
+//   display: flex;
+//   justify-content: space-around;
 
-.to-map {
-  max-width: 250px;
-  @media (max-height: $landscape-height) {
-    max-width: 100%;
-  }
-}
+//   a {
+//     text-decoration: none;
+//   }
+//   a:visited {
+//     color: $ui-black;
+//   }
+//   // @media (max-height: $landscape-height ) {
+//   //   display: flex;
+//   // }
+//   // @media (max-width: $mobile ) {
+//   //   display: flex;
+//   // }
+// }
 
-.join-us:hover,
-.to-map:hover {
-  background-color: $ui-black;
-  border: 3px solid $ui-white;
-  color: $ui-white;
+// .join-us,
+// .to-map {
+//   display: flex;
+//   // margin-bottom: 20px;
+//   padding: 10px;
+//   background-color: $ui-white;
+//   text-transform: uppercase;
+//   border: 3px solid $ui-black;
+//   border-radius: 5px;
+//   font-weight: bold;
+//   align-items: center;
+//   justify-content: center;
+//   /////////////
+//   display: flex;
+//   @media (max-height: $landscape-height) {
+//     // margin-bottom: 2px;
+//   }
 
-  div:last-child {
-    font-size: 30px;
-  }
-}
+//   div:last-child {
+//     // font-size: 30px;
+//   }
+// }
 
-.join-us:active,
-.to-map:active {
-  transform: translateY(-2px);
-}
+// .join-us {
+//   // max-width: 120px;
+//   @media (max-height: $landscape-height) {
+//     // max-width: 100%;
+//   }
+// }
+
+// .to-map {
+//   // max-width: 250px;
+//   @media (max-height: $landscape-height) {
+//     // max-width: 100%;
+//   }
+// }
+
+// .join-us:hover,
+// .to-map:hover {
+//   background-color: $ui-black;
+//   border: 3px solid $ui-white;
+//   color: $ui-white;
+
+//   div:last-child {
+//     // font-size: 30px;
+//   }
+// }
+
+// .join-us:active,
+// .to-map:active {
+//   transform: translateY(-2px);
+// }
 
 /*----- map styles ----- */
-.map-container {
-  position: relative;
-}
+// .map-container {
+//   position: relative;
+// }
 
-.map-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: -1;
-  max-width: 85%;
-  max-height: 800px;
-  height: auto;
-  opacity: 1;
-}
+// .map-image {
+//   display: block;
+//   margin-left: auto;
+//   margin-right: auto;
+//   z-index: -1;
+//   max-width: 85%;
+//   max-height: 800px;
+//   height: auto;
+//   opacity: 1;
+// }
 
-.centered-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  z-index: 2;
-  color: white;
-}
+// .centered-overlay {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   font-size: 48px;
+//   z-index: 2;
+//   color: white;
+// }
 
-.opacity-overlay {
-  position: fixed; //this may need to change;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
-}
+// .opacity-overlay {
+//   position: fixed; //this may need to change;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   z-index: 1;
+//   background-color: rgba(0, 0, 0, 0.5);
+//   z-index: 1;
+// }

@@ -13,7 +13,7 @@ import {
   VIDEO_1_SECTION,
   VIDEO_2_SECTION,
   imageConfig,
-} from "../../../config/config";
+} from "../../../config/slideConfig";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -96,7 +96,7 @@ class Section extends Component {
                 />
               </div>
             )}
-            {slide.takeAction && (
+            {/* {slide.takeAction && (
               <div className="buttons-container">
                 <Link
                   to={{
@@ -104,7 +104,7 @@ class Section extends Component {
                   }}
                 >
                   <div className="join-us">
-                    <div>Join Us</div> <div>&#10148;</div>
+                    <div>Join Us &#10148;</div>
                   </div>
                 </Link>
                 <Link
@@ -113,14 +113,11 @@ class Section extends Component {
                   }}
                 >
                   <div className="to-map">
-                    <div>
-                      See the impacts of contruction sites in your neighborhood
-                    </div>
-                    <div>&#10148;</div>
+                    <div>Interactive Mapping Tool &#10148;</div>
                   </div>
                 </Link>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {sectionNo < MAX_SECTION_NO ? (

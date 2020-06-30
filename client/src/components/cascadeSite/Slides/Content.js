@@ -8,7 +8,7 @@ import {
   MIN_SECTION_NO,
   MAX_SECTION_NO,
   imageConfig,
-} from "../../../config/config";
+} from "../../../config/slideConfig";
 import "./Slides.scss";
 
 //will need to scroll to contentRef --> cardRef offsettop

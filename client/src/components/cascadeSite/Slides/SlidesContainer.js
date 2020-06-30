@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { handleSetContentAction } from "../../../actions/slides";
 import SlideBackground from "./SlideBackground";
 import AllContent from "./Content";
-import { imageConfig } from "../../../config/config";
+import { imageConfig } from "../../../config/slideConfig";
 import "./Slides.scss";
 
 class SildesContainer extends Component {
