@@ -7,6 +7,7 @@ export const SET_MARKER_COORDS = "SET_MARKER_COORDS";
 export const GET_SITE_DATA = "GET_SITE_DATA";
 export const GET_ATTRIBUTE_DATA = "GET_ATTRIBUTE_DATA";
 export const SET_BUFFER_VALUES = "SET_BUFFER_VALUES";
+export const SET_YEAR_RANGE = "SET_YEAR_RANGE";
 export const GET_BOUNDARY_DATA = "GET_BOUNDARY_DATA";
 
 export function logMarkerDragEvent(name, event) {
@@ -40,6 +41,13 @@ export function setBufferValues(distance, units, bufferGeoJSON) {
         bufferGeoJSON,
       },
     },
+  };
+}
+
+export function setYearRange(yearRange) {
+  return {
+    type: SET_YEAR_RANGE,
+    payload: { yearRange },
   };
 }
 

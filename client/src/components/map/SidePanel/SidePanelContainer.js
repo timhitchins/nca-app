@@ -1,48 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import GeocoderInput from "./GeocoderInput";
-import BufferSlider from "./BufferSlider";
-// import YearRangeSlider
+// import BufferSlider from "./BufferSlider";
+import BufferSlider from "./BufferSlider2";
+import YearRangeSlider from "./YearRangeSlider";
 import PermitTypeText from "./PermitTypeText";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
 import { toggleSidePanel } from "../../../actions/sidePanel";
-import { setYear } from "../../../actions/siteData";
 import About from "./About";
 import "./SidePanelContainer.scss";
 import * as styleVars from "../../theme.scss";
-
-class YearSelector extends Component {
-  static propsTypes = {
-    mapData: PropTypes.object.isRequired,
-    dispatch: PropTypes.object.isRequired,
-  };
-
-  _handleYearSelection = (e) => {
-    const { value } = e.target;
-    this.props.dispatch(setYear(value));
-  };
-
-  render() {
-    const { attributeTotals } = this.props.mapData;
-    if (attributeTotals) {
-      const { years } = this.props.mapData.attributeTotals;
-      return (
-        <select
-          id="years"
-          className="year-selector"
-          onChange={this._handleYearSelection}
-        >
-          {years.map((year) => (
-            <option value={`${year}`}>{`${year}`}</option>
-          ))}
-        </select>
-      );
-    }
-    return null;
-  }
-}
 
 class SidePanelContainer extends Component {
   static propTypes = {
@@ -84,9 +53,7 @@ class SidePanelContainer extends Component {
         {/* Panel 1 */}
         <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
-
-          <YearSelector {...this.props} />
-
+          <YearRangeSlider {...this.props} />
           <div
             className="close-button"
             title={panelIsOpen ? "Close panel" : "Open panel"}
@@ -147,3 +114,34 @@ class SidePanelContainer extends Component {
 }
 
 export default SidePanelContainer;
+
+// class YearSelector extends Component {
+//   static propsTypes = {
+//     mapData: PropTypes.object.isRequired,
+//     dispatch: PropTypes.object.isRequired,
+//   };
+
+//   _handleYearSelection = (e) => {
+//     const { value } = e.target;
+//     this.props.dispatch(setYear(value));
+//   };
+
+//   render() {
+//     const { attributeTotals } = this.props.mapData;
+//     if (attributeTotals) {
+//       const { years } = this.props.mapData.attributeTotals;
+//       return (
+//         <select
+//           id="years"
+//           className="year-selector"
+//           onChange={this._handleYearSelection}
+//         >
+//           {years.map((year) => (
+//             <option value={`${year}`}>{`${year}`}</option>
+//           ))}
+//         </select>
+//       );
+//     }
+//     return null;
+//   }
+// }

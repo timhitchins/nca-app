@@ -30,12 +30,12 @@ class BufferSlider extends Component {
   };
 
   _handleOnChangeComplete = () => {
-    const { centralMarker } = this.props.mapData;
+    const { centralMarker, yearRange } = this.props.mapData;
     const { longitude, latitude } = centralMarker;
     const { distance, units } = this.props.mapData.buffer;
     const { mapState } = this.props;
     const { errorMsgIsOpen } = this.props.geocodedData;
-    const { yearSelector } = this.props.siteData;
+    // const { yearSelector } = this.props.siteData;
 
     if (
       !errorMsgIsOpen &
@@ -45,7 +45,7 @@ class BufferSlider extends Component {
       const encodedCoords = encodeURI(
         JSON.stringify({ lon: longitude, lat: latitude })
       );
-      const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelector}`;
+      const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
       this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
         //create the new buffer
         const bufferGeoJSON = createBuffer(centralMarker, distance, units);

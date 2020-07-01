@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import PropTypes from "prop-types";
-import { setYearRange, handleGetSiteData } from "../../../actions/mapData";
+import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { setBufferValues, handleGetSiteData } from "../../../actions/mapData";
+import { getMapState } from "../../../actions/mapState";
 import "./Sliders.scss";
 
 /*----- Handle  -----*/
@@ -93,7 +95,7 @@ Tick.propTypes = {
 
 /*----- Slider -----*/
 
-class YearRangeSlider extends Component {
+class BufferSlider extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
@@ -101,13 +103,31 @@ class YearRangeSlider extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
-  onChange = (values) => {
-    const { centralMarker } = this.props.mapData;
-    const { longitude, latitude } = centralMarker;
-    const { distance, units } = this.props.mapData.buffer;
-    const { errorMsgIsOpen } = this.props.geocodedData;
+  _createNewViewport = (geojson, mapState) => {
+    //trigger new viewport
+    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
+    this.props.dispatch(
+      getMapState({
+        ...mapState,
+        longitude,
+        latitude,
+        zoom,
+      })
+    );
+  };
 
-    this.props.dispatch(setYearRange(values));
+  _onUpdate = (value) => {
+    // console.log(value);
+    // const { geoJSON, units } = this.props.mapData.buffer;
+    // this.props.dispatch(setBufferValues(value, units, geoJSON));
+  };
+
+  _onChange = (distance) => {
+    const { centralMarker, yearRange } = this.props.mapData;
+    const { longitude, latitude } = centralMarker;
+    const { units } = this.props.mapData.buffer;
+    const { mapState } = this.props;
+    const { errorMsgIsOpen } = this.props.geocodedData;
 
     if (
       !errorMsgIsOpen &
@@ -117,19 +137,27 @@ class YearRangeSlider extends Component {
       const encodedCoords = encodeURI(
         JSON.stringify({ lon: longitude, lat: latitude })
       );
-      const route = `/api/location/${encodedCoords}/${distance}/${units}/${values}`;
-      this.props.dispatch(handleGetSiteData(route));
+      const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
+      this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
+        //create the new buffer
+        const bufferGeoJSON = createBuffer(centralMarker, distance, units);
+        this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
+
+        // create the viewport
+        this._createNewViewport(sitesGeoJSON, mapState);
+      });
     }
   };
   render() {
     return (
       <Slider
         className="range-slider"
-        domain={[2010, 2020]}
+        domain={[500, 1500]}
         step={1}
         mode={2}
-        values={[2010, 2020] /* two values = three handles */}
-        onChange={this.onChange}
+        values={[1000] /* two values = three handles */}
+        onChange={this._onChange}
+        onUpdate={this._onUpdate}
       >
         <Rail>
           {({ getRailProps }) => <div className="rail" {...getRailProps()} />}
@@ -147,7 +175,7 @@ class YearRangeSlider extends Component {
             </div>
           )}
         </Handles>
-        <Tracks left={false} right={false}>
+        <Tracks right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -161,9 +189,7 @@ class YearRangeSlider extends Component {
             </div>
           )}
         </Tracks>
-        {/* <Ticks
-          values={[2010, 2020]}
-        >
+        <Ticks values={[500, 1000, 1500]}>
           {({ ticks }) => (
             <div className="slider-ticks">
               {ticks.map((tick) => (
@@ -171,10 +197,10 @@ class YearRangeSlider extends Component {
               ))}
             </div>
           )}
-        </Ticks> */}
+        </Ticks>
       </Slider>
     );
   }
 }
 
-export default YearRangeSlider;
+export default BufferSlider;

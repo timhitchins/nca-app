@@ -3,7 +3,7 @@ import {
   SET_CURRENT_FEATURE,
   SET_SLIDE_INDEX,
   SET_PDI_FILTER,
-  SET_YEAR,
+  // SET_YEAR,
 } from "../actions/siteData";
 
 const intialSiteDataState = {
@@ -11,7 +11,7 @@ const intialSiteDataState = {
   currentFeature: null,
   slideIndex: 0,
   activeFilter: [],
-  yearSelection: "All years",
+  // yearSelection: "All years",
 };
 
 export default function siteData(state = intialSiteDataState, action) {
@@ -31,8 +31,8 @@ export default function siteData(state = intialSiteDataState, action) {
         ? (activeFilter = oldFilter.filter((item) => item !== newFilter[0]))
         : (activeFilter = [...oldFilter, ...newFilter]);
       return { ...state, ...{ activeFilter } };
-    case SET_YEAR:
-      return { ...state, ...action.payload };
+    // case SET_YEAR:
+    //   return { ...state, ...action.payload };
     default:
       return state;
   }
