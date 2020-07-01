@@ -36,7 +36,7 @@
     .close-button {
       position: relative;
       left: 303px;
-      bottom: 0px;
+      bottom: 105px;
       padding: 0 5px;
       background-color: $ui-transparent-white;
       width: fit-content;
@@ -89,6 +89,12 @@
 
 .label-large {
   font-size: 18px;
+}
+
+.slider-title {
+  font-family: "Archivo Narrow", sans-serif;
+  margin-top: 10px;
+  font-size: 1rem;
 }
 
 /*----- Year dropdown selector styles-----*/

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import GeocoderInput from "./GeocoderInput";
-// import BufferSlider from "./BufferSlider";
 import BufferSlider from "./BufferSlider2";
 import YearRangeSlider from "./YearRangeSlider";
 import PermitTypeText from "./PermitTypeText";
@@ -53,6 +52,7 @@ class SidePanelContainer extends Component {
         {/* Panel 1 */}
         <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
+          <div className="slider-title">Range of Years:</div>
           <YearRangeSlider {...this.props} />
           <div
             className="close-button"
@@ -67,6 +67,7 @@ class SidePanelContainer extends Component {
           <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/graph-example.png"></img>
           <aside className="panel-label">Search by location</aside>
           <GeocoderInput {...this.props} />
+          <div className="slider-title">Distance in meters:</div>
           <BufferSlider {...this.props} />
         </div>
 

@@ -116,19 +116,18 @@ class BufferSlider extends Component {
     );
   };
 
-  _onUpdate = (value) => {
-    // console.log(value);
-    // const { geoJSON, units } = this.props.mapData.buffer;
-    // this.props.dispatch(setBufferValues(value, units, geoJSON));
-  };
-
   _onChange = (distance) => {
     const { centralMarker, yearRange } = this.props.mapData;
     const { longitude, latitude } = centralMarker;
-    const { units } = this.props.mapData.buffer;
+    // const { units } = this.props.mapData.buffer;
     const { mapState } = this.props;
     const { errorMsgIsOpen } = this.props.geocodedData;
 
+    //set regardless
+    const { geoJSON, units } = this.props.mapData.buffer;
+    this.props.dispatch(setBufferValues(distance, units, geoJSON));
+
+    //then set again if conditions met
     if (
       !errorMsgIsOpen &
       (centralMarker.longitude !== null || centralMarker.latitude !== null)
@@ -155,9 +154,9 @@ class BufferSlider extends Component {
         domain={[500, 1500]}
         step={1}
         mode={2}
-        values={[1000] /* two values = three handles */}
+        values={[1000] /* two values = two handles */}
+        // onUpdate={this._onUpdate}
         onChange={this._onChange}
-        onUpdate={this._onUpdate}
       >
         <Rail>
           {({ getRailProps }) => <div className="rail" {...getRailProps()} />}

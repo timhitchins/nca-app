@@ -161,17 +161,6 @@ class YearRangeSlider extends Component {
             </div>
           )}
         </Tracks>
-        {/* <Ticks
-          values={[2010, 2020]}
-        >
-          {({ ticks }) => (
-            <div className="slider-ticks">
-              {ticks.map((tick) => (
-                <Tick key={tick.id} tick={tick} count={ticks.length} />
-              ))}
-            </div>
-          )}
-        </Ticks> */}
       </Slider>
     );
   }
