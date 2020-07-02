@@ -143,7 +143,7 @@ class NCAMap extends PureComponent {
   _handleGetSiteData = (lon, lat) => {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
-    const { yearSelection } = this.props.siteData;
+    const { yearRange } = this.props.mapData;
 
     // add the central marker
     this.props.dispatch(setMarkerCoords(lon, lat));
@@ -151,7 +151,7 @@ class NCAMap extends PureComponent {
     // set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
     // const route = `${calculateHost(5000)}/api/location/${encodedCoords}/${distance}/${units}`;
-    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelection}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(""));

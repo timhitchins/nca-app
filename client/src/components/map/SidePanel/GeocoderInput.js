@@ -150,7 +150,6 @@ class GeocoderInput extends Component {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     mapState: PropTypes.object.isRequired,
-    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -211,7 +210,7 @@ class GeocoderInput extends Component {
   _handleGetSiteData = (feature) => {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
-    const { yearSelection } = this.props.siteData;
+    const { yearRange } = this.props.mapData;
     const [lon, lat] = feature.geometry.coordinates;
     const { place_name } = feature;
 
@@ -220,7 +219,7 @@ class GeocoderInput extends Component {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelection}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(place_name));
