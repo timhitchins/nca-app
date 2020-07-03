@@ -90,14 +90,11 @@ export function calculateAttributeTotals(json, type) {
       })
       .reduce(reducer);
 
-    // calculate the number of unique years
-    const years = calculateYears(json.features);
-
     // count how many of each feature TYPE
     const typeCounts = createTypeCounts(json, "pjson");
 
     //include them on the json
-    const totals = { sumSqFt, sumStories, typeCounts, years };
+    const totals = { sumSqFt, sumStories, typeCounts};
 
     return totals;
   } else if (type === "geoJSON") {
@@ -130,8 +127,7 @@ export function addPDIToFeatures(inData) {
     //filter out the Demolition features
     .filter(
       (feature) =>
-        feature.properties.WORK_DESCRIPTION !== "Demolition" &&
-        feature.properties.TOTALSQFT > 0
+        feature.properties.WORK_DESCRIPTION !== "Demolition" 
     )
     // add the PDI properties
     .map((feature) => {

@@ -13,11 +13,13 @@ export async function fetchPermitData(coords, radius, units, years) {
   /*----- Build the year list to include in where clause -----*/
   const yearString = calculateYears(years);
 
-  /*----- Constants to build uri -----*/
+  /*----- where clause param -----*/
   const whereClause = encodeURIComponent(
     `( WORK_DESCRIPTION IN ( 'New Construction', 'Demolition' ) ) 
     AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) 
-    AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential Building Permit', 'Residential 1 & 2 Family Permit' ) ) 
+    AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential 1 & 2 Family Permit' ) )
+    AND TYPE NOT IN ( 'Utility' )
+    AND TOTALSQFT > 0 
     AND ( YEAR IN ( ${yearString} ) )`
   );
 
@@ -62,15 +64,53 @@ export async function fetchTotalAttributeData(outFields, years) {
   // https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=%28PERMIT+IN+%28%27Commercial+Building+Permit%27%2C%27Residential+1+%26+2+Family+Permit%27%2C%27Residential+Building+Permit%27%29%29+AND+%28+WORK_DESCRIPTION+%3D+%27New+Construction%27+%29+AND+%28+STATUS+IN+%28+%27Under+Inspection%27%2C+%27Under+Review%27%2C+%27Issued%27%29+%29&outFields=TOTALSQFT%2C+NUMBSTORIES&returnGeometry=false&f=pjson
 
   /*----- Build the year list to include in where clause -----*/
-  // const yearString = calculateYears(years);
-  // console.log("years:", yearString);
+  const yearString = calculateYears(years);
 
+  /*----- where clause param -----*/
   const whereClause = encodeURIComponent(
-    `( WORK_DESCRIPTION = 'New Construction' ) AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential Building Permit', 'Residential 1 & 2 Family Permit' ) )`
+    `( WORK_DESCRIPTION = 'New Construction' ) 
+    AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) 
+    AND ( PERMIT IN ( 'Commercial Building Permit', 'Residential 1 & 2 Family Permit' ) )
+    AND TYPE NOT IN ( 'Utility' )
+    AND TOTALSQFT > 0  
+    AND ( YEAR IN ( ${yearString} ) )`
   );
+  /*----- create all the query params -----*/
   const returnGeometry = false;
   const format = "pjson";
+
+  /*----- build the URI -----*/
   const uri = `${featureServiceURI}/query?where=${whereClause}&outFields=${outFields}&returnGeometry=${returnGeometry}&f=${format}`;
+
+  //////////////////TESTING
+
+  /*----- 
+  Params and REST endpoint to query the count of permits, 
+  and sum of TOTALSQFT and sum of NUMSTORIES 
+  grouped by TYPE and PERMIT
+  -----*/
+  const sumGroupByFields = "PERMIT,TYPE";
+  const sumStatistics = [
+    {
+      statisticType: "sum",
+      onStatisticField: "TOTALSQFT",
+      outStatisticFieldName: "SUM_TOTALQFT",
+    },
+    {
+      statisticType: "sum",
+      onStatisticField: "NUMSTORIES",
+      outStatisticFieldName: "SUM_NUMSTORIES",
+    },
+    {
+      statisticType: "count",
+      onStatisticField: "OBJECTID",
+      outStatisticFieldName: "COUNT_OBJECTID",
+    }
+  ];
+  const sumStatisticsURI = `${featureServiceURI}/query?where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&f=${format}`;
+
+  ////////////////////
+  /*----- fetch data -----*/
   try {
     const res = await fetch(uri);
     const attributeJSON = await res.json();
@@ -101,5 +141,7 @@ export async function fetchBoundaryData(route) {
 //   const whereClause = "( WORK_DESCRIPTION = 'New Construction' OR WORK_DESCRIPTION = 'Demolition' )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
 // const whereClause =
 //   "( WORK_DESCRIPTION IN ( 'New Construction', 'Demolition' ) )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
+
+/* https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=%28+WORK_DESCRIPTION+IN+%28+%27New+Construction%27%2C+%27Demolition%27+%29+%29+AND+%28+STATUS+IN+%28+%27Under+Inspection%27%2C+%27Under+Review%27%2C+%27Issued%27+%29+%29+AND+%28+PERMIT+IN+%28+%27Commercial+Building+Permit%27%2C+%27Residential+Building+Permit%27%2C+%27Residential+1+%26+2+Family+Permit%27+%29+%29+AND+%28+YEAR+IN+%28+%2710%27%2C+%2711%27%2C+%2712%27%2C+%2713%27%2C+%2714%27+%29+%29&objectIds=&time=&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=2000&units=esriSRUnit_Meter&relationParam=&outFields=&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=PERMIT&outStatistics=%5B+%7B%22statisticType%22%3A+%22sum%22%2C%22onStatisticField%22%3A+%22TOTALSQFT%22%2C%22outStatisticFieldName%22%3A+%22Out_Field_Name1%22%7D%5D&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=none&f=pjson */
 
 //////////////////////////

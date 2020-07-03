@@ -61,13 +61,13 @@ class PermitTypeText extends Component {
   componentDidMount() {
     //check if there is already attribute totals
     //if not fetch the attribute totals
-    const { attributeTotals } = this.props;
+    const { attributeTotals, yearRange } = this.props.mapData;
 
     if (!attributeTotals) {
       this.props.dispatch(
         handleGetAttributeData(
           // `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
-          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR`
+          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}`
         )
       );
     }
