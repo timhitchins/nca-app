@@ -1,36 +1,3 @@
-// calculates the count of types in
-function createTypeCounts(inJSON, type) {
-  if (type === "pjson") {
-    // handle pjson
-    const countDict = inJSON.features
-      .map((feature) => {
-        return feature.attributes.TYPE;
-      })
-      .filter((val) => val !== null || val !== undefined) // filter out the nulls
-      .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
-    //count the total amt of sites
-    countDict.totalProjectSites = Object.values(countDict).reduce(
-      (a, b) => a + b,
-      0
-    );
-    return countDict;
-  } else if (type === "geoJSON") {
-    //handle regular geoJSON
-    const countDict = inJSON.features
-      .map((feature) => {
-        return feature.properties.TYPE;
-      })
-      .filter((val) => val !== null || val !== undefined) // filter out the nulls
-      .reduce((a, b) => ({ ...a, [b]: (a[b] || 0) + 1 }), {}); // return a dict of counts
-    //count the total amt of sites
-    countDict.totalProjectSites = Object.values(countDict).reduce(
-      (a, b) => a + b,
-      0
-    );
-    return countDict;
-  }
-}
-
 //helper function to calculate determine all the query years
 export function calculateYears(years) {
   const [start, end] = years.split(",");
@@ -54,7 +21,7 @@ function calculateDemoDuplicates(inData) {
         return null;
       }
     })
-    .filter((val) => val !== null || val !== undefined); // filter out the nulls;
+    .filter((val) => val !== null); // filter out the nulls;
 
   return demoIds;
 }
@@ -74,61 +41,43 @@ function calculatePDILevel(PDI) {
 
 //this function can be extended to include the attribute names
 //currently they are hardcoded
-export function calculateAttributeTotals(json, type) {
+export function calculateAttributeTotals(json) {
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  if (type === "pjson") {
-    //this could be DRY'd
-    const sumSqFt = json.features
-      .map((feature) => {
-        return feature.attributes.TOTALSQFT;
-      })
-      .reduce(reducer);
-    const sumStories = json.features
-      .map((feature) => {
-        return feature.attributes.NUMBSTORIES;
-      })
-      .reduce(reducer);
+  // based on the shape of the return json, calc totals
+  const sumSqFt = json.features
+    .map((feature) => {
+      return feature.attributes.SUM_TOTALSQFT;
+    })
+    .reduce(reducer);
+  const sumStories = json.features
+    .map((feature) => {
+      return feature.attributes.SUM_NUMBSTORIES;
+    })
+    .reduce(reducer);
+  const totalCount = json.features
+    .map((feature) => {
+      return feature.attributes.COUNT_OBJECTID;
+    })
+    .reduce(reducer);
 
-    // count how many of each feature TYPE
-    const typeCounts = createTypeCounts(json, "pjson");
+  //include them on the json
+  const totals = {
+    sumSqFt,
+    sumStories,
+    totalCount,
+    features: json.features,
+  };
 
-    //include them on the json
-    const totals = { sumSqFt, sumStories, typeCounts};
-
-    return totals;
-  } else if (type === "geoJSON") {
-    //parse the geoJSON
-    //calculate the total of sqft and stories
-    const sumSqFt = json.features
-      .map((feature) => {
-        return feature.properties.TOTALSQFT;
-      })
-      .reduce(reducer);
-    const sumStories = json.features
-      .map((feature) => {
-        return feature.properties.NUMBSTORIES;
-      })
-      .reduce(reducer);
-
-    const typeCounts = createTypeCounts(json, "geoJSON");
-    //include them on the json
-    json.totals = { sumSqFt, sumStories, typeCounts };
-
-    return json;
-  }
+  return totals;
 }
 
 //create the new PDI DATA
 export function addPDIToFeatures(inData) {
   const duplicates = calculateDemoDuplicates(inData);
-
   const pdiDataFeatures = inData.features
     //filter out the Demolition features
-    .filter(
-      (feature) =>
-        feature.properties.WORK_DESCRIPTION !== "Demolition" 
-    )
+    .filter((feature) => feature.properties.WORK_DESCRIPTION !== "Demolition")
     // add the PDI properties
     .map((feature) => {
       let demo, stat, sqFoot, stor;
@@ -182,7 +131,7 @@ export function addPDIToFeatures(inData) {
       feature.properties.PDI = PDI;
 
       //calculate PDI level
-      feature.properties.PDILevel = calculatePDILevel(PDI);
+      feature.properties.PDI_LEVEL = calculatePDILevel(PDI);
 
       return feature;
     });

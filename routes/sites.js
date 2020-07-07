@@ -1,4 +1,4 @@
-import { addPDIToFeatures, calculateAttributeTotals } from "../utils/dataUtils";
+import { addPDIToFeatures } from "../utils/dataUtils";
 import { fetchPermitData } from "../utils/fetchUtils";
 import Router from "express-promise-router";
 export const router = new Router();
@@ -13,14 +13,11 @@ router.get("/:coords/:radius/:units/:years", async (req, res) => {
   //errors return an error message object
   try {
     //fetch GeoJSON
-    const geoJSON = await fetchPermitData(coords, radius, units, years);
-    //generate PDI
-    const pdiGeoJSON = addPDIToFeatures(geoJSON);
-
-    //calcualte totals on geoJSON
-    const sumTotalsGeoJSON = calculateAttributeTotals(geoJSON, "geoJSON");
+    const permitGeoJSON = await fetchPermitData(coords, radius, units, years);
+    // //generate PDI
+    const pdiGeoJSON = addPDIToFeatures(permitGeoJSON);
     // respond with completed data
-    res.json(sumTotalsGeoJSON);
+    res.json(pdiGeoJSON);
   } catch (err) {
     res.json({ message: err });
   }

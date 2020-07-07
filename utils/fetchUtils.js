@@ -60,9 +60,15 @@ export async function fetchGeocodeData(id) {
   }
 }
 
-export async function fetchTotalAttributeData(outFields, years) {
-  // https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=%28PERMIT+IN+%28%27Commercial+Building+Permit%27%2C%27Residential+1+%26+2+Family+Permit%27%2C%27Residential+Building+Permit%27%29%29+AND+%28+WORK_DESCRIPTION+%3D+%27New+Construction%27+%29+AND+%28+STATUS+IN+%28+%27Under+Inspection%27%2C+%27Under+Review%27%2C+%27Issued%27%29+%29&outFields=TOTALSQFT%2C+NUMBSTORIES&returnGeometry=false&f=pjson
+// https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=%28PERMIT+IN+%28%27Commercial+Building+Permit%27%2C%27Residential+1+%26+2+Family+Permit%27%2C%27Residential+Building+Permit%27%29%29+AND+%28+WORK_DESCRIPTION+%3D+%27New+Construction%27+%29+AND+%28+STATUS+IN+%28+%27Under+Inspection%27%2C+%27Under+Review%27%2C+%27Issued%27%29+%29&outFields=TOTALSQFT%2C+NUMBSTORIES&returnGeometry=false&f=pjson
 
+export async function fetchTotalAttributeData(
+  outFields, //hardcoded for now...
+  years,
+  coords,
+  radius,
+  units
+) {
   /*----- Build the year list to include in where clause -----*/
   const yearString = calculateYears(years);
 
@@ -75,49 +81,68 @@ export async function fetchTotalAttributeData(outFields, years) {
     AND TOTALSQFT > 0  
     AND ( YEAR IN ( ${yearString} ) )`
   );
-  /*----- create all the query params -----*/
-  const returnGeometry = false;
-  const format = "pjson";
-
-  /*----- build the URI -----*/
-  const uri = `${featureServiceURI}/query?where=${whereClause}&outFields=${outFields}&returnGeometry=${returnGeometry}&f=${format}`;
-
-  //////////////////TESTING
 
   /*----- 
   Params and REST endpoint to query the count of permits, 
   and sum of TOTALSQFT and sum of NUMSTORIES 
   grouped by TYPE and PERMIT
   -----*/
+  const format = "pjson";
   const sumGroupByFields = "PERMIT,TYPE";
-  const sumStatistics = [
+  const sumStatistics = JSON.stringify([
     {
       statisticType: "sum",
       onStatisticField: "TOTALSQFT",
-      outStatisticFieldName: "SUM_TOTALQFT",
+      outStatisticFieldName: "SUM_TOTALSQFT",
     },
     {
       statisticType: "sum",
-      onStatisticField: "NUMSTORIES",
-      outStatisticFieldName: "SUM_NUMSTORIES",
+      onStatisticField: "NUMBSTORIES",
+      outStatisticFieldName: "SUM_NUMBSTORIES",
     },
     {
       statisticType: "count",
       onStatisticField: "OBJECTID",
       outStatisticFieldName: "COUNT_OBJECTID",
-    }
-  ];
-  const sumStatisticsURI = `${featureServiceURI}/query?where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&f=${format}`;
+    },
+  ]);
+  /*-----
+  Additional params to query based on location
+  and URI 
+  -----*/
+  const geometryType = "esriGeometryPoint";
+  const sr = 4326;
+  const spatialRel = "esriSpatialRelIntersects";
+  const distance = radius;
+  const outUnits = units === "meters" ? "esriSRUnit_Meter" : "esriSRUnit_Foot";
 
-  ////////////////////
   /*----- fetch data -----*/
-  try {
-    const res = await fetch(uri);
-    const attributeJSON = await res.json();
-    return attributeJSON;
-  } catch (err) {
-    console.log(`An error ocurred fetching attribute data: ${err}`);
-    return err;
+  // if coords are null fetch total sumstats
+  // else assume sum stats are associated to features in a buffer
+  if (!coords) {
+    const sumStatsURI = `${featureServiceURI}/query?where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&f=${format}`;
+
+    try {
+      const attributeRes = await fetch(sumStatsURI);
+      const attributeJSON = await attributeRes.json();
+      return attributeJSON;
+    } catch (err) {
+      console.log(`An error ocurred fetching attribute data: ${err}`);
+      return err;
+    }
+  } else {
+    const { lon, lat } = coords;
+    const geometry = `${lon},${lat}`;
+    const featureSumStatsURI = `${featureServiceURI}/query?where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&geometry=${geometry}&geometryType=${geometryType}&inSR=${sr}&spatialRel=${spatialRel}&distance=${distance}&units=${outUnits}&f=${format}&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=none&`;
+
+    try {
+      const featureAttributeRes = await fetch(featureSumStatsURI);
+      const featureAttributeJSON = await featureAttributeRes.json();
+      return featureAttributeJSON;
+    } catch (err) {
+      console.log(`An error ocurred fetching attribute data: ${err}`);
+      return err;
+    }
   }
 }
 
@@ -131,17 +156,3 @@ export async function fetchBoundaryData(route) {
     throw new Error(pdxBoundaryResponse.status);
   }
 }
-
-// Build the URI
-// Examples:
-// const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
-// const uri = `${requestURL}query?f=${format}&returnGeometry=true&where=${whereClause}&spatialRel=${overlay}& geometry=${geometryObject}&geometryType=${shape}&outSR=${sr}&inSR=${sr}&outFields=${fields}`;
-// const uri = `${requestURL}query?where=(+WORK_DESCRIPTION+%3D+'New+Construction'+)++AND+(+STATUS+IN+(+'Under+Inspection'%2C+'Under+Review'%2C+'Issued'+)+)&objectIds=&time=&geometry=-122.6348546489526%2C45.5589970439449&geometryType=esriGeometryPoint&inSR=4326&spatialRel=esriSpatialRelIntersects&distance=5000&units=esriSRUnit_Foot&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=4326&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=standard&f=geojson`;
-// this next query includes demolitions
-//   const whereClause = "( WORK_DESCRIPTION = 'New Construction' OR WORK_DESCRIPTION = 'Demolition' )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
-// const whereClause =
-//   "( WORK_DESCRIPTION IN ( 'New Construction', 'Demolition' ) )  AND ( STATUS IN ( 'Under Inspection', 'Under Review', 'Issued' ) ) ";
-
-/* https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22/query?where=%28+WORK_DESCRIPTION+IN+%28+%27New+Construction%27%2C+%27Demolition%27+%29+%29+AND+%28+STATUS+IN+%28+%27Under+Inspection%27%2C+%27Under+Review%27%2C+%27Issued%27+%29+%29+AND+%28+PERMIT+IN+%28+%27Commercial+Building+Permit%27%2C+%27Residential+Building+Permit%27%2C+%27Residential+1+%26+2+Family+Permit%27+%29+%29+AND+%28+YEAR+IN+%28+%2710%27%2C+%2711%27%2C+%2712%27%2C+%2713%27%2C+%2714%27+%29+%29&objectIds=&time=&geometry=&geometryType=esriGeometryPoint&inSR=&spatialRel=esriSpatialRelIntersects&distance=2000&units=esriSRUnit_Meter&relationParam=&outFields=&returnGeometry=false&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=PERMIT&outStatistics=%5B+%7B%22statisticType%22%3A+%22sum%22%2C%22onStatisticField%22%3A+%22TOTALSQFT%22%2C%22outStatisticFieldName%22%3A+%22Out_Field_Name1%22%7D%5D&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=&returnTrueCurves=false&sqlFormat=none&f=pjson */
-
-//////////////////////////
