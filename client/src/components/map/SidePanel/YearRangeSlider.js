@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import PropTypes from "prop-types";
-import { setYearRange, handleGetSiteData } from "../../../actions/mapData";
+import {
+  setYearRange,
+  handleGetSiteData,
+  handleGetAttributeData,
+} from "../../../actions/mapData";
 import "./Sliders.scss";
 
 /*----- Handle  -----*/
@@ -109,16 +113,25 @@ class YearRangeSlider extends Component {
 
     this.props.dispatch(setYearRange(values));
 
+    const encodedCoords = encodeURI(
+      JSON.stringify({ lon: longitude, lat: latitude })
+    );
+
     if (
       !errorMsgIsOpen &
       (centralMarker.longitude !== null || centralMarker.latitude !== null)
     ) {
       //set up route and dispatch action for site data
-      const encodedCoords = encodeURI(
-        JSON.stringify({ lon: longitude, lat: latitude })
-      );
       const route = `/api/location/${encodedCoords}/${distance}/${units}/${values}`;
       this.props.dispatch(handleGetSiteData(route));
+
+      //update the attribute data
+      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${values}/${encodedCoords}/${distance}/${units}`;
+      this.props.dispatch(handleGetAttributeData(attributeRoute));
+    } else {
+      //update the attribute data
+      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${values}/null/null/null`;
+      this.props.dispatch(handleGetAttributeData(attributeRoute));
     }
   };
   render() {

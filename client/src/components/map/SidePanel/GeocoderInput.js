@@ -12,6 +12,7 @@ import {
 } from "../../../actions/geocode";
 import {
   handleGetSiteData,
+  handleGetAttributeData,
   setMarkerCoords,
   setBufferValues,
 } from "../../../actions/mapData";
@@ -247,6 +248,9 @@ class GeocoderInput extends Component {
         this._createNewViewport({}, mapState);
       }
     });
+    //update the attribute data
+    const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}/${encodedCoords}/${distance}/${units}`;
+    this.props.dispatch(handleGetAttributeData(attributeRoute));
   };
   _handleCreateNewBuffer = (longitude, latitude) => {
     const centerPoint = { longitude, latitude };

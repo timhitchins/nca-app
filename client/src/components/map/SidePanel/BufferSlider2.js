@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
-import { setBufferValues, handleGetSiteData } from "../../../actions/mapData";
+import {
+  setBufferValues,
+  handleGetSiteData,
+  handleGetAttributeData,
+} from "../../../actions/mapData";
 import { getMapState } from "../../../actions/mapState";
 import "./Sliders.scss";
 
@@ -145,6 +149,10 @@ class BufferSlider extends Component {
         // create the viewport
         this._createNewViewport(sitesGeoJSON, mapState);
       });
+
+      //update the attribute data
+      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}/${encodedCoords}/${distance}/${units}`;
+      this.props.dispatch(handleGetAttributeData(attributeRoute));
     }
   };
   render() {

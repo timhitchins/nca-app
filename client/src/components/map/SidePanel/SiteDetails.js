@@ -43,7 +43,6 @@ class SiteDetails extends Component {
       NEIGHBORHOOD,
       TYPE,
       ISSUED,
-      WORK_DESCRIPTION,
     } = sites[slideIndex].properties;
 
     return (
