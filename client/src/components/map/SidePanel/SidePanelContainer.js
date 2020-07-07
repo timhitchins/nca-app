@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import GeocoderInput from "./GeocoderInput";
-import BufferSlider from "./BufferSlider2";
+import BufferSlider from "./BufferSlider";
 import YearRangeSlider from "./YearRangeSlider";
 import PermitTypeText from "./PermitTypeText";
 import PieChart from "./PieChart";
