@@ -13,7 +13,7 @@ const intialMapData = {
   centralMarker: { longitude: null, latitude: null },
   siteMarkers: null,
   attributeTotals: null,
-  buffer: { distance: 500, units: "meters", bufferGeoJSON: null },
+  buffer: { distance: 1000, units: "meters", bufferGeoJSON: null },
   boundaryGeoJSON: null,
   yearRange: [2010, 2020],
 };

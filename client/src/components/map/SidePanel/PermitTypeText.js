@@ -14,22 +14,20 @@ const PermitTextSwitch = (props) => {
           <span>
             sqaure feet of construction area and{" "}
             {Math.round(attributeTotals.sumStories).toLocaleString()} floors
-            representing{" "}
-            {attributeTotals.typeCounts.totalProjectSites.toLocaleString()}{" "}
-            permits for all of Portland, OR
+            representing {attributeTotals.totalCount.toLocaleString()} permits
+            for all of Portland, OR
           </span>
         </div>
       );
     case "siteData":
       return (
         <div>
-          <span>{Math.round(siteMarkers.totals.sumSqFt).toLocaleString()}</span>
+          <span>{Math.round(attributeTotals.sumSqFt).toLocaleString()}</span>
           <span>
             sqaure feet of construction area and{" "}
-            {Math.round(siteMarkers.totals.sumStories).toLocaleString()} floors
-            representing{" "}
-            {siteMarkers.totals.typeCounts.totalProjectSites.toLocaleString()}{" "}
-            permits
+            {Math.round(attributeTotals.sumStories).toLocaleString()} floors
+            representing {attributeTotals.totalCount.toLocaleString()} permits
+            in buffer zone
           </span>
         </div>
       );
@@ -47,11 +45,7 @@ class PermitTypeText extends Component {
   _calculateType(attributeTotals, siteMarkers) {
     if (attributeTotals && !siteMarkers) {
       return "attributeData";
-    } else if (
-      attributeTotals &&
-      siteMarkers &&
-      siteMarkers.totals.sumSqFt !== undefined
-    ) {
+    } else if (attributeTotals && siteMarkers) {
       return "siteData";
     } else {
       return null;
@@ -64,10 +58,10 @@ class PermitTypeText extends Component {
     const { attributeTotals, yearRange } = this.props.mapData;
 
     if (!attributeTotals) {
+      // nulls on this route represent that there are no coords, radius or units
       this.props.dispatch(
         handleGetAttributeData(
-          // `${calculateHost(5000)}/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE`
-          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}`
+          `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}/null/null/null`
         )
       );
     }

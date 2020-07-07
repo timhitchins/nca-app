@@ -31,7 +31,8 @@
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "turf-point": "^2.0.1"
+    "turf-point": "^2.0.1",
+    "victory-pie": "^35.0.2"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -15,7 +15,7 @@ export const sitesFillLayer = {
     },
     "circle-color": [
       "match",
-      ["get", "PDILevel"],
+      ["get", "PDI_LEVEL"],
       "low",
       styleVars.pdiLow,
       "med",
