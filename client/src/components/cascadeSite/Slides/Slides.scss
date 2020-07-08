@@ -265,7 +265,7 @@ summary {
   max-width: 1000px;
   div {
     margin-right: 5px;
-    font-size: $font-size-small;
+    font-size: 13px;
     line-height: 1.4;
     max-height: 50vh;
   }
@@ -276,6 +276,12 @@ summary {
     }
     details {
       margin-bottom: 10px;
+    }
+  }
+
+  @media (min-height: 700px) {
+    div {
+      font-size: $font-size-smaller;
     }
   }
 
@@ -290,7 +296,7 @@ summary {
 
   @media (max-height: $landscape-height) {
     .compare-image-container {
-      height: 35vh;
+      height: 40vh;
     }
 
     .compare-image-container > div {

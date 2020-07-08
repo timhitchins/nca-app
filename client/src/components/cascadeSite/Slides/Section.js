@@ -25,6 +25,18 @@ class Section extends Component {
 
   sectionRef = React.createRef();
 
+  _toggleCompareImageContainer = () => {
+    const detailsEl = document.querySelector("details");
+    const imageEl = document.querySelector(".compare-image-container");
+    if (!detailsEl.open && !window.matchMedia("(min-width: 600px)").matches) {
+      imageEl.style.visibility = "hidden";
+      imageEl.style.height = "0px";
+    } else {
+      imageEl.style.visibility = "visible";
+      imageEl.style.height = null;
+    }
+  };
+
   componentDidMount() {
     this.props.dispatch(createSectionRefAction(this.sectionRef));
   }
@@ -79,7 +91,12 @@ class Section extends Component {
               ></img>
             )}
             {slide.details && (
-              <details open={window.matchMedia("(min-width: 600px)").matches}>
+              <details
+                onClick={() => {
+                  this._toggleCompareImageContainer();
+                }}
+                open={window.matchMedia("(min-width: 600px)").matches}
+              >
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
               </details>

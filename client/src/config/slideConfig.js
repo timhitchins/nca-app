@@ -158,14 +158,19 @@ export const imageConfig = [
     altText: "white-background",
     heading: "we need a statewide clean standard",
     summary: `About these images`,
-    details: `<p>In 2018 the <a href="https://www.portlandoregon.gov/brfs/79317">Clean Air Construction Collaborative<a/> did a study to better understand 
-     clean diesel construction procurement standards and determine best practices. This research 
-     informed development of the Clean Air Construction Standard. In addition, the City of Portland 
-     and Multnomah County co-funded an air quality feasibility study to perform an in-depth assessment 
-     of various strategies actionable by local government to address Portland metro’s air quality issues. 
-     A top recommended action in the study was to implement diesel engine specifications for public 
-     construction projects.</p>
-     <p>The images below show the difference in air quality between regulated and unregulated diesel emissions.</p>`,
+    details: `<p>In 2011, the Oregon <a target="_blank" href="https://www.oregon.gov/DEQ/Pages/index.aspx" rel="noopener noreferrer">Department of Environmental Quality (DEQ)</a> 
+      developed the <a target="_blank" href="https://oregonconsensus.org/projects/portland-air-toxics-solutions-advisory-committee/" rel="noopener noreferrer">Portland Air Toxics Solutions (PATS)</a> project. 
+      This project measured and estimated air toxics in Portland and identified health-based benchmarks for each toxic. 
+      In the final report, maps were created to model the average annual concentration of toxics in Portland for 2017, 
+      including Diesel PM which is shown in the first map to the right. <strong>This map shows the amount of Diesel PM from 
+      off-road vehicles represented using the benchmark level of 0.1 ug/m3.</strong></p>
+      <p>Using the slider, you can see the <strong>estimated decrease in overall Diesel PM from off-road vehicle sources if all construction 
+      projects were completed using the final <a href="" rel="noopener noreferrer">Portland Clean Air Construction Requirements</a></strong>. 
+      The Clean Air Construction Requirements are currently voluntary and have only been adopted by a few public agencies. By 2026, 
+      the requirements state that all construction equipment on site must be Tier 4 (the cleanest available) or have been retrofitted with 
+      a diesel particulate filter. This second map was created using data for Portland’s construction fleet mix from DEQ’s 
+      <a target="_blank" href="https://www.oregon.gov/deq/aq/programs/Pages/Non-Road-Diesel-Emission-Inventory.aspx" rel="noopener noreferrer">Nonroad Study</a> and 
+      <a target="_blank" href="https://www.epa.gov/moves" rel="noopener noreferrer">EPA’s MOVES</a> model was used to estimate the decrease in emissions if all equipment was Tier 4.</p>`,
     compareImageURIs: [
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_B_1_1200dpi_legend_800px.png",
       "https://nca-toolkit.s3-us-west-2.amazonaws.com/Layout_DPMoff_Ben_1200dpi_legend_800px.png",
