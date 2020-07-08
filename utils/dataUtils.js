@@ -41,32 +41,32 @@ function calculatePDILevel(PDI) {
 
 //this function can be extended to include the attribute names
 //currently they are hardcoded
-export function calculateAttributeTotals(json) {
+export function calculateAttributeTotals(inData) {
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-  // based on the shape of the return json, calc totals
-  const sumSqFt = json.features
+  // based on the shape of the return inData, calc totals
+  const sumSqFt = inData.features
     .map((feature) => {
       return feature.attributes.SUM_TOTALSQFT;
     })
     .reduce(reducer);
-  const sumStories = json.features
+  const sumStories = inData.features
     .map((feature) => {
       return feature.attributes.SUM_NUMBSTORIES;
     })
     .reduce(reducer);
-  const totalCount = json.features
+  const totalCount = inData.features
     .map((feature) => {
       return feature.attributes.COUNT_OBJECTID;
     })
     .reduce(reducer);
 
-  //include them on the json
+  //include them on the inData
   const totals = {
     sumSqFt,
     sumStories,
     totalCount,
-    features: json.features,
+    features: inData.features,
   };
 
   return totals;
@@ -137,5 +137,14 @@ export function addPDIToFeatures(inData) {
     });
 
   inData.features = pdiDataFeatures;
+  return inData;
+}
+
+export function createChartData(inData) {
+  const chartData = inData.features.map((feature) => ({
+    permit_type: feature.attributes.TYPE,
+    count: feature.attributes.COUNT_OBJECTID,
+  }));
+  inData.chartData = chartData;
   return inData;
 }

@@ -4,7 +4,7 @@ import GeocoderInput from "./GeocoderInput";
 import BufferSlider from "./BufferSlider";
 import YearRangeSlider from "./YearRangeSlider";
 import PermitTypeText from "./PermitTypeText";
-import PieChart from "./PieChart";
+import BarChart from "./BarChart";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
@@ -65,8 +65,7 @@ class SidePanelContainer extends Component {
             {panelIsOpen ? <span>&#x025C3;</span> : <span>&#x025B9;</span>}
           </div>
           <PermitTypeText {...this.props} />
-          {/* <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/graph-example.png"></img> */}
-          <PieChart {...this.props} />
+          <BarChart {...this.props} />
           <aside className="panel-label">Search by location</aside>
           <GeocoderInput {...this.props} />
           <div className="slider-title">Distance in meters:</div>

@@ -1,5 +1,5 @@
 import { fetchTotalAttributeData } from "../utils/fetchUtils";
-import { calculateAttributeTotals } from "../utils/dataUtils";
+import { calculateAttributeTotals, createChartData } from "../utils/dataUtils";
 import Router from "express-promise-router";
 export const router = new Router();
 
@@ -19,9 +19,10 @@ router.get("/:attributes/:years/:coords/:radius/:units", async (req, res) => {
       units
     );
     const totalsJSON = calculateAttributeTotals(atttributesJSON);
+    const totalsChartJSON = createChartData(totalsJSON);
 
     // respond with totals data
-    res.json(totalsJSON);
+    res.json(totalsChartJSON);
   } catch (err) {
     res.json({ message: err });
   }
