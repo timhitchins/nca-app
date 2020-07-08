@@ -165,7 +165,7 @@ export const imageConfig = [
       including Diesel PM which is shown in the first map to the right. <strong>This map shows the amount of Diesel PM from 
       off-road vehicles represented using the benchmark level of 0.1 ug/m3.</strong></p>
       <p>Using the slider, you can see the <strong>estimated decrease in overall Diesel PM from off-road vehicle sources if all construction 
-      projects were completed using the final <a href="" rel="noopener noreferrer">Portland Clean Air Construction Requirements</a></strong>. 
+      projects were completed using the final <a href="https://www.portland.gov/omf/brfs/procurement/clean-air-construction/clean-air-construction-overview-and-requirements" rel="noopener noreferrer">Portland Clean Air Construction Requirements</a></strong>. 
       The Clean Air Construction Requirements are currently voluntary and have only been adopted by a few public agencies. By 2026, 
       the requirements state that all construction equipment on site must be Tier 4 (the cleanest available) or have been retrofitted with 
       a diesel particulate filter. This second map was created using data for Portland’s construction fleet mix from DEQ’s 
@@ -189,9 +189,9 @@ export const imageConfig = [
       of the Portland Metro region have the information necessary to bring about changes 
       in their neighborhoods and community.<br><br>
       You can take action. First, you can review NCA’s <strong>
-      <a href="/mapping-tool" rel="noopener noreferrer">interactive mapping tool</a></strong> that shows you what 
+      <a class="slide-link" href="/mapping-tool" rel="noopener noreferrer">interactive mapping tool</a></strong> that shows you what 
       construction is happening in your neighborhood and affecting your air.<br><br>
-      Then, you <strong>can <a href="/join-us" rel="noopener noreferrer">Join Us</a> to help improve the air you breath.</strong> 
+      Then, you <strong>can <a class="slide-link" href="/join-us" rel="noopener noreferrer">Join Us</a> to help improve the air you breath.</strong> 
       We will connect you to actions you can take to help us all have a breath of fresh air.</p>`,
     takeAction: true,
     footer: true,
