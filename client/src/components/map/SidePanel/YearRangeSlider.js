@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
 import PropTypes from "prop-types";
-import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
 import {
-  setBufferValues,
+  setYearRange,
   handleGetSiteData,
   handleGetAttributeData,
 } from "../../../actions/mapData";
-import { getMapState } from "../../../actions/mapState";
 import "./Sliders.scss";
 
 /*----- Handle  -----*/
@@ -99,7 +97,7 @@ Tick.propTypes = {
 
 /*----- Slider -----*/
 
-class BufferSlider extends Component {
+class YearRangeSlider extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
@@ -107,51 +105,32 @@ class BufferSlider extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
-  _createNewViewport = (geojson, mapState) => {
-    //trigger new viewport
-    const { longitude, latitude, zoom } = createNewViewport(geojson, mapState);
-    this.props.dispatch(
-      getMapState({
-        ...mapState,
-        longitude,
-        latitude,
-        zoom,
-      })
-    );
-  };
-
-  _onChange = (distance) => {
-    const { centralMarker, yearRange } = this.props.mapData;
+  onChange = (values) => {
+    const { centralMarker } = this.props.mapData;
     const { longitude, latitude } = centralMarker;
-    // const { units } = this.props.mapData.buffer;
-    const { mapState } = this.props;
+    const { distance, units } = this.props.mapData.buffer;
     const { errorMsgIsOpen } = this.props.geocodedData;
 
-    //set regardless
-    const { geoJSON, units } = this.props.mapData.buffer;
-    this.props.dispatch(setBufferValues(distance, units, geoJSON));
+    this.props.dispatch(setYearRange(values));
 
-    //then set again if conditions met
+    const encodedCoords = encodeURI(
+      JSON.stringify({ lon: longitude, lat: latitude })
+    );
+
     if (
       !errorMsgIsOpen &
       (centralMarker.longitude !== null || centralMarker.latitude !== null)
     ) {
       //set up route and dispatch action for site data
-      const encodedCoords = encodeURI(
-        JSON.stringify({ lon: longitude, lat: latitude })
-      );
-      const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
-      this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
-        //create the new buffer
-        const bufferGeoJSON = createBuffer(centralMarker, distance, units);
-        this.props.dispatch(setBufferValues(distance, units, bufferGeoJSON));
-
-        // create the viewport
-        this._createNewViewport(sitesGeoJSON, mapState);
-      });
+      const route = `/api/location/${encodedCoords}/${distance}/${units}/${values}`;
+      this.props.dispatch(handleGetSiteData(route));
 
       //update the attribute data
-      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}/${encodedCoords}/${distance}/${units}`;
+      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${values}/${encodedCoords}/${distance}/${units}`;
+      this.props.dispatch(handleGetAttributeData(attributeRoute));
+    } else {
+      //update the attribute data
+      const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${values}/null/null/null`;
       this.props.dispatch(handleGetAttributeData(attributeRoute));
     }
   };
@@ -159,12 +138,11 @@ class BufferSlider extends Component {
     return (
       <Slider
         className="range-slider"
-        domain={[500, 1500]}
+        domain={[2010, 2020]}
         step={1}
         mode={2}
-        values={[1000] /* two values = two handles */}
-        // onUpdate={this._onUpdate}
-        onChange={this._onChange}
+        values={[2010, 2020] /* two values = three handles */}
+        onChange={this.onChange}
       >
         <Rail>
           {({ getRailProps }) => <div className="rail" {...getRailProps()} />}
@@ -182,7 +160,7 @@ class BufferSlider extends Component {
             </div>
           )}
         </Handles>
-        <Tracks right={false}>
+        <Tracks left={false} right={false}>
           {({ tracks, getTrackProps }) => (
             <div className="slider-tracks">
               {tracks.map(({ id, source, target }) => (
@@ -196,18 +174,9 @@ class BufferSlider extends Component {
             </div>
           )}
         </Tracks>
-        <Ticks values={[500, 1000, 1500]}>
-          {({ ticks }) => (
-            <div className="slider-ticks">
-              {ticks.map((tick) => (
-                <Tick key={tick.id} tick={tick} count={ticks.length} />
-              ))}
-            </div>
-          )}
-        </Ticks>
       </Slider>
     );
   }
 }
 
-export default BufferSlider;
+export default YearRangeSlider;

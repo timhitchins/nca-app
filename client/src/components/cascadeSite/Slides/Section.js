@@ -13,7 +13,7 @@ import {
   VIDEO_1_SECTION,
   VIDEO_2_SECTION,
   imageConfig,
-} from "../../../config/config";
+} from "../../../config/slideConfig";
 import "./Slides.scss";
 
 class Section extends Component {
@@ -24,6 +24,18 @@ class Section extends Component {
   };
 
   sectionRef = React.createRef();
+
+  _toggleCompareImageContainer = () => {
+    const detailsEl = document.querySelector("details");
+    const imageEl = document.querySelector(".compare-image-container");
+    if (!detailsEl.open && !window.matchMedia("(min-width: 600px)").matches) {
+      imageEl.style.visibility = "hidden";
+      imageEl.style.height = "0px";
+    } else {
+      imageEl.style.visibility = "visible";
+      imageEl.style.height = null;
+    }
+  };
 
   componentDidMount() {
     this.props.dispatch(createSectionRefAction(this.sectionRef));
@@ -79,7 +91,12 @@ class Section extends Component {
               ></img>
             )}
             {slide.details && (
-              <details open={window.matchMedia("(min-width: 600px)").matches}>
+              <details
+                onClick={() => {
+                  this._toggleCompareImageContainer();
+                }}
+                open={window.matchMedia("(min-width: 600px)").matches}
+              >
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
               </details>
@@ -88,35 +105,36 @@ class Section extends Component {
               <div className="compare-image-container">
                 <ReactCompareImage
                   leftImage={slide.compareImageURIs[0]}
+                  leftImageAlt={slide.compareImageAltText[0]}
+                  leftImageCss={{ objectFit: "contain" }}
                   rightImage={slide.compareImageURIs[1]}
+                  rightImageAlt={slide.compareImageAltText[1]}
+                  rightImageCss={{ objectFit: "contain" }}
                 />
               </div>
             )}
-            {slide.takeAction && (
+            {/* {slide.takeAction && (
               <div className="buttons-container">
                 <Link
                   to={{
-                    pathname: "/take-action",
+                    pathname: "/join-us",
                   }}
                 >
-                  <div className="take-action">
-                    <div>Take Action</div> <div>&#10148;</div>
+                  <div className="join-us">
+                    <div>Join Us &#10148;</div>
                   </div>
                 </Link>
                 <Link
                   to={{
-                    pathname: "/the-tool",
+                    pathname: "/mapping-tool",
                   }}
                 >
                   <div className="to-map">
-                    <div>
-                      See the impacts of contruction sites in your neighborhood
-                    </div>
-                    <div>&#10148;</div>
+                    <div>Interactive Mapping Tool &#10148;</div>
                   </div>
                 </Link>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         {sectionNo < MAX_SECTION_NO ? (

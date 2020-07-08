@@ -247,6 +247,12 @@ summary {
   }
 }
 
+/*----- additional style for extending tow-col -----*/
+.half-size {
+  grid-template-columns: 1fr;
+  max-width: 700px;
+}
+
 /* ----- image compare style ----- */
 .two-col-compare-images {
   display: flex;
@@ -259,7 +265,7 @@ summary {
   max-width: 1000px;
   div {
     margin-right: 5px;
-    font-size: $font-size-small;
+    font-size: 13px;
     line-height: 1.4;
     max-height: 50vh;
   }
@@ -270,6 +276,12 @@ summary {
     }
     details {
       margin-bottom: 10px;
+    }
+  }
+
+  @media (min-height: 700px) {
+    div {
+      font-size: $font-size-smaller;
     }
   }
 
@@ -284,7 +296,7 @@ summary {
 
   @media (max-height: $landscape-height) {
     .compare-image-container {
-      height: 35vh;
+      height: 40vh;
     }
 
     .compare-image-container > div {
@@ -342,7 +354,7 @@ video {
 
 /* ----- Bottom right corner logo style----- */
 .nca-logo {
-  max-width: 65px;
+  max-width: 55px;
   @media (max-width: $mobile) {
     max-width: 40px;
   }
@@ -385,103 +397,13 @@ video {
   }
 }
 
-/* ----- Last Slide Buttons ----- */
-.buttons-container {
-  a {
-    text-decoration: none;
-  }
-  a:visited {
-    color: $ui-black;
-  }
-  @media (max-height: $landscape-height) {
-    display: flex;
-  }
-}
-
-.take-action,
-.to-map {
-  display: flex;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: $ui-white;
+/*----- last slide links -----*/
+.slide-link {
+  text-decoration: underline;
   text-transform: uppercase;
-  border: 3px solid $ui-black;
-  border-radius: 5px;
-  font-weight: bold;
-  align-items: center;
-  justify-content: center;
-  @media (max-height: $landscape-height) {
-    margin-bottom: 2px;
-  }
-
-  div:last-child {
-    font-size: 30px;
-  }
+  color: $ui-link;
 }
 
-.take-action {
-  max-width: 120px;
-  @media (max-height: $landscape-height) {
-    max-width: 100%;
-  }
-}
-
-.to-map {
-  max-width: 250px;
-  @media (max-height: $landscape-height) {
-    max-width: 100%;
-  }
-}
-
-.take-action:hover,
-.to-map:hover {
-  background-color: $ui-black;
-  border: 3px solid $ui-white;
-  color: $ui-white;
-
-  div:last-child {
-    font-size: 30px;
-  }
-}
-
-.take-action:active,
-.to-map:active {
-  transform: translateY(-2px);
-}
-
-/*----- map styles ----- */
-.map-container {
-  position: relative;
-}
-
-.map-image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  z-index: -1;
-  max-width: 85%;
-  max-height: 800px;
-  height: auto;
-  opacity: 1;
-}
-
-.centered-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 48px;
-  z-index: 2;
-  color: white;
-}
-
-.opacity-overlay {
-  position: fixed; //this may need to change;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+.slide-link:hover {
+  color: $ui-link-light;
 }

@@ -12,6 +12,7 @@ import {
 } from "../../../actions/geocode";
 import {
   handleGetSiteData,
+  handleGetAttributeData,
   setMarkerCoords,
   setBufferValues,
 } from "../../../actions/mapData";
@@ -94,6 +95,16 @@ class GeocodedResults extends Component {
     this.props._handleGetSiteData(selectedFeature);
   };
 
+  _onKeyPress = (e, selectedFeature) => {
+    if (e.key === "Enter") {
+      //close the error togle if open
+      this.props.dispatch(toggleErrorMessage(false));
+
+      // method passed down from GeocoderInput
+      this.props._handleGetSiteData(selectedFeature);
+    }
+  };
+
   render() {
     const {
       geocodedResults,
@@ -112,12 +123,16 @@ class GeocodedResults extends Component {
             const { place_name } = feature;
             return (
               <div
+                tabIndex="0"
                 key={`result-${index}`}
                 className={
                   index % 2 ? "result-list-item-odd" : "result-list-item-even"
                 }
                 onClick={() => {
                   this._onResultClick(feature);
+                }}
+                onKeyPress={(e) => {
+                  this._onKeyPress(e, feature);
                 }}
               >
                 {place_name}
@@ -136,7 +151,6 @@ class GeocoderInput extends Component {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
     mapState: PropTypes.object.isRequired,
-    siteData: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -197,7 +211,7 @@ class GeocoderInput extends Component {
   _handleGetSiteData = (feature) => {
     const { mapState } = this.props;
     const { distance, units } = this.props.mapData.buffer;
-    const { yearSelection } = this.props.siteData;
+    const { yearRange } = this.props.mapData;
     const [lon, lat] = feature.geometry.coordinates;
     const { place_name } = feature;
 
@@ -206,7 +220,7 @@ class GeocoderInput extends Component {
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
-    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearSelection}`;
+    const route = `/api/location/${encodedCoords}/${distance}/${units}/${yearRange}`;
     this.props.dispatch(handleGetSiteData(route)).then((sitesGeoJSON) => {
       // set the search term by placename
       this.props.dispatch(setSearchTerm(place_name));
@@ -234,6 +248,9 @@ class GeocoderInput extends Component {
         this._createNewViewport({}, mapState);
       }
     });
+    //update the attribute data
+    const attributeRoute = `/api/attributes/TOTALSQFT,NUMBSTORIES,TYPE,YEAR/${yearRange}/${encodedCoords}/${distance}/${units}`;
+    this.props.dispatch(handleGetAttributeData(attributeRoute));
   };
   _handleCreateNewBuffer = (longitude, latitude) => {
     const centerPoint = { longitude, latitude };
@@ -248,6 +265,7 @@ class GeocoderInput extends Component {
   };
   render() {
     const { searchTerm } = this.props.geocodedData;
+
     return (
       <React.Fragment>
         <div className="geocoder-marker-container">
@@ -263,6 +281,7 @@ class GeocoderInput extends Component {
                 &times;
               </div>
               <DebounceInput
+                tabIndex="0"
                 type="text"
                 placeholder="Search an address..."
                 value={searchTerm} //controlled input
@@ -297,10 +316,12 @@ class GeocoderInput extends Component {
           </div>
           <MarkerSelector {...this.props} />
         </div>
+
         <GeocodedResults
           {...this.props}
           _handleGetSiteData={this._handleGetSiteData}
         />
+
         <NoGeocodedResults {...this.props.geocodedData} />
       </React.Fragment>
     );
