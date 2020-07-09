@@ -7,9 +7,10 @@ footer {
   background-color: $ui-black;
   height: 56px;
   color: $ui-white;
-  width: 100%;
-  z-index: 6;
   font-size: 0.8rem;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 
   div {
     padding: 0 5px;
@@ -34,12 +35,21 @@ footer {
   }
 }
 
+/*----- specific footer styles -----*/
 .slides-footer {
+  background-color: $ui-black;
+  z-index: 6;
+  width: 100%;
   position: relative;
   bottom: 56px;
+  left: 0px;
 }
 
 .take-action-footer {
+  background-color: $ui-black;
+  z-index: 6;
+  width: 100%;
   position: fixed;
   bottom: 0px;
+  left: 0px;
 }
