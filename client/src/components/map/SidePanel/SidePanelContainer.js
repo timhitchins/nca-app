@@ -53,8 +53,6 @@ class SidePanelContainer extends Component {
         {/* Panel 1 */}
         <div className="outer-panel top-panel">
           <aside className="panel-label">Construction Permits by Type</aside>
-          <div className="slider-title">Range of Years:</div>
-          <YearRangeSlider {...this.props} />
           <div
             className="close-button"
             title={panelIsOpen ? "Close panel" : "Open panel"}
@@ -70,6 +68,8 @@ class SidePanelContainer extends Component {
           <GeocoderInput {...this.props} />
           <div className="slider-title">Distance in meters:</div>
           <BufferSlider {...this.props} />
+          <div className="slider-title">Range of Years:</div>
+          <YearRangeSlider {...this.props} />
         </div>
 
         {/* Panel 2 */}
@@ -106,7 +106,7 @@ class SidePanelContainer extends Component {
         ) : null}
 
         {/* Panel 3 */}
-        <div className="outer-panel">
+        <div className="outer-panel last-panel">
           <aside className="panel-label">About</aside>
           <About />
         </div>
@@ -116,34 +116,3 @@ class SidePanelContainer extends Component {
 }
 
 export default SidePanelContainer;
-
-// class YearSelector extends Component {
-//   static propsTypes = {
-//     mapData: PropTypes.object.isRequired,
-//     dispatch: PropTypes.object.isRequired,
-//   };
-
-//   _handleYearSelection = (e) => {
-//     const { value } = e.target;
-//     this.props.dispatch(setYear(value));
-//   };
-
-//   render() {
-//     const { attributeTotals } = this.props.mapData;
-//     if (attributeTotals) {
-//       const { years } = this.props.mapData.attributeTotals;
-//       return (
-//         <select
-//           id="years"
-//           className="year-selector"
-//           onChange={this._handleYearSelection}
-//         >
-//           {years.map((year) => (
-//             <option value={`${year}`}>{`${year}`}</option>
-//           ))}
-//         </select>
-//       );
-//     }
-//     return null;
-//   }
-// }

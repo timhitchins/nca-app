@@ -2,11 +2,16 @@
 
 .permit-text-container {
   font-family: $font-family-narrow;
-  margin: -50px 5px 10px 5px;
-  // height: 200px;
+  margin: -50px 5px -10px 5px;
+
   div > span:first-child {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: bold;
+  }
+  @media (max-width: $mobile) {
+    div > span:first-child {
+      font-size: 3rem;
+    }
   }
   div > span:nth-child(2) {
     display: block;

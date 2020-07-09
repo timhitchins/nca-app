@@ -4,7 +4,6 @@ import {
   VictoryChart,
   VictoryBar,
   VictoryTooltip,
-  VictoryLabel,
   VictoryAxis,
 } from "victory";
 import * as styleVars from "../../theme.scss";
@@ -19,7 +18,7 @@ class BarChart extends Component {
     if (attributeTotals) {
       const { chartData } = attributeTotals;
       return (
-        <VictoryChart domainPadding={{ x: 15 }}>
+        <VictoryChart domainPadding={{ x: [25, 0] }}>
           <VictoryAxis dependentAxis={true} />
           <VictoryBar
             style={{
@@ -39,7 +38,7 @@ class BarChart extends Component {
             y="count"
             animate={{
               onExit: {
-                duration: 300,
+                duration: 100,
               },
             }}
             events={[

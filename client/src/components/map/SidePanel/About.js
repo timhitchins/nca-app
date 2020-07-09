@@ -5,12 +5,19 @@ class About extends Component {
   render() {
     return (
       <div className="about-container">
-        The ________ Tool is a public education and advocacy experience created
-        to increase awareness about the impact of construction site diesel
-        pollution around the Portland, Oregon area. The ________ Tool was
-        created by the [Mapping Action Collective] in partnership with [NCA].
-        Special thanks to the [City of Portland GIS] team for providing access
-        to construction permit data going back to 2005
+        Each construction site is given a ranking of low, medium, or high
+        corresponding to the level of potential diesel emissions expected at a
+        given site. This rating is given based on permit characteristics, such
+        as square footage and stories for the project. Research has shown that
+        larger construction projects and projects with a demolition component
+        have higher emissions on average. These projects also tend to have a
+        longer timeline of the earthworks phase, which results in more activity
+        hours and more emissions. The earthworks stage of the project, meaning
+        working with the soil, is the most emission intensive because of the
+        heavy-duty equipment being used and the weight of materials being
+        carried. Due to data limitations of the permits and variability of
+        equipment used on a site, actual emissions associated for each site is
+        difficult to predict.
       </div>
     );
   }
