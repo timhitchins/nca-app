@@ -1,0 +1,45 @@
+@import "../../theme.scss";
+
+/* ----- footer  styles ----- */
+footer {
+  display: flex;
+  align-items: center;
+  background-color: $ui-black;
+  height: 56px;
+  color: $ui-white;
+  width: 100%;
+  z-index: 6;
+  font-size: 0.8rem;
+
+  div {
+    padding: 0 5px;
+  }
+
+  div:nth-child(2) {
+    flex: 1;
+  }
+
+  div:nth-child(4) {
+    cursor: pointer;
+  }
+
+  div:last-child > a > img {
+    max-width: 200px;
+    cursor: pointer;
+  }
+  @media (max-width: $desktop) {
+    div:nth-child(n + 3) {
+      display: none;
+    }
+  }
+}
+
+.slides-footer {
+  position: relative;
+  bottom: 56px;
+}
+
+.take-action-footer {
+  position: fixed;
+  bottom: 0px;
+}

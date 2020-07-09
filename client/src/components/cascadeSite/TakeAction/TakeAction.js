@@ -1,39 +1,44 @@
 import React, { Component } from "react";
-import "./../Slides/Slides.scss";
+import Footer from "../Footer/Footer";
+import "./TakeAction.scss";
 
 class TakeAction extends Component {
   render() {
     return (
-      <div className="content-container">
-        <section className="content-section">
-          <div className="container">
-            <p>
-              Join the effort to reduce diesel pollution in Portland! Not sure
-              where to start? Visit our website for ways to get involved and
-              make a difference. Link to NCA website.
-            </p>
+      <div className="take-action-container">
+        <section className="take-action-section">
+          <h1>Join Neighbors for Clean Air</h1>
+          <p>
+            Neighbors for Clean Air educates, motivates and activates Oregonians
+            to improve air quality in our region and state. We work to change
+            policy, strengthen regulations, and push businesses subject to air
+            quality regulation to reduce emissions. We engage members from every
+            background in in this work to create a better future for us all.
+          </p>
 
-            <p>
-              Sign up for mailing list Timeline of construction projects for
-              people to see to understand where they can intervene in the
-              process - from the time that the permit is approved to when ground
-              is broken When does public notification happen? Do neighborhood
-              associations get notified?
-              https://www.portlandoregon.gov/shared/cfm/image.cfm?id=414217 Make
-              sure that people know that once a permit has been approved, the
-              time to advocate/intervene has passed, but timeline can still
-              serve for people to understand how to intervene and be aware of
-              future projects.Help people understand how they can get notices of
-              potential construction before it goes to the permitting process.
-            </p>
+          <p>
+            For the past 10 years, we’ve focused on the serious dangers that
+            diesel presents to our health, our beloved communities and our
+            planet.
+          </p>
 
-            <p>
-              Time lapse video of active construction site - Lyndsey will
-              provide Additional videos that Mary will provide to, Mary will
-              write up a short description of each video.
-            </p>
+          <p>
+            Right now, we have specific plans and goals that we know are
+            achievable in reducing diesel – regulations, community engagements,
+            and specific policy changes. With your help, they’re within our
+            grasp. Will you join us?
+          </p>
+          <div className="take-action-button-container">
+            <img
+              src="https://nca-toolkit.s3-us-west-2.amazonaws.com/banner_heart_crop.png"
+              alt="Illustration of a person holding a sign with a heart"
+            />
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <div>Get Involved!</div>
+            </a>
           </div>
         </section>
+        <Footer className="take-action-footer" />
       </div>
     );
   }

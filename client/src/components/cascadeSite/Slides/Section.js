@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import Footer from "../Footer/Footer";
 import ReactPlayer from "react-player";
 import ReactCompareImage from "react-compare-image";
 import PropTypes from "prop-types";
@@ -113,28 +113,6 @@ class Section extends Component {
                 />
               </div>
             )}
-            {/* {slide.takeAction && (
-              <div className="buttons-container">
-                <Link
-                  to={{
-                    pathname: "/join-us",
-                  }}
-                >
-                  <div className="join-us">
-                    <div>Join Us &#10148;</div>
-                  </div>
-                </Link>
-                <Link
-                  to={{
-                    pathname: "/mapping-tool",
-                  }}
-                >
-                  <div className="to-map">
-                    <div>Interactive Mapping Tool &#10148;</div>
-                  </div>
-                </Link>
-              </div>
-            )} */}
           </div>
         </div>
         {sectionNo < MAX_SECTION_NO ? (
@@ -164,38 +142,7 @@ class Section extends Component {
             </div>
           </div>
         ) : null}
-        {slide.footer && (
-          <footer className="footer">
-            <div> &copy; 2020 | NEIGHBORS FOR CLEAN AIR</div>
-            <div></div>
-            <div>A project by</div>
-            <div className="nca-logo">
-              <a
-                href="http://www.whatsinourair.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_only_WHITE.png"
-                  alt="NCA logo"
-                ></img>
-              </a>
-            </div>
-            <div>in partnership with</div>
-            <div>
-              <a
-                href="https://mappingaction.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://nca-toolkit.s3-us-west-2.amazonaws.com/MAC_Logo_horizontal-02.png"
-                  alt="MAC logo"
-                ></img>
-              </a>
-            </div>
-          </footer>
-        )}
+        {slide.footer && <Footer className="slides-footer" />}
       </section>
     );
   }
