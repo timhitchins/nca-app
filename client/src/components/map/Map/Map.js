@@ -80,9 +80,6 @@ class CentralMarker extends Component {
         onDragStart={this._onMarkerDragStart}
         onDrag={this._onMarkerDrag}
         onDragEnd={this._onMarkerDragEnd}
-        onClick={(e) => {
-          console.log(e);
-        }}
       >
         <Pin size={50} />
       </Marker>
@@ -291,7 +288,6 @@ class NCAMap extends PureComponent {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
-          //   onHover={this._onHover}
           interactiveLayerIds={["sites-fill-layer"]}
           onClick={(e) => {
             this._handleMapClick(e);

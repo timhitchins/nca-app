@@ -11,7 +11,6 @@ import {
 } from "../../../config/slideConfig";
 import "./Slides.scss";
 
-//will need to scroll to contentRef --> cardRef offsettop
 class AllContent extends Component {
   static propTypes = {
     slides: PropTypes.object.isRequired,
@@ -27,7 +26,6 @@ class AllContent extends Component {
       left: 0,
       behavior: "smooth",
     });
-    // this.prevWheelScroll = sectionRef[section].current.offsetTop;
     this.prevScroll = sectionRef[section].current.offsetTop;
   };
 
@@ -35,7 +33,6 @@ class AllContent extends Component {
   _handleScroll = (e) => {
     const { sectionRef } = this.props.slides;
     const { scrollTop } = e.target;
-    // const breaks = sectionRef.map((section) => section.current.offsetTop);
 
     const section = calculateSectionScrollTo(sectionRef, scrollTop + 1); // addind to deal with discrepanciesu
     this._scrollToContent(section);
@@ -65,11 +62,7 @@ class AllContent extends Component {
     const touchMovePos = e.touches[0].clientY;
 
     //touchmove down
-    if (
-      this.touchStart > touchMovePos &&
-      // this.prevTouchScroll !== offsetTop &&
-      sectionNo < MAX_SECTION_NO
-    ) {
+    if (this.touchStart > touchMovePos && sectionNo < MAX_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -81,11 +74,7 @@ class AllContent extends Component {
     }
 
     //touchmove up
-    else if (
-      this.touchStart < touchMovePos &&
-      // this.prevTouchScroll !== offsetTop &&
-      sectionNo > MIN_SECTION_NO
-    ) {
+    else if (this.touchStart < touchMovePos && sectionNo > MIN_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
@@ -107,11 +96,7 @@ class AllContent extends Component {
     const { deltaY } = e;
     const { offsetTop } = e.target;
     //wheel down
-    if (
-      deltaY > 0 &&
-      // this.prevWheelScroll !== offsetTop &&
-      sectionNo < MAX_SECTION_NO
-    ) {
+    if (deltaY > 0 && sectionNo < MAX_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -121,11 +106,7 @@ class AllContent extends Component {
       this.prevScroll = offsetTop;
     }
     // wheel up
-    else if (
-      deltaY < 0 &&
-      // this.prevWheelScroll !== offsetTop &&
-      sectionNo > MIN_SECTION_NO
-    ) {
+    else if (deltaY < 0 && sectionNo > MIN_SECTION_NO) {
       this.props.dispatch(
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
@@ -174,13 +155,7 @@ class AllContent extends Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
-    // console.log("Previous section", prevProps.slides.sectionNo);
-    // console.log("New section: ", this.props.slides.sectionNo);
-  }
-
   render() {
-    // const { sectionNo, sectionRef } = this.props.slides;
     return (
       <div
         tabIndex="0"

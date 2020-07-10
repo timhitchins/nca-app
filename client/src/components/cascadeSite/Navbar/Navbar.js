@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { togglenavDrawerAction } from "../../../actions/navbar";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
-// import stylVars from "../../theme.scss";
 
-//this navbar needs some transitions when there is a drawer toggle
 class Navbar extends Component {
   render() {
     const { isOpen } = this.props.navbar;

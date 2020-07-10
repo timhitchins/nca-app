@@ -10,7 +10,6 @@ import "./PDIIndicator.scss";
 
 const indicatorColors = [styleVars.pdiLow, styleVars.pdiMed, styleVars.pdiHigh];
 const titles = ["Low PDI", "Medium PDI", "High PDI"];
-// const mutedIndicatorColors = [];
 
 class PDIIndicator extends Component {
   static propTypes = {
