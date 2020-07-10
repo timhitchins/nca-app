@@ -10,7 +10,7 @@ import TakeAction from "./cascadeSite/TakeAction/TakeAction";
 class App extends Component {
   componentDidMount() {
     //set window height for mobile
-    setDocHeightOnWindow();
+    // setDocHeightOnWindow();
 
     //redirect if pathname = "/"
     if (window.location.pathname === "/") {
