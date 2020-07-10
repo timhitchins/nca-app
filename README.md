@@ -1,7 +1,5 @@
 # Neighbors for Clean Air Campaign Toolkit
 
-(This application is in development)
-
 To start this application in development, clone the repository.
 
 There are two `package.json` files for installing modules in the client and server.
@@ -20,7 +18,7 @@ cd ./nca-app/client
 npm install
 ```
 
-To run the stack in development after installs, change back the root directory and
+To run the stack in development after installs, change back to the root directory and run:
 
 ```
 npm run dev

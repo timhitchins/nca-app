@@ -3,11 +3,10 @@
 /* ----- Backgroung image style ----- */
 .bg-image {
   position: fixed;
-  top: 0;
+  top: 56px;
   left: 0;
   width: 100%;
-  // height: calc(100% - 56px);
-  height: 100%;
+  height: calc(100vh - 56px);
   z-index: -1;
   -o-object-fit: cover;
   font-family: "object-fit:cover";
@@ -63,6 +62,7 @@
   overflow-y: scroll;
   scroll-behavior: smooth;
   width: 100%;
+  outline: none;
 }
 
 /* ----- Content section ----- */

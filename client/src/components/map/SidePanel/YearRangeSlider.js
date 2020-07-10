@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import { Slider, Rail, Handles, Tracks } from "react-compound-slider";
 import PropTypes from "prop-types";
 import {
   setYearRange,

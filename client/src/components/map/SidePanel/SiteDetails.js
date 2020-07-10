@@ -78,7 +78,7 @@ class SiteDetails extends Component {
               <span>{DESCRIPTION}</span>
             </div>
             <div>
-              <a target="_blank" rel="noreferrer" href={PORTLAND_MAPS_URL}>
+              <a target="_blank" rel="noopener noreferrer" href={PORTLAND_MAPS_URL}>
                 Portland Maps URL
               </a>
             </div>

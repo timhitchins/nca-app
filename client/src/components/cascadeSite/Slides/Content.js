@@ -213,20 +213,17 @@ class AllContent extends Component {
             case 12:
               className = "one-col";
               break;
-            case 0:
             case 1:
             case 5:
               className = "two-col border-image";
               break;
             case 2:
               className = "two-col pie-chart";
+              break;
             case 7:
             case 8:
               className = "two-col fit-text";
               break;
-            {/* case 9:
-              className = "one-col font-adjust";
-              break; */}
             case 6:
             case 10:
               className = "two-col single-video";
