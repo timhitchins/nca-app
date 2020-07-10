@@ -55,10 +55,15 @@
   div {
     margin-top: 5px;
   }
-  div > span {
+  div > span:first-child {
     color: $ui-dark-gray;
     text-decoration: underline;
   }
+
+  div > span:nth-child(2)::before {
+    content: "  ";
+  }
+
   div > a {
     text-decoration: underline;
     color: $ui-link;

@@ -3,27 +3,34 @@
 /* ----- Side panel styles ----- */
 .side-panel-container {
   position: absolute;
-  top: 20px;
+  top: 60px;
+  margin-bottom: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 3;
-  width: 375px;
-  margin: 40px 0 20px 0;
+  z-index: 5;
   //just need to set a max height to get overflow
   max-height: calc(100vh - 100px);
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */
 
+  @media (max-width: $mobile) {
+    top: 30px;
+  }
+
   /* ----- Outer panel item styles ----- */
   .outer-panel {
-    flex: 1;
+    width: 350px;
     transition: all 1.5s;
-    background-color: $ui-transparent-white;
-    margin: 1em 2em 1em 1em;
+    background-color: $ui-transparent-white-2;
+    margin: 1em;
     padding: 1em;
-    box-shadow: 5px 10px 18px #888888;
+    box-shadow: 5px 10px 14px #888888;
+
+    @media (max-width: $mobile) {
+      width: 320px;
+    }
   }
   .outer-panel:hover {
     transform: scale(1.01);
@@ -34,16 +41,23 @@
     // padding: 0 1em 1em 1em;
     /*----- close button styles -----*/
     .close-button {
+      display: inline-block;
       position: relative;
       left: 303px;
-      bottom: 105px;
+      bottom: 44px;
       padding: 0 5px;
-      background-color: $ui-transparent-white;
+      // background-color: $ui-transparent-white-2;
       width: fit-content;
       font-size: 2rem;
 
       span:hover {
         color: $ui-gray;
+      }
+    }
+
+    @media (max-width: $mobile) {
+      .close-button {
+        left: 280px;
       }
     }
   }
@@ -64,17 +78,26 @@
 .container-closed {
   left: -340px;
   transition: left 2s ease;
+  @media (max-width: $mobile) {
+    left: -310px;
+  }
 }
 /* ----- Inner Panel styles ----- */
 .panel-label {
   color: $ui-black;
   display: block;
   font-family: "Archivo Narrow", sans-serif;
-  font-size: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
   margin-bottom: 0.5em;
   margin-top: 0;
   position: relative;
   text-transform: uppercase;
+
+  span {
+    display: inline-block;
+    padding: 0 10px;
+  }
 }
 
 .panel-label:after {
@@ -93,7 +116,7 @@
 
 .slider-title {
   font-family: "Archivo Narrow", sans-serif;
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 1rem;
 }
 
@@ -134,4 +157,8 @@
 /* Focus style */
 .year-selector:focus {
   outline: none;
+}
+
+.last-panel {
+  margin-bottom: 60px !important;
 }

@@ -5,7 +5,7 @@ import "./PermitType.scss";
 
 const PermitTextSwitch = (props) => {
   const { attributeTotals, siteMarkers } = props.mapData;
-
+  console.log("type: ", props.type);
   switch (props.type) {
     case "attributeData":
       return (
@@ -31,8 +31,10 @@ const PermitTextSwitch = (props) => {
           </span>
         </div>
       );
+    case "noResults":
+      return <div className="placeholder-container">No results...</div>;
     default:
-      return <div>LOADING...</div>;
+      return <div className="placeholder-container">Loading...</div>;
   }
 };
 
@@ -42,14 +44,23 @@ class PermitTypeText extends Component {
     dispatch: PropTypes.func.isRequired,
   };
 
-  _calculateType(attributeTotals, siteMarkers) {
-    if (attributeTotals && !siteMarkers) {
+  _calculateType(attributeTotals, siteMarkers, centralMarker) {
+    const { longitude } = centralMarker;
+
+    if (attributeTotals && !siteMarkers && !longitude) {
       return "attributeData";
-    } else if (attributeTotals && siteMarkers) {
-      return "siteData";
-    } else {
-      return null;
     }
+    if (attributeTotals && siteMarkers && longitude) {
+      return "siteData";
+    }
+    if (
+      (!attributeTotals && !siteMarkers && longitude) ||
+      (!attributeTotals && siteMarkers && longitude)
+    ) {
+      return "noResults";
+    }
+
+    return null;
   }
 
   componentDidMount() {
@@ -68,13 +79,17 @@ class PermitTypeText extends Component {
   }
 
   render() {
-    const { attributeTotals, siteMarkers } = this.props.mapData;
+    const { attributeTotals, siteMarkers, centralMarker } = this.props.mapData;
 
     return (
       <div className="permit-text-container">
         <PermitTextSwitch
           {...this.props}
-          type={this._calculateType(attributeTotals, siteMarkers)}
+          type={this._calculateType(
+            attributeTotals,
+            siteMarkers,
+            centralMarker
+          )}
         />
       </div>
     );

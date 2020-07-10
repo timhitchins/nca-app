@@ -59,13 +59,13 @@ export function createLayerFilter(arr) {
 
   const fullFilter = arr.map((item) => {
     if (item === "Low PDI") {
-      return [...layerFilter, ...[["==", "PDILevel", "low"]]];
+      return [...layerFilter, ...[["==", "PDI_LEVEL", "low"]]];
     }
     if (item === "Medium PDI") {
-      return [...layerFilter, ...[["==", "PDILevel", "med"]]];
+      return [...layerFilter, ...[["==", "PDI_LEVEL", "med"]]];
     }
     if (item === "High PDI") {
-      return [...layerFilter, ...[["==", "PDILevel", "high"]]];
+      return [...layerFilter, ...[["==", "PDI_LEVEL", "high"]]];
     }
     return null;
   });

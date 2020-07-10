@@ -84,6 +84,7 @@ export function handleGetAttributeData(route) {
   return async (dispatch) => {
     return fetchJSONData(route)
       .then((json) => {
+        dispatch(getAttributeData(null));
         dispatch(getAttributeData(json));
         return json;
       })

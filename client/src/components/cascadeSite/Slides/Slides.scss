@@ -360,43 +360,6 @@ video {
   }
 }
 
-/* ----- footer  style ----- */
-.footer {
-  display: flex;
-  align-items: center;
-  position: relative;
-  bottom: 55px;
-  background-color: $ui-black;
-  height: 57px;
-  color: $ui-white;
-  width: 100%;
-  z-index: 6;
-  font-size: 0.8rem;
-  padding-bottom: 1px;
-
-  div {
-    padding: 0 5px;
-  }
-
-  div:nth-child(2) {
-    flex: 1;
-  }
-
-  div:nth-child(4) {
-    cursor: pointer;
-  }
-
-  div:last-child > a > img {
-    max-width: 200px;
-    cursor: pointer;
-  }
-  @media (max-width: $desktop) {
-    div:nth-child(n + 3) {
-      display: none;
-    }
-  }
-}
-
 /*----- last slide links -----*/
 .slide-link {
   text-decoration: underline;

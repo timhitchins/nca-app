@@ -66,16 +66,16 @@ class SiteDetails extends Component {
           <div className="permit-content">
             <div>
               <span> Square Footage:</span>
-              {TOTALSQFT.toLocaleString()} ft&#178;
+              <span>{TOTALSQFT.toLocaleString()} ft&#178;</span>
             </div>
             <div>
               <span>Stories:</span>
-              {NUMBSTORIES}
+              <span>{NUMBSTORIES}</span>
             </div>
             <div>
               <span>Description:</span>
               <br></br>
-              {DESCRIPTION}
+              <span>{DESCRIPTION}</span>
             </div>
             <div>
               <a target="_blank" rel="noreferrer" href={PORTLAND_MAPS_URL}>
@@ -84,22 +84,22 @@ class SiteDetails extends Component {
             </div>
             <div>
               <span>Status:</span>
-              {STATUS}
+              <span>{STATUS}</span>
             </div>
             <div>
               <span>Neighborhood:</span>
               <br></br>
-              {NEIGHBORHOOD}
+              <span>{NEIGHBORHOOD}</span>
             </div>
             <div>
               <span>Permit Type:</span>
               <br></br>
-              {TYPE}
+              <span>{TYPE}</span>
             </div>
             <div>
               <span>Date Issued:</span>
               <br></br>
-              {Date(ISSUED)}
+              <span>{Date(ISSUED)}</span>
             </div>
           </div>
         </div>
