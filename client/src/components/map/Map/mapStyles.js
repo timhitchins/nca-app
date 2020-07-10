@@ -5,7 +5,6 @@ export const sitesFillLayer = {
   type: "circle",
   source: "sites",
   paint: {
-    // "circle-radius": 30,
     "circle-radius": {
       base: 5,
       stops: [
@@ -80,16 +79,5 @@ export const pdxBoundaryLineLayer = {
   paint: {
     "line-color": "rgba(0,0,0,1)",
     "line-width": 2,
-    // "line-dasharray": [3, 3],
   },
 };
-
-// "circle-color": "red",
-// "circle-color": {
-//   property: "PDI",
-//   stops: [
-//     [7, "#00a750"],
-//     [11, "#fff100"],
-//     [13, "#ed1c34"],
-//   ],
-// },

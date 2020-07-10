@@ -283,7 +283,7 @@ class NCAMap extends PureComponent {
           {...this.props.mapState}
           ref={(reactMap) => (this.reactMap = reactMap)}
           mapOptions={{ attributionControl: false }}
-          maxZoom={20}
+          maxZoom={18}
           minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"

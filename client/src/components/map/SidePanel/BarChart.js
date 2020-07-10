@@ -18,7 +18,7 @@ class BarChart extends Component {
     if (attributeTotals) {
       const { chartData } = attributeTotals;
       return (
-        <VictoryChart domainPadding={{ x: [25, 0] }}>
+        <VictoryChart domainPadding={{ x: [55, 0] }}>
           <VictoryAxis dependentAxis={true} />
           <VictoryBar
             style={{
