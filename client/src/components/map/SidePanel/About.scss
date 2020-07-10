@@ -4,3 +4,10 @@
   font-size: $font-size-small;
   line-height: 1.6;
 }
+
+.equipment-containet {
+  display: flex;
+  img {
+    max-width: 75px;
+  }
+}
