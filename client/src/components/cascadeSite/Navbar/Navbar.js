@@ -1,14 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  togglenavDrawerAction,
-  toggleNavbarPageAction,
-} from "../../../actions/navbar";
+import { togglenavDrawerAction } from "../../../actions/navbar";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
-// import stylVars from "../../theme.scss";
 
-//this navbar needs some transitions when there is a drawer toggle
 class Navbar extends Component {
   render() {
     const { isOpen } = this.props.navbar;
@@ -19,7 +14,11 @@ class Navbar extends Component {
           style={isOpen ? { height: "auto" } : null}
         >
           <div>
-            <a href="http://www.whatsinourair.org/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="http://www.whatsinourair.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <img
                 src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
                 alt="logo"

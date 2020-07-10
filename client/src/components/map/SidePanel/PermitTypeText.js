@@ -4,8 +4,7 @@ import { handleGetAttributeData } from "../../../actions/mapData";
 import "./PermitType.scss";
 
 const PermitTextSwitch = (props) => {
-  const { attributeTotals, siteMarkers } = props.mapData;
-  console.log("type: ", props.type);
+  const { attributeTotals } = props.mapData;
   switch (props.type) {
     case "attributeData":
       return (

@@ -6,9 +6,18 @@ class About extends Component {
     return (
       <div className="about-container">
         <div className="equipment-container">
-          <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/crane_hook.png"></img>
-          <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/tractor.png"></img>
-          <img src="https://nca-toolkit.s3-us-west-2.amazonaws.com/mixer_truck.png"></img>
+          <img
+            src="https://nca-toolkit.s3-us-west-2.amazonaws.com/crane_hook.png"
+            alt="An illustration of a crane with a hook"
+          ></img>
+          <img
+            src="https://nca-toolkit.s3-us-west-2.amazonaws.com/tractor.png"
+            alt="An illustration of a tractor"
+          ></img>
+          <img
+            src="https://nca-toolkit.s3-us-west-2.amazonaws.com/mixer_truck.png"
+            alt="An illustration of a mixer truck"
+          ></img>
         </div>
         <div>
           Each construction site is given a ranking of low, medium, or high

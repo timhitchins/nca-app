@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {
-  VictoryChart,
-  VictoryBar,
-  VictoryTooltip,
-  VictoryAxis,
-} from "victory";
+import { VictoryChart, VictoryBar, VictoryTooltip, VictoryAxis } from "victory";
 import * as styleVars from "../../theme.scss";
 
 class BarChart extends Component {
@@ -50,7 +45,6 @@ class BarChart extends Component {
                       {
                         target: "labels",
                         mutation: (props) => {
-                          console.log(props.datum);
                           // add handler here
                         },
                       },
