@@ -6,7 +6,11 @@ import reducer from "./reducers";
 import middleware from "./middleware";
 import "mapbox-gl/dist/mapbox-gl.css"; //mapbox css
 import "./index.scss";
+import smoothscroll from "smoothscroll-polyfill";
 import App from "./components/App";
+
+//polyfill for safari / opera
+smoothscroll.polyfill();
 
 //redux store
 const store = createStore(reducer, middleware);
