@@ -3,16 +3,11 @@
 .about-container {
   font-size: $font-size-small;
   line-height: 1.6;
-  
+
+  //content
   div:nth-child(2) {
-    margin-top: -15px;
+    margin-top: -25px;
   }
 }
 
-.equipment-containet {
-  display: flex;
 
-  img {
-    max-width: 75px;
-  }
-}
