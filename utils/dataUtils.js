@@ -30,9 +30,9 @@ function calculateDemoDuplicates(inData) {
 function calculatePDILevel(PDI) {
   if (PDI <= 7) {
     return "low";
-  } else if (PDI > 7 && PDI <= 11) {
+  } else if (PDI > 7 && PDI <= 9) {
     return "med";
-  } else if (PDI > 11 && PDI <= 13) {
+  } else if (PDI > 9 && PDI <= 13) {
     return "high";
   } else {
     return "no score";
