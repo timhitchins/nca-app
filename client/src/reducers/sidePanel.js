@@ -1,11 +1,16 @@
-import { TOGGLE_SIDE_PANEL } from "../actions/sidePanel";
+import { TOGGLE_SIDE_PANEL, CREATE_PANEL_REF } from "../actions/sidePanel";
 
-const initialPanelState = true;
+const initialPanelState = {
+  panelRef: null,
+  isOpen: true,
+};
 
-export default function panelIsOpen(state = initialPanelState, action) {
+export default function sidePanel(state = initialPanelState, action) {
   switch (action.type) {
     case TOGGLE_SIDE_PANEL:
-      return action.payload;
+      return { ...state, ...action.payload };
+    case CREATE_PANEL_REF:
+      return { ...state, ...action.payload };
     default:
       return state;
   }

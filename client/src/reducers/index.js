@@ -6,7 +6,7 @@ import isLoading from "./loading";
 import geocodedData from "./geocode";
 import markerSelector from "./markerSelect";
 import siteData from "./siteData";
-import panelIsOpen from "./sidePanel";
+import sidePanel from "./sidePanel";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -17,6 +17,6 @@ export default combineReducers({
   isLoading,
   geocodedData,
   markerSelector,
-  panelIsOpen,
+  sidePanel,
   siteData,
 });
