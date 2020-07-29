@@ -271,7 +271,6 @@ class GeocoderInput extends Component {
 
   _scrollToSidePanel = (panel) => {
     const { panelRef } = this.props.sidePanel;
-
     const scrollToHeight = calculatePanelScrollToHeight(panel, panelRef);
 
     panelRef.current.scrollTo({

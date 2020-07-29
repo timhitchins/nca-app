@@ -4,10 +4,14 @@
   font-size: $font-size-small;
   line-height: 1.6;
 
+  @media (max-width: $mobile) {
+    // img elements
+    div:first-child > img {
+      width: 95px;
+    }
+  }
   //content
   div:nth-child(2) {
     margin-top: -25px;
   }
 }
-
-
