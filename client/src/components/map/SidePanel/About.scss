@@ -4,14 +4,43 @@
   font-size: $font-size-small;
   line-height: 1.6;
 
+  div > p > a {
+    color: $ui-link;
+  }
+
+  div > p > a:hover {
+    color: $ui-link-light;
+    text-decoration: underline;
+  }
+
   @media (max-width: $mobile) {
     // img elements
-    div:first-child > img {
+    div:nth-child(2) > img {
       width: 95px;
     }
   }
-  //content
-  div:nth-child(2) {
-    margin-top: -25px;
-  }
+}
+
+//img container
+.about-container > div:nth-child(2),
+// content
+.about-container > div:nth-child(3) {
+  margin-top: -15px;
+}
+
+.about-select {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+p pre {
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
