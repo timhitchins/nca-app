@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { DebounceInput } from "react-debounce-input";
 import PropTypes from "prop-types";
 import { createNewViewport, createBuffer } from "../../../utils/mapUtils";
+import { calculatePanelScrollToHeight } from "../../../utils/generalUtils";
 import { toggleMarkerSelector } from "../../../actions/markerSelect";
 import {
   geocodeSearchTerm,
@@ -72,6 +73,7 @@ class GeocodedResults extends Component {
   static propTypes = {
     geocodedData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
+    sidePanel: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     _handleGetSiteData: PropTypes.func.isRequired,
   };
@@ -205,7 +207,7 @@ class GeocoderInput extends Component {
 
   /* 
   This method is passed down the component tree.
-  It handles gettinf the site data as well as setting
+  It handles getting the site data as well as setting
   all the UI to its correct state.
   */
   _handleGetSiteData = (feature) => {
@@ -217,6 +219,9 @@ class GeocoderInput extends Component {
 
     //add the central marker
     this.props.dispatch(setMarkerCoords(lon, lat));
+
+    //scroll to the top of side panel
+    this._scrollToSidePanel("panel-1");
 
     //set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
@@ -263,6 +268,19 @@ class GeocoderInput extends Component {
     const { distance, units } = this.props.mapData.buffer;
     this.props.dispatch(setBufferValues(distance, units, null));
   };
+
+  _scrollToSidePanel = (panel) => {
+    const { panelRef } = this.props.sidePanel;
+
+    const scrollToHeight = calculatePanelScrollToHeight(panel, panelRef);
+
+    panelRef.current.scrollTo({
+      top: scrollToHeight,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   render() {
     const { searchTerm } = this.props.geocodedData;
 

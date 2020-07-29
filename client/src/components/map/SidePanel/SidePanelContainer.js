@@ -33,27 +33,6 @@ class SidePanelContainer extends Component {
     }
   };
 
-  _scrollToPanel = (panel) => {
-    let panelNo;
-    switch (panel) {
-      case "panel-1":
-        panelNo = 0;
-        break;
-      default:
-        panelNo = 0;
-        break;
-    }
-    const { offsetTop, offsetHeight } = this.sidePanelRef.current.children[
-      panelNo
-    ];
-
-    this.sidePanelRef.current.scrollTo({
-      top: offsetTop + offsetHeight + 100,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
-
   componentDidMount() {
     // side panel mobile
     this._getMedia();
