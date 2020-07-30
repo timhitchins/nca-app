@@ -33,7 +33,11 @@ class TakeAction extends Component {
               src="https://nca-toolkit.s3-us-west-2.amazonaws.com/banner_heart_crop.png"
               alt="Illustration of a person holding a sign with a heart"
             />
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://neighborsforcleanair.org/act-now/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div>Get Involved!</div>
             </a>
           </div>
