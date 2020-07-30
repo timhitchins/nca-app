@@ -35,6 +35,11 @@
   justify-content: space-evenly;
   font-size: 1.5rem;
   font-weight: 400;
+  cursor: pointer;
+
+  div:nth-child(odd):hover {
+    color: $ui-dark-gray;
+  }
 }
 
 p pre {
