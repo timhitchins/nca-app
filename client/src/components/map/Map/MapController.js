@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { calculatePanelScrollToHeight } from "../../../utils/generalUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   setMarkerCoords,
@@ -17,6 +18,7 @@ class MapController extends Component {
   static propTypes = {
     mapState: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
+    sidePanel: PropTypes.object.isRequired,
   };
   _createNewViewport = (mapState, type) => {
     const { zoom } = mapState;
@@ -45,11 +47,23 @@ class MapController extends Component {
         this.props.dispatch(setSiteData([]));
         this.props.dispatch(setSlideIndex(0));
         this.props.dispatch(setCurrentFeature(null));
+        this._scrollToSidePanel("panel-1");
         break;
       default:
         this.props.dispatch(getMapState(defaultMapState));
         break;
     }
+  };
+
+  _scrollToSidePanel = (panel) => {
+    const { panelRef } = this.props.sidePanel;
+    const scrollToHeight = calculatePanelScrollToHeight(panel, panelRef);
+
+    panelRef.current.scrollTo({
+      top: scrollToHeight,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   render() {
