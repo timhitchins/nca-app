@@ -270,6 +270,17 @@ summary {
     max-height: 50vh;
   }
 
+  div > p > a,
+  div > p > strong > a {
+    color: $ui-link;
+  }
+
+  div > p > a:hover,
+  div > p > strong > a:hover {
+    color: $ui-link-light;
+    text-decoration: underline;
+  }
+
   @media (max-width: $mobile) {
     div {
       font-size: $font-size-smallest;
@@ -309,7 +320,7 @@ summary {
   font-weight: 600;
   text-align: center;
 
-  @media(max-width: $large-desktop){
+  @media (max-width: $large-desktop) {
     font-size: 1.1rem !important;
   }
 }

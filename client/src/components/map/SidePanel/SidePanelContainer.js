@@ -66,9 +66,6 @@ class SidePanelContainer extends Component {
             onClick={() => {
               this._toggleSidePanel(isOpen);
             }}
-            onTouchStart={() => {
-              this._toggleSidePanel(isOpen);
-            }}
           >
             {isOpen ? <span>&#x025C3;</span> : <span>&#x025B9;</span>}
           </div>

@@ -14,16 +14,12 @@ class Navbar extends Component {
           style={isOpen ? { height: "auto" } : null}
         >
           <div>
-            <a
-              href="http://www.whatsinourair.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <NavLink exact to="/the-issue">
               <img
                 src="https://nca-toolkit.s3-us-west-2.amazonaws.com/NCA_logo_black.png"
                 alt="logo"
               ></img>
-            </a>
+            </NavLink>
           </div>
           <div></div>
           <NavLink
