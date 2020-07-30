@@ -16,7 +16,6 @@ export function calculatePanelScrollToHeight(panel, panelRef) {
     case "panel-2":
       const { offsetHeight } = panelRef.current.children[0];
       scrollToHeight = 56 + offsetHeight;
-      debugger;
       break;
     default:
       scrollToHeight = 0;
