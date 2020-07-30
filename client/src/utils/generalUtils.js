@@ -6,3 +6,20 @@ export function calculateSectionScrollTo(sections, scrollTop) {
   });
   return Math.max(...sectionNos);
 }
+
+export function calculatePanelScrollToHeight(panel, panelRef) {
+  let scrollToHeight;
+  switch (panel) {
+    case "panel-1":
+      scrollToHeight = 0;
+      break;
+    case "panel-2":
+      const { offsetTop, offsetHeight } = panelRef.current.children[0];
+      scrollToHeight = offsetTop + offsetHeight;
+      break;
+    default:
+      scrollToHeight = 0;
+      break;
+  }
+  return scrollToHeight;
+}

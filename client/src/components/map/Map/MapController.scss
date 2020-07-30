@@ -22,4 +22,10 @@
   div:active {
     transform: translateY(1px);
   }
+
+  @media (max-width: $mobile) {
+    div:nth-child(n + 2) {
+      display: none;
+    }
+  }
 }

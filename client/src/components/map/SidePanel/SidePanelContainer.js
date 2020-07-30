@@ -8,7 +8,7 @@ import BarChart from "./BarChart";
 import PDIIndicator from "./PDIIndicator";
 import SiteDetails from "./SiteDetails";
 import { calculatePDIStyle } from "../../../utils/mapUtils";
-import { toggleSidePanel } from "../../../actions/sidePanel";
+import { toggleSidePanel, createPanelRef } from "../../../actions/sidePanel";
 import About from "./About";
 import "./SidePanelContainer.scss";
 import * as styleVars from "../../theme.scss";
@@ -17,8 +17,10 @@ class SidePanelContainer extends Component {
   static propTypes = {
     siteData: PropTypes.object.isRequired,
     mapData: PropTypes.object.isRequired,
-    panelIsOpen: PropTypes.bool.isRequired,
+    sidePanel: PropTypes.object.isRequired,
   };
+
+  sidePanelRef = React.createRef();
 
   _toggleSidePanel = (isOpen) => {
     this.props.dispatch(toggleSidePanel(!isOpen));
@@ -32,20 +34,25 @@ class SidePanelContainer extends Component {
   };
 
   componentDidMount() {
+    // side panel mobile
     this._getMedia();
     window.addEventListener("resize", () => {
       this._getMedia();
     });
+
+    // store ref
+    this.props.dispatch(createPanelRef(this.sidePanelRef));
   }
 
   render() {
     const { sites, currentFeature } = this.props.siteData;
     const { siteMarkers } = this.props.mapData;
-    const { panelIsOpen } = this.props;
+    const { isOpen } = this.props.sidePanel;
     return (
       <article
+        ref={this.sidePanelRef}
         className={
-          panelIsOpen
+          isOpen
             ? "side-panel-container container-open"
             : "side-panel-container container-closed"
         }
@@ -55,12 +62,12 @@ class SidePanelContainer extends Component {
           <aside className="panel-label">Construction Permits by Type</aside>
           <div
             className="close-button"
-            title={panelIsOpen ? "Close panel" : "Open panel"}
+            title={isOpen ? "Close panel" : "Open panel"}
             onClick={() => {
-              this._toggleSidePanel(panelIsOpen);
+              this._toggleSidePanel(isOpen);
             }}
           >
-            {panelIsOpen ? <span>&#x025C3;</span> : <span>&#x025B9;</span>}
+            {isOpen ? <span>&#x025C3;</span> : <span>&#x025B9;</span>}
           </div>
           <PermitTypeText {...this.props} />
           <BarChart {...this.props} />

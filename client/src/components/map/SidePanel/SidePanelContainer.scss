@@ -38,17 +38,15 @@
 
   /* ----- Top panel ----- */
   .top-panel {
-    // padding: 0 1em 1em 1em;
     /*----- close button styles -----*/
     .close-button {
       display: inline-block;
       position: relative;
-      left: 303px;
-      bottom: 44px;
-      padding: 0 5px;
-      // background-color: $ui-transparent-white-2;
+      left: 305px;
+      bottom: 50px;
       width: fit-content;
-      font-size: 2rem;
+      font-size: 3rem;
+      cursor: pointer;
 
       span:hover {
         color: $ui-gray;

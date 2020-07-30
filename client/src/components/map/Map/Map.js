@@ -6,6 +6,7 @@ import {
   createBuffer,
   createLayerFilter,
 } from "../../../utils/mapUtils";
+import { calculatePanelScrollToHeight } from "../../../utils/generalUtils";
 import { getMapState } from "../../../actions/mapState";
 import {
   logMarkerDragEvent,
@@ -93,6 +94,7 @@ class NCAMap extends PureComponent {
     mapData: PropTypes.object.isRequired,
     markerSelector: PropTypes.object.isRequired,
     siteData: PropTypes.object.isRequired,
+    sidePanel: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
@@ -145,6 +147,9 @@ class NCAMap extends PureComponent {
 
     // add the central marker
     this.props.dispatch(setMarkerCoords(lon, lat));
+
+    //scroll to top of panel
+    this._scrollToSidePanel("panel-1");
 
     // set up route and dispatch action for site data
     const encodedCoords = encodeURI(JSON.stringify({ lon: lon, lat: lat }));
@@ -244,7 +249,21 @@ class NCAMap extends PureComponent {
 
       //toggle open the side panel if closed
       this.props.dispatch(toggleSidePanel(true));
+
+      // scroll to the construction information
+      this._scrollToSidePanel("panel-2");
     }
+  };
+
+  _scrollToSidePanel = (panel) => {
+    const { panelRef } = this.props.sidePanel;
+    const scrollToHeight = calculatePanelScrollToHeight(panel, panelRef);
+
+    panelRef.current.scrollTo({
+      top: scrollToHeight,
+      left: 0,
+      behavior: "smooth",
+    });
   };
 
   _getCursor = ({ isHovering }) => {
@@ -280,7 +299,7 @@ class NCAMap extends PureComponent {
           {...this.props.mapState}
           ref={(reactMap) => (this.reactMap = reactMap)}
           mapOptions={{ attributionControl: false }}
-          maxZoom={18}
+          maxZoom={17}
           minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"

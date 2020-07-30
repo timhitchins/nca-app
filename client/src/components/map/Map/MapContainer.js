@@ -28,7 +28,7 @@ function mapStateToProps({
   geocodedData,
   markerSelector,
   siteData,
-  panelIsOpen,
+  sidePanel,
 }) {
   return {
     mapState,
@@ -37,7 +37,7 @@ function mapStateToProps({
     geocodedData,
     markerSelector,
     siteData,
-    panelIsOpen,
+    sidePanel,
   };
 }
 export default connect(mapStateToProps)(MapContainer);
