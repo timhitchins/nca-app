@@ -28,7 +28,7 @@ class Section extends Component {
   _toggleCompareImageContainer = () => {
     const detailsEl = document.querySelector("details");
     const imageEl = document.querySelector(".compare-image-container");
-    if (!detailsEl.open && !window.matchMedia("(min-width: 600px)").matches) {
+    if (!detailsEl.open && !window.matchMedia("(min-width: 768px)").matches) {
       imageEl.style.visibility = "hidden";
       imageEl.style.height = "0px";
     } else {
@@ -95,7 +95,7 @@ class Section extends Component {
                 onClick={() => {
                   this._toggleCompareImageContainer();
                 }}
-                open={window.matchMedia("(min-width: 600px)").matches}
+                open={window.matchMedia("(min-width: 768px)").matches}
               >
                 <summary>{slide.summary}</summary>
                 <div dangerouslySetInnerHTML={{ __html: slide.details }}></div>
@@ -103,6 +103,9 @@ class Section extends Component {
             )}
             {slide.compareImageURIs && (
               <div className="compare-image-container">
+                <div className="compare-image-title">
+                  Diesel Particulate Matter from Off-road Sources
+                </div>
                 <ReactCompareImage
                   leftImage={slide.compareImageURIs[0]}
                   leftImageAlt={slide.compareImageAltText[0]}
