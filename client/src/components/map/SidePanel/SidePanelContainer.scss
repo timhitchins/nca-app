@@ -24,7 +24,7 @@
     width: 350px;
     transition: all 1.5s;
     background-color: $ui-transparent-white-2;
-    margin: 1em;
+    margin: 1em 1.3em 1em 1em ;
     padding: 1em;
     box-shadow: 5px 10px 14px #888888;
 
@@ -42,10 +42,10 @@
     .close-button {
       display: inline-block;
       position: relative;
-      left: 305px;
-      bottom: 50px;
+      left: 310px;
+      bottom: 70px;
       width: fit-content;
-      font-size: 3rem;
+      font-size: 5rem;
       cursor: pointer;
 
       span:hover {
