@@ -172,8 +172,6 @@ class NCAMap extends PureComponent {
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
 
-        // // open the sidePanel if closed
-        // this.props.dispatch(toggleSidePanel(true));
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
