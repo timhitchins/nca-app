@@ -17,7 +17,7 @@ class SildesContainer extends Component {
 
   render() {
     return (
-      <main>
+      <main className="outer-content-container">
         <SlideBackground {...this.props} />
         <AllContent {...this.props} />
       </main>
