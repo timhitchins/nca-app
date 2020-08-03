@@ -37,11 +37,6 @@ class SidePanelContainer extends Component {
     // side panel mobile
     this._getMedia();
 
-    // optional event listenr
-    // window.addEventListener("resize", () => {
-    //   this._getMedia();
-    // });
-
     // store ref
     this.props.dispatch(createPanelRef(this.sidePanelRef));
   }

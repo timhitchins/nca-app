@@ -53,11 +53,16 @@
 }
 
 /* ----- Content container ----- */
-.content-container {
+.outer-content-container {
   position: absolute;
   top: 56px;
+  bottom: 0;
+  right: 0;
   left: 0;
-  height: calc(100vh - 56px);
+}
+
+.content-container {
+  height: 100%;
   z-index: 1;
   overflow-y: scroll;
   scroll-behavior: smooth;
