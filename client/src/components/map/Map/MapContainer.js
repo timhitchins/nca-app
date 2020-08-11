@@ -5,6 +5,7 @@ import SidePanelContainer from "../SidePanel/SidePanelContainer";
 import MapController from "./MapController";
 import CursorTooltip from "../CursorTooltip/CursorTooltip";
 import LoadingIndicator from "../Loading/LoadingIndicator";
+import MapModal from "../Modal/MapModal";
 import "./Map.scss";
 
 class MapContainer extends Component {
@@ -14,9 +15,10 @@ class MapContainer extends Component {
         <span className="title">Potential Diesel Impact Locator</span>
         <NCAMap {...this.props} />
         <SidePanelContainer {...this.props} />
-        <LoadingIndicator {...this.props} />
         <CursorTooltip {...this.props} />
         <MapController {...this.props} />
+        <LoadingIndicator {...this.props} />
+        <MapModal {...this.props} />
       </main>
     );
   }
