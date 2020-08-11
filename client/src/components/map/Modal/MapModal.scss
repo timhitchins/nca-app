@@ -11,16 +11,36 @@
 }
 
 .modal-content {
-  margin: 0;
-  padding: 1.5rem;
+  margin: 0 0 10px 0;
+  padding: 0 1rem 1rem 1rem;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid $ui-black;
+  border: 3px solid $ui-black;
   background-clip: padding-box;
-  background-color: white;
+  background-color: $ui-white;
   width: 95%;
   max-width: 1000px;
   max-height: 95%;
+  overflow-y: auto;
+}
+
+.modal-close {
+  background-color: $ui-white;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 2rem;
+  text-align: right;
+
+  a {
+    cursor: pointer;
+  }
+
+  @media (min-width: $desktop) {
+    right: 15px;
+    top: 0px;
+  }
 }
