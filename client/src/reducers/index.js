@@ -7,6 +7,7 @@ import geocodedData from "./geocode";
 import markerSelector from "./markerSelect";
 import siteData from "./siteData";
 import sidePanel from "./sidePanel";
+import modal from "./modal";
 import { combineReducers } from "redux";
 
 export default combineReducers({
@@ -19,4 +20,5 @@ export default combineReducers({
   markerSelector,
   sidePanel,
   siteData,
+  modal,
 });
