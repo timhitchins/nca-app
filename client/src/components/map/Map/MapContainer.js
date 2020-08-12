@@ -31,6 +31,7 @@ function mapStateToProps({
   markerSelector,
   siteData,
   sidePanel,
+  modal,
 }) {
   return {
     mapState,
@@ -40,6 +41,7 @@ function mapStateToProps({
     markerSelector,
     siteData,
     sidePanel,
+    modal,
   };
 }
 export default connect(mapStateToProps)(MapContainer);
