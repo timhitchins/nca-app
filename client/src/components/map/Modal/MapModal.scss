@@ -12,13 +12,13 @@
 
 .modal-content {
   margin: 0 0 10px 0;
-  padding: 0 1rem 1rem 1rem;
+  padding: 0 10px 10px 10px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border: 3px solid $ui-black;
-  background-clip: padding-box;
+  // background-clip: padding-box;
   background-color: $ui-white;
   width: 95%;
   max-width: 1000px;
@@ -37,6 +37,16 @@
 
   a {
     cursor: pointer;
+    color: $ui-black;
+  }
+
+  a:hover,
+  a:active {
+    color: $ui-gray;
+  }
+
+  @media (max-width: $desktop) {
+    border-bottom: 3px solid $ui-black;
   }
 
   @media (min-width: $desktop) {

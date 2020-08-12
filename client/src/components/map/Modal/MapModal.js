@@ -48,6 +48,7 @@ class MapModal extends Component {
             <div className="modal-close" onClick={() => this._closeModal()}>
               <a href="#close">&#x274c;</a>
             </div>
+
             <img
               src={imgURL}
               alt="An image with basic instructions for using the map"
