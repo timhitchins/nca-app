@@ -12,6 +12,7 @@ import {
   setCurrentFeature,
   setSlideIndex,
 } from "../../../actions/siteData";
+import { toggleModal } from "../../../actions/modal";
 import "./MapController.scss";
 
 class MapController extends Component {
@@ -55,6 +56,10 @@ class MapController extends Component {
     }
   };
 
+  _openModal = () => {
+    this.props.dispatch(toggleModal(true));
+  };
+
   _scrollToSidePanel = (panel) => {
     const { panelRef } = this.props.sidePanel;
     const scrollToHeight = calculatePanelScrollToHeight(panel, panelRef);
@@ -71,6 +76,17 @@ class MapController extends Component {
     return (
       <aside>
         <div className="map-controller-container">
+          <div
+            title="More info"
+            onClick={() => {
+              this._openModal();
+            }}
+          >
+            <img
+              src=" https://nca-toolkit.s3-us-west-2.amazonaws.com/info.png "
+              alt="More information symbol"
+            />
+          </div>
           <div
             title="Reset map"
             onClick={() => {
