@@ -23,6 +23,7 @@
     transform: translateY(1px);
   }
 
+  // hide the zoom buttons
   @media (max-width: $mobile) {
     div:nth-child(n + 3) {
       display: none;

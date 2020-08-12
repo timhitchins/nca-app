@@ -79,27 +79,35 @@
   width: 100%;
 }
 
-@media (min-width: $desktop) {
-  .content {
+.content {
+  font-size: $font-size-large;
+
+  @media (min-width: $largest-desktop) and (max-height: $largest-landscape-height) {
+    font-size: $font-size-base;
+  }
+
+  @media (max-width: $largest-desktop) and (max-height: $largest-landscape-height) {
+    font-size: $font-size-base;
+  }
+
+  @media (max-width: $large-desktop) and (min-height: $largest-landscape-height) {
     font-size: $font-size-medium;
   }
-}
 
-@media (min-width: $desktop) {
-  .content {
-    font-size: $font-size-medium;
+  @media (max-width: $large-desktop) and (max-height: $largest-landscape-height) {
+    font-size: $font-size-small;
   }
-}
 
-@media (min-width: $large-desktop) {
-  .content {
-    font-size: $font-size-large;
+  @media (max-width: $desktop) {
+    font-size: $font-size-base;
   }
-}
 
-@media (max-height: 768px) {
-  .content {
-    font-size: $font-size-small !important;
+  @media (max-width: $mobile) {
+    font-size: $font-size-small;
+  }
+
+  @media (max-height: $landscape-height) {
+    font-size: $font-size-smallest;
   }
 }
 
@@ -113,6 +121,11 @@
   display: flex;
   flex-direction: column;
 
+  @media (max-width: $mobile), (max-height: $large-landscape-height) {
+    margin: 0 auto;
+    width: 98%;
+  }
+
   h1 {
     font-size: 2.4rem;
     line-height: 1.4;
@@ -124,38 +137,23 @@
       box-shadow: 15px 0 0 $ui-transparent-white,
         -10px 0 0 $ui-transparent-white;
     }
+    @media (max-width: $desktop) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: $mobile) {
+      font-size: 1.5rem;
+    }
+    @media (max-height: 600px) {
+      font-size: 1.3rem;
+    }
   }
 
   img {
     opacity: 1;
-  }
-
-  @media (max-width: $desktop) {
-    h1 {
-      font-size: 2rem;
-    }
-  }
-
-  @media (max-width: $mobile) {
-    h1 {
-      font-size: 1.5rem;
-    }
-
-    img {
+    @media (max-width: $mobile) {
       display: none;
     }
-  }
-  @media (max-height: 600px) {
-    h1 {
-      font-size: 1.3rem;
-    }
-  }
-}
-
-@media (max-width: $mobile), (max-height: $large-landscape-height) {
-  .container {
-    margin: 0 auto;
-    width: 98%;
   }
 }
 
@@ -219,24 +217,7 @@ summary {
   padding: 1rem 1rem;
   margin: 1rem 0 0 0;
 
-  div {
-    margin-right: 5px;
-    div {
-      padding: 0.5rem;
-    }
-  }
-
-  img {
-    max-height: 30vh;
-  }
-  @media (max-width: $desktop) {
-    img {
-      margin: 0 auto;
-    }
-  }
-
   @media (min-width: $desktop) {
-    //$desktop
     display: grid;
     grid-template-columns: 1fr 1fr;
     max-width: 1100px;
@@ -246,7 +227,20 @@ summary {
 
   @media (max-height: $landscape-height) {
     padding: 0;
-    img {
+  }
+  div {
+    margin-right: 5px;
+    div {
+      padding: 0.5rem;
+    }
+  }
+
+  img {
+    max-height: 30vh;
+    @media (max-width: $desktop) {
+      margin: 0 auto;
+    }
+    @media (max-height: $largest-landscape-height) and (max-width: $desktop) {
       display: none;
     }
   }
@@ -268,11 +262,29 @@ summary {
   margin: 0 auto;
   width: 100%;
   max-width: 1000px;
+
+  @media (min-width: $desktop) {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+  }
+
   div {
     margin-right: 5px;
-    font-size: 13px;
+    font-size: $font-size-small;
     line-height: 1.4;
     max-height: 50vh;
+
+    @media (max-width: $desktop) {
+      font-size: $font-size-smaller;
+    }
+
+    @media (max-width: $mobile) {
+      font-size: $font-size-smallest;
+    }
+
+    @media (max-height: 700px) {
+      font-size: $font-size-smallest;
+    }
   }
 
   div > p > a,
@@ -286,26 +298,12 @@ summary {
     text-decoration: underline;
   }
 
-  @media (max-width: $mobile) {
-    div {
-      font-size: $font-size-smallest;
-    }
-    details {
+  details {
+    @media (max-width: $mobile) {
       margin-bottom: 10px;
     }
-  }
 
-  @media (min-height: 700px) {
-    div {
-      font-size: $font-size-smaller;
-    }
-  }
-
-  @media (min-width: $desktop) {
-    //$desktop
-    display: grid;
-    grid-template-columns: 350px 1fr;
-    details {
+    @media (min-width: $desktop) {
       z-index: 4;
     }
   }
@@ -321,7 +319,7 @@ summary {
   }
 }
 .compare-image-title {
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
   font-weight: 600;
   text-align: center;
 
