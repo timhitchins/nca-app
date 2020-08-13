@@ -46,7 +46,7 @@ class MapModal extends Component {
         <aside className="modal-container">
           <div className="modal-content">
             <div className="modal-close" onClick={() => this._closeModal()}>
-              <a href="#close">&#x274c;</a>
+              <a href="#close">&#x2715;</a>
             </div>
 
             <img
