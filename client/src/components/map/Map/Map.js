@@ -301,7 +301,7 @@ class NCAMap extends PureComponent {
           minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
           width="100%"
-          height="100%"
+          height="calc(100vh - 56px)"
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
