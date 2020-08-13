@@ -7,6 +7,7 @@ import middleware from "./middleware";
 import "mapbox-gl/dist/mapbox-gl.css"; //mapbox css
 import "./index.scss";
 import smoothscroll from "smoothscroll-polyfill";
+import 'array-flat-polyfill';
 import App from "./components/App";
 
 //polyfill for safari / opera
