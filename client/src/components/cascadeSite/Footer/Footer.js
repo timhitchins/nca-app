@@ -10,7 +10,7 @@ function Footer({ className }) {
         <div>A project by</div>
         <div className="nca-logo">
           <a
-            href="http://www.whatsinourair.org/"
+            href="https://neighborsforcleanair.org/"
             target="_blank"
             rel="noopener noreferrer"
           >
