@@ -6,4 +6,12 @@ import { applyMiddleware, compose } from "redux";
 //boiler plate to use redux devtools
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default composeEnhancers(applyMiddleware(thunk, logger));
+let enhancers;
+if (process.env.NODE_ENV === "development") {
+  enhancers = composeEnhancers(applyMiddleware(thunk, logger));
+} else {
+  // production
+  enhancers = composeEnhancers(applyMiddleware(thunk));
+}
+
+export default enhancers;
