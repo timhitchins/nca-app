@@ -36,7 +36,9 @@ import {
 import "./Map.scss";
 import { toggleSidePanel } from "../../../actions/sidePanel";
 
-const MAPBOX_TOKEN ="pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJja2owZmwxcnExb3IwMnhwMnpiMDM2ZmVtIn0.ZKER99FucyLWYCefw1jwXQ";
+// const MAPBOX_TOKEN ="pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJja2owZmwxcnExb3IwMnhwMnpiMDM2ZmVtIn0.ZKER99FucyLWYCefw1jwXQ";
+
+const MAPBOX_TOKEN = "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw"
 
 class CentralMarker extends Component {
   static propTypes = {
