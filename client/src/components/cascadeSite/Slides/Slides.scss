@@ -270,7 +270,7 @@ summary {
 
   div {
     margin-right: 5px;
-    font-size: $font-size-small;
+    font-size: 13px;
     line-height: 1.4;
     max-height: 50vh;
 
@@ -285,6 +285,10 @@ summary {
     @media (max-height: 700px) {
       font-size: $font-size-smallest;
     }
+  }
+
+  div.compare-image-container > div > div {
+    max-height: 95%;
   }
 
   div > p > a,

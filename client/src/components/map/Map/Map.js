@@ -171,7 +171,6 @@ class NCAMap extends PureComponent {
         // create the new viewport
         this.props.dispatch(toggleErrorMessage(false));
         this._createNewViewport(sitesGeoJSON, mapState);
-
       } else {
         // destroy the buffer
         this._handleDestroyBuffer();
@@ -305,7 +304,7 @@ class NCAMap extends PureComponent {
           mapboxApiAccessToken={MAPBOX_TOKEN}
           onViewportChange={this._onViewportChange}
           onLoad={this._handleOnLoad}
-          interactiveLayerIds={["sites-fill-layer"]}
+          interactiveLayerIds={["sites-fill-layer"]} // make trigger error warningswhich is a mb-gl bug
           onClick={(e) => {
             this._handleMapClick(e);
           }}

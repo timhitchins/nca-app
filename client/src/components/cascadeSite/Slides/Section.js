@@ -109,10 +109,10 @@ class Section extends Component {
                 <ReactCompareImage
                   leftImage={slide.compareImageURIs[0]}
                   leftImageAlt={slide.compareImageAltText[0]}
-                  leftImageCss={{ objectFit: "contain" }}
+                  leftImageCss={{ objectFit: "contain", height: "95%" }}
                   rightImage={slide.compareImageURIs[1]}
                   rightImageAlt={slide.compareImageAltText[1]}
-                  rightImageCss={{ objectFit: "contain" }}
+                  rightImageCss={{ objectFit: "contain", height: "95%" }}
                 />
               </div>
             )}
