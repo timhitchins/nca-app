@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { setCurrentFeature, setSlideIndex } from "../../../actions/siteData";
+import { calculatePermitDate } from "../../../utils/generalUtils";
 import "./SiteDetails.scss";
 
 class SiteDetails extends Component {
@@ -43,8 +44,16 @@ class SiteDetails extends Component {
       NEIGHBORHOOD,
       TYPE,
       ISSUED,
+      CREATEDATE,
     } = sites[slideIndex].properties;
 
+    const permitDate = calculatePermitDate(ISSUED, CREATEDATE);
+    console.log("permit date", permitDate);
+    // const issueDate = new Date(ISSUED);
+    // const createDate = new Date(CREATEDATE);
+
+    // console.log("Issued", ISSUED, issueDate.toLocaleDateString());
+    // console.log("Create date", CREATEDATE, new Date(CREATEDATE));
     return (
       <div className="site-details-container">
         <div className="left-arrow">
@@ -78,7 +87,11 @@ class SiteDetails extends Component {
               <span>{DESCRIPTION}</span>
             </div>
             <div>
-              <a target="_blank" rel="noopener noreferrer" href={PORTLAND_MAPS_URL}>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={PORTLAND_MAPS_URL}
+              >
                 Portland Maps URL
               </a>
             </div>
@@ -87,7 +100,7 @@ class SiteDetails extends Component {
               <span>{STATUS}</span>
             </div>
             <div>
-              <span>Neighborhood:</span>
+              <span>Neighborhood Association:</span>
               <br></br>
               <span>{NEIGHBORHOOD}</span>
             </div>
@@ -96,11 +109,13 @@ class SiteDetails extends Component {
               <br></br>
               <span>{TYPE}</span>
             </div>
-            <div>
-              <span>Date Issued:</span>
-              <br></br>
-              <span>{Date(ISSUED)}</span>
-            </div>
+            {permitDate ? (
+              <div>
+                <span>{permitDate.title}</span>
+                <br></br>
+                <span>{permitDate.date}</span>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="right-arrow">
