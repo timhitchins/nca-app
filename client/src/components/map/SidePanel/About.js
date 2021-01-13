@@ -47,19 +47,18 @@ const Formula = () => {
         , the following algorithm was developed to characterize construction
         sites into low, medium, and high{" "}
         <strong> Potential Diesel Impact (PDI)</strong> using the data available
-        from the City of Portland's publicly available permit data.{" "}
-        <p>
-          <pre>
-            <strong>
-              PDI = [sq. footage] + [stories] + [demolition included/not] +
-              [status]
-            </strong>
-          </pre>
-        </p>
-        <p>
-          This algorithm only applies to new construction of commercial or
-          residential permits.
-        </p>
+        from the City of Portland's publicly available permit data.
+      </p>
+
+      <pre>
+        <strong>
+          PDI = [sq. footage] + [stories] + [demolition included/not] + [status]
+        </strong>
+      </pre>
+
+      <p>
+        This algorithm only applies to new construction of commercial or
+        residential permits.
       </p>
     </div>
   );
