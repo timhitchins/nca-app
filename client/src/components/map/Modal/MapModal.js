@@ -30,12 +30,21 @@ class MapModal extends Component {
     this.props.dispatch(toggleModal(false));
   };
 
+  _closeModalOnEsc = (e) => {
+    if (e.keyCode === 27) {
+      this.props.dispatch(toggleModal(false));
+    }
+  };
+
   componentDidMount() {
     this._setImage();
+    window.addEventListener("resize", this._setImage, false);
+    window.addEventListener("keydown", this._closeModalOnEsc, false);
+  }
 
-    window.addEventListener("resize", () => {
-      this._setImage();
-    });
+  componentWillUnmount() {
+    window.removeEventListener("resize", this._setImage, false);
+    window.removeEventListener("keydown", this._closeModalOnEsc, false);
   }
 
   render() {
@@ -45,7 +54,7 @@ class MapModal extends Component {
       return (
         <aside className="modal-container">
           <div className="modal-content">
-            <div className="modal-close" onClick={() => this._closeModal()}>
+            <div className="modal-close" onClick={this._closeModal}>
               <a href="#close">&#x2715;</a>
             </div>
 

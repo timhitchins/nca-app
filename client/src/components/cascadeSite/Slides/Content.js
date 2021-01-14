@@ -41,7 +41,6 @@ class AllContent extends Component {
 
   //handle only up and down keypresses
   _handleKeyDown = (keyCode) => {
-
     const { sectionNo } = this.props.slides;
     //if arrow down or tab
     if (
@@ -148,6 +147,27 @@ class AllContent extends Component {
       false
     );
     container.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        this._handleWheelDebounce(e);
+      },
+      false
+    );
+  }
+
+  componentWillUnmount() {
+    const container = document.querySelector(".content-container");
+    container.removeEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        this._handleTouchMoveDebounce(e);
+      },
+
+      false
+    );
+    container.removeEventListener(
       "wheel",
       (e) => {
         e.preventDefault();
