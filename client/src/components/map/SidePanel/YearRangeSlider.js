@@ -138,10 +138,10 @@ class YearRangeSlider extends Component {
     return (
       <Slider
         className="range-slider"
-        domain={[2010, 2020]}
+        domain={[2010, 2021]}
         step={1}
         mode={2}
-        values={[2010, 2020] /* two values = three handles */}
+        values={[2010, 2021] /* two values = three handles */}
         onChange={this.onChange}
       >
         <Rail>

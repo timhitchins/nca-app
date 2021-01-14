@@ -58,8 +58,8 @@ class BarChart extends Component {
                 cornerRadius={0.8}
                 flyoutPadding={({ text }) =>
                   text.length > 1
-                    ? { top: 10, bottom: 10, left: 10, right: 10 }
-                    : 10
+                    ? { top: 10, bottom: 10, left: 30, right: 30 }
+                    : 30
                 }
                 flyoutStyle={{
                   stroke: styleVars.black,
