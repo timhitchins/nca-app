@@ -18,12 +18,12 @@
   left: 50%;
   transform: translate(-50%, -50%);
   border: 3px solid $ui-black;
-  // background-clip: padding-box;
   background-color: $ui-white;
   width: 95%;
   max-width: 1000px;
   max-height: 95%;
   overflow-y: auto;
+  background-clip: padding-box;
 }
 
 .modal-close {

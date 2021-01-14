@@ -42,8 +42,11 @@ class AllContent extends Component {
   //handle only up and down keypresses
   _handleKeyDown = (keyCode) => {
     const { sectionNo } = this.props.slides;
-    //if arrow down
-    if (keyCode === 40 && sectionNo < MAX_SECTION_NO) {
+    //if arrow down or tab
+    if (
+      (keyCode === 40 && sectionNo < MAX_SECTION_NO) ||
+      (keyCode === 9 && sectionNo < MAX_SECTION_NO)
+    ) {
       this.props.dispatch(
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
@@ -67,7 +70,6 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo + 1, imageConfig[sectionNo + 1])
       );
       this._scrollToContent(sectionNo + 1);
-      console.log("touch down");
       //set the scroll pos
       this.prevTouchScroll = offsetTop;
       this.prevScroll = offsetTop;
@@ -79,7 +81,6 @@ class AllContent extends Component {
         handleSetContentAction(sectionNo - 1, imageConfig[sectionNo - 1])
       );
       this._scrollToContent(sectionNo - 1);
-      console.log("touch up");
       //set the scroll pos
       this.prevTouchScroll = offsetTop;
       this.prevScroll = offsetTop;
@@ -155,6 +156,27 @@ class AllContent extends Component {
     );
   }
 
+  componentWillUnmount() {
+    const container = document.querySelector(".content-container");
+    container.removeEventListener(
+      "touchmove",
+      (e) => {
+        e.preventDefault();
+        this._handleTouchMoveDebounce(e);
+      },
+
+      false
+    );
+    container.removeEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        this._handleWheelDebounce(e);
+      },
+      false
+    );
+  }
+
   render() {
     return (
       <div
@@ -163,11 +185,10 @@ class AllContent extends Component {
         ref={this.contentRef}
         onScroll={(e) => {
           e.persist();
-          console.log("scrolling");
           this._handleScrollDebounce(e);
         }}
         onKeyDown={(e) => {
-          if (e.keyCode === 40 || e.keyCode === 38) {
+          if (e.keyCode === 40 || e.keyCode === 38 || e.keyCode === 9) {
             e.preventDefault();
             this._handleKeyDownThrottle(e.keyCode);
           }
