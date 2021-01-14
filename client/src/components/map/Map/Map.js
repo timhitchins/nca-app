@@ -38,7 +38,8 @@ import { toggleSidePanel } from "../../../actions/sidePanel";
 
 // const MAPBOX_TOKEN ="pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJja2owZmwxcnExb3IwMnhwMnpiMDM2ZmVtIn0.ZKER99FucyLWYCefw1jwXQ";
 
-const MAPBOX_TOKEN = "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw"
+const MAPBOX_TOKEN =
+  "pk.eyJ1IjoibWFwcGluZ2FjdGlvbiIsImEiOiJjazZrMTQ4bW4wMXpxM251cnllYnR6NjMzIn0.9KhQIoSfLvYrGCl3Hf_9Bw";
 
 class CentralMarker extends Component {
   static propTypes = {
@@ -296,7 +297,9 @@ class NCAMap extends PureComponent {
         <ReactMapGL
           {...this.props.mapState}
           ref={(reactMap) => (this.reactMap = reactMap)}
-          mapOptions={{ attributionControl: false }}
+          mapOptions={{
+            customAttribution: `Data Sources: <a href="https://star.research.pdx.edu/">Portland State University</a> | <a href="https://www.portlandmaps.com/arcgis/rest/services/Public/BDS_Permit/FeatureServer/22">City of Portland</a> | <a href="http://rlisdiscovery.oregonmetro.gov/">Oregon Metro</a>`,
+          }}
           maxZoom={17}
           minZoom={10}
           mapStyle="mapbox://styles/mappingaction/ck9ep8n1k1bzm1ip4h5g1p9pk"
