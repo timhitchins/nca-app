@@ -82,12 +82,8 @@ export function addPDIToFeatures(inData) {
     .map((feature) => {
       let demo, stat, sqFoot, stor;
       if (feature.properties.WORK_DESCRIPTION === "New Construction") {
-        const {
-          STATUS,
-          TOTALSQFT,
-          NUMBSTORIES,
-          STATEIDKEY,
-        } = feature.properties;
+        const { STATUS, TOTALSQFT, NUMBSTORIES, STATEIDKEY } =
+          feature.properties;
         //status
         if (STATUS === "Under Inspection") {
           stat = 1;

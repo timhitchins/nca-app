@@ -22,6 +22,13 @@ app.use(morgan("combined"));
 //mount
 mountRoutes(app);
 
+//kill server when hitting ctrl+c
+process.on('SIGINT', function() {
+  console.log( "\nGracefully shutting down from SIGINT (Ctrl-C)" );
+  // some other closing procedures go here
+  process.exit(1);
+});
+
 //production boilerplate
 if (process.env.NODE_ENV === "production") {
   //make sure express serves up the corret assests

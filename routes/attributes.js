@@ -6,7 +6,6 @@ export const router = new Router();
 //route that gets fired when app mounts the first time
 router.get("/:attributes/:years/:coords/:radius/:units", async (req, res) => {
   const { attributes, years, coords, radius, units } = req.params;
-
   // await the feature service fetch
   //errors return an error message object
   try {
@@ -18,6 +17,7 @@ router.get("/:attributes/:years/:coords/:radius/:units", async (req, res) => {
       radius,
       units
     );
+
     const totalsJSON = calculateAttributeTotals(atttributesJSON);
     const totalsChartJSON = createChartData(totalsJSON);
 
