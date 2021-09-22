@@ -3,7 +3,6 @@ import { featureServiceURI, mapboxGeocoderURI } from "../config/dataConfig";
 import { calculateYears } from "./dataUtils";
 import { keys } from "../config/keys";
 
-
 export async function fetchPermitData(coords, radius, units, years) {
   const { lon, lat } = coords;
 
@@ -86,42 +85,52 @@ export async function fetchTotalAttributeData(
   -----*/
   const format = "pjson";
   const sumGroupByFields = "PERMIT,TYPE";
-  const sumStatistics = JSON.stringify([
-    {
-      statisticType: "sum",
-      onStatisticField: "TOTALSQFT",
-      outStatisticFieldName: "SUM_TOTALSQFT",
-    },
-    {
-      statisticType: "sum",
-      onStatisticField: "NUMBSTORIES",
-      outStatisticFieldName: "SUM_NUMBSTORIES",
-    },
-    {
-      statisticType: "count",
-      onStatisticField: "OBJECTID",
-      outStatisticFieldName: "COUNT_OBJECTID",
-    },
-  ]);
+  const sumStatistics = encodeURIComponent(
+    JSON.stringify([
+      {
+        statisticType: "sum",
+        onStatisticField: "TOTALSQFT",
+        outStatisticFieldName: "SUM_TOTALSQFT",
+      },
+      {
+        statisticType: "sum",
+        onStatisticField: "NUMBSTORIES",
+        outStatisticFieldName: "SUM_NUMBSTORIES",
+      },
+      {
+        statisticType: "count",
+        onStatisticField: "OBJECTID",
+        outStatisticFieldName: "COUNT_OBJECTID",
+      },
+    ])
+  );
   /*-----
   Additional params to query based on location
   and URI 
+
   -----*/
-  const geometryType = "esriGeometryPoint";
+  const geometryType = "esriGeometryEnvelope";
   const sr = 4326;
   const spatialRel = "esriSpatialRelIntersects";
   const distance = radius;
   const outUnits = units === "meters" ? "esriSRUnit_Meter" : "esriSRUnit_Foot";
+  const featureEncoding = "esriDefault";
+  const multipatchOption = "xyFootprint";
+  const sqlFormat = "none";
+  // const urlSearchParams = new URLSearchParams(window.location.search);
+  // const params = Object.fromEntries(urlSearchParams.entries());
 
   /*----- fetch data -----*/
   // if coords are null fetch total sumstats
-  // else assume sum stats are associated to features in a buffer
+  // else assume sum stats are associated to features in a bufferz
   if (!coords) {
-    const sumStatsURI = `${featureServiceURI}/query?where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&f=${format}`;
+    const sumStatsURI = `${featureServiceURI}/query?sqlformat=${sqlFormat}&multipatchOption=${multipatchOption}&featureEncoding=${featureEncoding}esriDefault&where=${whereClause}&groupByFieldsForStatistics=${sumGroupByFields}&outStatistics=${sumStatistics}&f=${format}&featureEncoding=esriDefault`;
 
     try {
+      console.log(encodeURI(sumStatsURI));
       const attributeRes = await fetch(sumStatsURI);
       const attributeJSON = await attributeRes.json();
+
       return attributeJSON;
     } catch (err) {
       console.log(`An error ocurred fetching attribute data: ${err}`);
